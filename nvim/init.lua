@@ -1,25 +1,18 @@
-require("timkalan.plugins-setup")
-require("timkalan.core.options")
-require("timkalan.core.keymaps")
-require("timkalan.core.colorscheme")
-require("timkalan.plugins.comment")
-require("timkalan.plugins.nvim-tree")
-require("timkalan.plugins.lualine")
-require("timkalan.plugins.telescope")
-require("timkalan.plugins.nvim-cmp")
-require("timkalan.plugins.lsp.mason")
-require("timkalan.plugins.lsp.lspsaga")
-require("timkalan.plugins.lsp.lspconfig")
-require("timkalan.plugins.autopairs")
-require("timkalan.plugins.treesitter")
-require("timkalan.plugins.gitsigns")
-require("timkalan.plugins.lsp.null-ls")
-
-local notify = vim.notify
-vim.notify = function(msg, ...)
-    if msg:match("warning: multiple different client offset_encodings") then
-        return
-    end
-
-    notify(msg, ...)
+-- package manager: lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
+require("lazy.view.config").keys.close = "<Esc>"
+
+-- required modules
+require("vim-options")
+require("lazy").setup("plugins")
