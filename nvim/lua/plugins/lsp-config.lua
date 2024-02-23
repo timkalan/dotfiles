@@ -18,6 +18,7 @@ return {
 					"lua_ls",
 					"ocamllsp",
 					"pyright",
+					"rust_analyzer",
 					"texlab",
 					"tsserver",
 				},
@@ -38,6 +39,7 @@ return {
 			lspconfig.lua_ls.setup({ capabilities = capabilities })
 			lspconfig.ocamllsp.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
+			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 			lspconfig.tsserver.setup({ capabilities = capabilities })
 
 			-- lsp keymaps
