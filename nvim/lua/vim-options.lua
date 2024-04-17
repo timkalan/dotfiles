@@ -21,3 +21,11 @@ vim.g.mapleader = " "
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.hlsearch = false
+
+-- centering
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- vim.keymap.set("n", "n", "nzzzv")
+-- vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "n", "nzz")
+vim.keymap.set("n", "N", "Nzz")
