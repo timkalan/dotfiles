@@ -12,6 +12,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "bashls",
           "cssls",
           "html",
           "gopls",
@@ -35,6 +36,7 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local lspconfig = require("lspconfig")
+      lspconfig.bashls.setup({ capabilities = capabilities })
       lspconfig.cssls.setup({ capabilities = capabilities })
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.gopls.setup({ capabilities = capabilities })
@@ -52,6 +54,7 @@ return {
       vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
     end,
   },
 }
