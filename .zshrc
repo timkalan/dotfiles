@@ -12,6 +12,12 @@ alias py="python3"
 alias python="python3"
 alias sd="cd ~/Documents && cd \$(find * -type d | fzf)"
 alias sdp="cd ~/Documents/20-projects && cd \$(find * -type d | fzf)"
+alias sdw="cd ~/Documents/50-work/53-abelium && cd \$(find * -type d | fzf)"
+alias ls="ls --color"
+alias tree="tree -C"
+
+# shell integration
+eval "$(fzf --zsh)"
 
 # opam configuration
 [[ ! -r /Users/timkalan/.opam/opam-init/init.zsh ]] || source /Users/timkalan/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
