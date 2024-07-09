@@ -23,7 +23,6 @@ return {
           "rust_analyzer",
           "solidity",
           "svelte",
-          "texlab",
           "tsserver",
         },
       })
