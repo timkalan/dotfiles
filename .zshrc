@@ -4,6 +4,7 @@ compinit
 
 # aliases
 alias vim="nvim"
+alias vmi="nvim"
 alias vi="nvim"
 alias nvmi="nvim"
 alias nivm="nvim"
@@ -15,6 +16,10 @@ alias sdp="cd ~/Documents/20-projects && cd \$(find * -type d | fzf)"
 alias sdw="cd ~/Documents/50-work/53-abelium && cd \$(find * -type d | fzf)"
 alias ls="ls --color"
 alias tree="tree -C"
+alias ta="tmux a -t"
+alias tk="tmux kill-session -t"
+alias tl="tmux ls"
+alias tn="tmux new -s"
 
 # shell integration
 eval "$(fzf --zsh)"

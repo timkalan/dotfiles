@@ -23,6 +23,7 @@ return {
           "rust_analyzer",
           "solidity",
           "svelte",
+          "texlab",
           "tsserver",
         },
       })
@@ -47,6 +48,7 @@ return {
       lspconfig.rust_analyzer.setup({ capabilities = capabilities })
       lspconfig.solidity.setup({ capabilities = capabilities })
       lspconfig.svelte.setup({ capabilities = capabilities })
+      lspconfig.texlab.setup({ capabilities = capabilities })
       lspconfig.tsserver.setup({ capabilities = capabilities })
 
       -- lsp keymaps
