@@ -1,12 +1,16 @@
 -- tab is two spaces
 vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
+vim.cmd("set tabstop=4")
+vim.cmd("set softtabstop=4")
+vim.cmd("set shiftwidth=4")
 
 -- line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
+
+-- indentation
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 
 -- clipboard
 vim.o.clipboard = "unnamedplus"
