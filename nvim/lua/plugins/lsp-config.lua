@@ -13,6 +13,7 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"bashls",
+                    "clangd",
 					"cssls",
 					"html",
 					"gopls",
@@ -38,6 +39,7 @@ return {
 
 			local lspconfig = require("lspconfig")
 			lspconfig.bashls.setup({ capabilities = capabilities })
+			lspconfig.clangd.setup({ capabilities = capabilities })
 			lspconfig.cssls.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })

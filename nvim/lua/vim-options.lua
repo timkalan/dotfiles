@@ -1,4 +1,4 @@
--- tab is two spaces
+-- tab is four spaces
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
@@ -36,3 +36,9 @@ vim.keymap.set("n", "N", "Nzz")
 
 -- save undo history
 vim.opt.undofile = true
+
+-- quickfix bindings
+vim.keymap.set("n", "<leader>co", "<cmd>copen<CR>")
+vim.keymap.set("n", "<leader>cc", "<cmd>ccl<CR>")
+vim.keymap.set("n", "<leader>cn", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>cp", "<cmd>cprev<CR>zz")
