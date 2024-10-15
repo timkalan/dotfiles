@@ -52,21 +52,21 @@ return {
             })
         end,
     },
-    {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        build = ":Copilot auth",
-        config = function()
-            require("copilot").setup({
-                suggestion = {
-                    enabled = true,
-                    auto_trigger = false,
-                    keymap = {
-                        accept = "<C-l>",
-                    },
-                },
-            })
-        end,
-    },
+    -- {
+    --     "zbirenbaum/copilot.lua",
+    --     cmd = "Copilot",
+    --     event = "InsertEnter",
+    --     build = ":Copilot auth",
+    --     config = function()
+    --         require("copilot").setup({
+    --             suggestion = {
+    --                 enabled = true,
+    --                 auto_trigger = false,
+    --                 keymap = {
+    --                     accept = "<C-l>",
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
 }

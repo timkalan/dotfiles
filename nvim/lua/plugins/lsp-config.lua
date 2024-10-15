@@ -22,7 +22,6 @@ return {
 					"ocamllsp",
 					"pyright",
 					"rust_analyzer",
-					"solidity",
 					"svelte",
 					"texlab",
 					"tsserver",
@@ -48,7 +47,6 @@ return {
 			lspconfig.ocamllsp.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-			lspconfig.solidity.setup({ capabilities = capabilities })
 			lspconfig.svelte.setup({ capabilities = capabilities })
 			lspconfig.texlab.setup({ capabilities = capabilities })
 			lspconfig.tsserver.setup({ capabilities = capabilities })
