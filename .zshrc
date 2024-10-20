@@ -1,8 +1,16 @@
 autoload -Uz compinit
-
 compinit
 
-PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
+# add repo info
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# branch info
+zstyle ':vcs_info:git:*' formats '%b '
+
+# prompt: directory_path branch 
+setopt PROMPT_SUBST
+PS1='%F{blue}%~ %F{magenta}${vcs_info_msg_0_}%f%(?.%F{green}.%F{red})%#%f '
 
 # aliases
 alias vim="nvim"
@@ -11,13 +19,17 @@ alias vi="nvim"
 alias nvmi="nvim"
 alias nivm="nvim"
 alias nvmi="nvim"
+
 alias py="python3"
 alias python="python3"
-alias sd="cd ~/Documents && cd \$(find * -type d | fzf)"
-alias sdp="cd ~/Documents/20-projects && cd \$(find * -type d | fzf)"
-alias sdw="cd ~/Documents/50-work/53-abelium && cd \$(find * -type d | fzf)"
+
+alias sd="cd \$(find * -type d | fzf)"
+alias sdp="cd ~/projects && cd \$(find * -type d | fzf)"
+alias sdw="cd ~/projects/work && cd \$(find * -type d | fzf)"
+
 alias ls="ls --color"
 alias tree="tree -C"
+
 alias ta="tmux a -t"
 alias tk="tmux kill-session -t"
 alias tl="tmux ls"
