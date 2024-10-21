@@ -35,6 +35,8 @@ alias tk="tmux kill-session -t"
 alias tl="tmux ls"
 alias tn="tmux new -s"
 
+alias cl="clear"
+
 # shell integration
 eval "$(fzf --zsh)"
 
