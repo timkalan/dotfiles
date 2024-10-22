@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!.tmux.conf
+!.wezterm.lua
+!.zshrc
+!README.md
+!/.config/
+!/.config/nvim/
+!/.config/nvim/**
