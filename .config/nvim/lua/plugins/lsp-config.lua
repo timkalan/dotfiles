@@ -35,7 +35,8 @@ return {
         "neovim/nvim-lspconfig",
         config = function()
             -- snippet setup
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
             local lspconfig = require("lspconfig")
             lspconfig.bashls.setup({ capabilities = capabilities })
@@ -54,13 +55,15 @@ return {
             lspconfig.yamlls.setup({ capabilities = capabilities })
 
             -- lsp keymaps
-            vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, {})
+            vim.keymap.set("n", "<leader>ho", vim.lsp.buf.hover, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
             vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
             vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
             vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+            vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, {})
+            vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, {})
         end,
     },
 }
