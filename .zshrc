@@ -37,9 +37,6 @@ alias tn="tmux new -s"
 
 alias cl="clear"
 
-# shell integration
-eval "$(fzf --zsh)"
-
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export PATH=/usr/local/smlnj/bin:"$PATH"
 export PATH="/usr/local/opt/node@20/bin:$PATH"
@@ -62,6 +59,6 @@ export PATH=$PATH:~/go/bin
 # END opam configuration
 
 # Extensions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
