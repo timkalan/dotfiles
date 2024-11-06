@@ -41,7 +41,7 @@ vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 
 -- scrolloff
-vim.opt.scrolloff = 8
+-- vim.opt.scrolloff = 8
 
 -- more file names
 vim.opt.isfname:append('@-@')
