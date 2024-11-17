@@ -48,3 +48,6 @@ vim.opt.isfname:append('@-@')
 
 -- no line wrapping
 vim.opt.wrap = false
+
+-- highlight cursor line
+vim.opt.cursorline = true

@@ -65,6 +65,23 @@ return {
             vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
             vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, {})
             vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, {})
+
+            -- Rounded borders
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, {
+                    border = "rounded"
+                }
+            )
+
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+                vim.lsp.handlers.signature_help, {
+                    border = "rounded"
+                }
+            )
+
+            vim.diagnostic.config {
+                float = { border = "rounded" }
+            }
         end,
     },
 }
