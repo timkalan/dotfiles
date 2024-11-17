@@ -1,5 +1,6 @@
 -- leader
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- centering
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -14,3 +15,6 @@ vim.keymap.set("n", "<leader>co", "<cmd>copen<CR>")
 vim.keymap.set("n", "<leader>cc", "<cmd>ccl<CR>")
 vim.keymap.set("n", "<leader>cn", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<leader>cp", "<cmd>cprev<CR>zz")
+
+-- Clear highlights on search when pressing <Esc> in normal mode
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')

@@ -30,9 +30,12 @@ return {
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+            vim.keymap.set("n", "<leader>fw", builtin.grep_string, {})
             vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
             vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
             vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
+            vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+            vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
 
             require("telescope").load_extension("undo")
             vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>")

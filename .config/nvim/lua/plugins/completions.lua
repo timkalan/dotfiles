@@ -43,6 +43,16 @@ return {
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<Tab>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ['<C-l>'] = cmp.mapping(function()
+                        if ls.expand_or_locally_jumpable() then
+                            ls.expand_or_jump()
+                        end
+                    end, { 'i', 's' }),
+                    ['<C-h>'] = cmp.mapping(function()
+                        if ls.locally_jumpable(-1) then
+                            ls.jump(-1)
+                        end
+                    end, { 'i', 's' }),
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },

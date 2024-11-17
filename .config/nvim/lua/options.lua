@@ -27,8 +27,10 @@ vim.opt.signcolumn = "yes"
 -- smarter searching
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = false
 vim.opt.incsearch = true
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = 'split'
 
 -- opening splits
 vim.opt.splitright = true
@@ -51,3 +53,7 @@ vim.opt.wrap = false
 
 -- highlight cursor line
 vim.opt.cursorline = true
+
+-- show whitespace characters
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
