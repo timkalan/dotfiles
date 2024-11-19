@@ -18,3 +18,7 @@ vim.keymap.set("n", "<leader>cp", "<cmd>cprev<CR>zz")
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- open splits with leader
+vim.keymap.set('n', '<leader>/', '<C-w>v')
+vim.keymap.set('n', '<leader>-', '<C-w>s')
