@@ -7,6 +7,6 @@ return {
 	},
 	config = function()
 		require("neoclip").setup()
-		vim.keymap.set("n", "<leader>fy", ":Telescope neoclip<CR>")
+		vim.keymap.set("n", "<leader>fy", ":Telescope neoclip<CR>", { desc = "[F]ing [Y]anks" })
 	end,
 }
