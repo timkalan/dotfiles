@@ -19,4 +19,7 @@ config.max_fps = 120
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
 
+-- turn off bell
+config.audible_bell = "Disabled"
+
 return config

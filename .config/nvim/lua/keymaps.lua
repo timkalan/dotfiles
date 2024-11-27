@@ -24,3 +24,6 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- open splits with leader
 vim.keymap.set("n", "<leader>/", "<C-w>v")
 vim.keymap.set("n", "<leader>-", "<C-w>s")
+
+-- option + backspace deletes word
+vim.keymap.set("i", "<M-BS>", "<C-w>")

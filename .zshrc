@@ -3,10 +3,26 @@ compinit
 
 # add repo info
 autoload -Uz vcs_info
-precmd() { vcs_info }
 
 # branch info
 zstyle ':vcs_info:git:*' formats '%b '
+
+# add command execution time
+function preexec() {
+  timer=${timer:-$SECONDS}
+}
+
+precmd() {
+  # load branch info
+  vcs_info
+
+  # show time info
+  if [ $timer ]; then
+    timer_show=$(($SECONDS - $timer))
+    export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+    unset timer
+  fi
+}
 
 # prompt: directory_path branch 
 setopt PROMPT_SUBST
