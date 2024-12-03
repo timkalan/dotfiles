@@ -22,4 +22,7 @@ config.send_composed_key_when_right_alt_is_pressed = true
 -- turn off bell
 config.audible_bell = "Disabled"
 
+-- bold is not bright
+config.bold_brightens_ansi_colors = false
+
 return config

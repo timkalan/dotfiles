@@ -26,7 +26,7 @@ precmd() {
 
 # prompt: directory_path branch 
 setopt PROMPT_SUBST
-PS1='%F{blue}%~ %F{magenta}${vcs_info_msg_0_}%f%(?.%F{green}.%F{red})%#%f '
+PS1='%B%F{blue}%c %F{magenta}${vcs_info_msg_0_}%f%(?.%F{green}.%F{red})➜%f%b '
 
 # aliases
 alias vim="nvim"
