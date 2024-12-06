@@ -1,83 +1,85 @@
-autoload -Uz compinit
-compinit
+# Enable completion system
+autoload -Uz compinit && compinit
 
-# add repo info
+# Version Control System (VCS) Info
 autoload -Uz vcs_info
-
-# branch info
 zstyle ':vcs_info:git:*' formats '%b '
 
-# add command execution time
+# Timing and Prompt Configuration
 function preexec() {
   timer=${timer:-$SECONDS}
 }
 
-precmd() {
-  # load branch info
+function precmd() {
+  # Load VCS branch info
   vcs_info
-
-  # show time info
+  
+  # Show command execution time
   if [ $timer ]; then
-    timer_show=$(($SECONDS - $timer))
-    export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+    local timer_show=$((SECONDS - timer))
+    export RPROMPT="%F{cyan}${timer_show}s%{$reset_color%}"
     unset timer
   fi
 }
 
-# prompt: directory_path branch 
+# Set prompt: directory_path branch ➜
 setopt PROMPT_SUBST
 PS1='%B%F{blue}%c %F{magenta}${vcs_info_msg_0_}%f%(?.%F{green}.%F{red})➜%f%b '
 
-# aliases
+# Aliases
 alias vim="nvim"
-alias vmi="nvim"
 alias vi="nvim"
-alias nvmi="nvim"
-alias nivm="nvim"
-alias nvmi="nvim"
-
 alias py="python3"
 alias python="python3"
-
-alias sd="cd \$(find * -type d | fzf)"
-alias sdp="cd ~/projects && cd \$(find * -type d | fzf)"
-alias sdw="cd ~/projects/work && cd \$(find * -type d | fzf)"
-
+alias cl="clear"
 alias ls="ls --color"
 alias tree="tree -C"
 
+# Git
+alias lg="lazygit"
+alias gst="git status"
+alias gf="git fetch"
+alias gp="git pull"
+
+# Tmux shortcuts
 alias ta="tmux a -t"
 alias tk="tmux kill-session -t"
 alias tl="tmux ls"
 alias tn="tmux new -s"
 
-alias cl="clear"
+# Directory navigation with fzf
+alias sd="cd \$(find * -type d | fzf)"
+alias sdp="cd ~/projects && cd \$(find * -type d | fzf)"
+alias sdw="cd ~/projects/work && cd \$(find * -type d | fzf)"
 
-# shell integration
+# fzf shell integration
 eval "$(fzf --zsh)"
 
+# fzf open windows
+ff() {
+    aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
+}
+
+# PATH Configuration
 export PATH="/usr/local/opt/llvm/bin:$PATH"
-export PATH=/usr/local/smlnj/bin:"$PATH"
+export PATH="/usr/local/smlnj/bin:$PATH"
 export PATH="/usr/local/opt/node@20/bin:$PATH"
+export PATH="$PATH:/Users/timkalan/.local/bin"  # pipx
+export PATH="$PATH:~/go/bin"
+export PATH="$PATH":"$HOME/.scripts/"
 
+# tmux-sessionizer
+bindkey -s ^f "tmux-sessionizer.sh\n"
+
+# nvm (Node Version Manager)
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Created by `pipx` on 2024-03-29 09:26:21
-export PATH="$PATH:/Users/timkalan/.local/bin"
-
-export PATH=$PATH:~/go/bin
-
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/Users/timkalan/.opam/opam-init/init.zsh' ]] || source '/Users/timkalan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
+# opam (OCaml Package Manager) Configuration
+[[ ! -r '/Users/timkalan/.opam/opam-init/init.zsh' ]] || \
+  source '/Users/timkalan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 
 # Extensions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-

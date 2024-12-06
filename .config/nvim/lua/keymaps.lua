@@ -27,3 +27,10 @@ vim.keymap.set("n", "<leader>-", "<C-w>s")
 
 -- option + backspace deletes word
 vim.keymap.set("i", "<M-BS>", "<C-w>")
+
+-- tmux sessionizer
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer.sh<CR>")
+
+-- move lines in visual mode
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

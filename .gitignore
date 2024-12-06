@@ -8,6 +8,8 @@
 !.wezterm.lua
 !.zshrc
 !README.md
+!/.scripts/
+!/.scripts/**
 !/.config/
 !/.config/nvim/
 !/.config/nvim/**

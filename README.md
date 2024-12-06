@@ -1,11 +1,14 @@
 # dotfiles
 
-This repo contains all of the dotfiles to set up a development experience on a new machine.
+This repo contains all of the dotfiles to set up my development experience on a new machine.
 
-## Requirements
-- `aerospace`
-- `wezterm`
-- `zsh`
-- `homebrew`
-- `tmux`
-- `neovim`
+## Tools
+- `aerospace` (window manager)
+- `wezterm` (terminal)
+- `zsh` (shell)
+- `tmux` (terminal multiplexer)
+- `neovim` (editor)
+
+## Requirements (wip)
+- `homebrew` (package manager)
+- `fzf` (fuzzy finder)
