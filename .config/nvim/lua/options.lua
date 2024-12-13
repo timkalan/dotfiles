@@ -30,7 +30,7 @@ vim.opt.smartcase = true
 vim.opt.incsearch = true
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- opening splits
 vim.opt.splitright = true
@@ -46,7 +46,7 @@ vim.opt.updatetime = 50
 -- vim.opt.scrolloff = 8
 
 -- more file names
-vim.opt.isfname:append('@-@')
+vim.opt.isfname:append("@-@")
 
 -- no line wrapping
 vim.opt.wrap = false
@@ -56,4 +56,4 @@ vim.opt.cursorline = true
 
 -- show whitespace characters
 vim.opt.list = true
-vim.opt.listchars = { tab = '▎ ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = "▎ ", trail = "·", nbsp = "␣" }

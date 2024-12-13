@@ -68,6 +68,9 @@ export PATH="$PATH:/Users/timkalan/.local/bin"  # pipx
 export PATH="$PATH:~/go/bin"
 export PATH="$PATH":"$HOME/.scripts/"
 
+# set default config location
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # tmux-sessionizer
 bindkey -s ^f "tmux-sessionizer.sh\n"
 
@@ -83,3 +86,4 @@ export NVM_DIR="$HOME/.nvm"
 # Extensions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh

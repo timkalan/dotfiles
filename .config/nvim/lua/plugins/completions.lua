@@ -25,8 +25,13 @@ return {
 		"onsails/lspkind.nvim",
 	},
 	config = function()
+		local lspkind = require("lspkind")
+		lspkind.init({
+			mode = "symbol_text",
+		})
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+		require("luasnip.loaders.from_vscode").lazy_load()
 		luasnip.config.setup({})
 
 		cmp.setup({
