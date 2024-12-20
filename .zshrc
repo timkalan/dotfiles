@@ -67,6 +67,7 @@ export PATH="/usr/local/opt/node@20/bin:$PATH"
 export PATH="$PATH:/Users/timkalan/.local/bin"  # pipx
 export PATH="$PATH:~/go/bin"
 export PATH="$PATH":"$HOME/.scripts/"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # set default config location
 export XDG_CONFIG_HOME="$HOME/.config"

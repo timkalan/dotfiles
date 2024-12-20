@@ -45,6 +45,9 @@ vim.opt.updatetime = 50
 -- scrolloff
 -- vim.opt.scrolloff = 8
 
+-- line at 100 characters
+vim.opt.colorcolumn = "100"
+
 -- more file names
 vim.opt.isfname:append("@-@")
 
