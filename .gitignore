@@ -14,4 +14,6 @@
 !/.config/nvim/
 !/.config/nvim/**
 !/.config/lazygit/
-!/.config/lazygit/**
+!/.config/lazygit/config.yml
+!/.config/ghostty/
+!/.config/ghostty/config

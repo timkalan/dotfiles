@@ -23,19 +23,24 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
+		"zbirenbaum/copilot-cmp",
 		"onsails/lspkind.nvim",
 	},
 	config = function()
+		require("copilot_cmp").setup()
 		local lspkind = require("lspkind")
-		lspkind.init({
-			mode = "symbol_text",
-		})
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		require("luasnip.loaders.from_vscode").lazy_load()
 		luasnip.config.setup({})
 
 		cmp.setup({
+			formatting = {
+				format = lspkind.cmp_format({
+					mode = "symbol_text",
+					symbol_map = { Copilot = "" },
+				}),
+			},
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
@@ -71,6 +76,7 @@ return {
 			sources = {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
+				{ name = "copilot" },
 				{ name = "path" },
 				{ name = "nvim_lsp_signature_help" },
 			},

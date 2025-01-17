@@ -1,0 +1,6 @@
+theme = GruvboxDark
+font-family = MesloLGL Nerd Font Mono
+shell-integration-features = no-cursor,sudo,no-title
+mouse-hide-while-typing = true
+window-padding-balance = true
+window-save-state = always

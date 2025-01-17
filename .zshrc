@@ -32,7 +32,7 @@ alias vi="nvim"
 alias py="python3"
 alias python="python3"
 alias cl="clear"
-alias ls="ls --color"
+alias ls="ls -lhF --color=auto"
 alias tree="tree -C"
 
 # Git
@@ -68,6 +68,8 @@ export PATH="$PATH:/Users/timkalan/.local/bin"  # pipx
 export PATH="$PATH:~/go/bin"
 export PATH="$PATH":"$HOME/.scripts/"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin:/opt/local/bin
 
 # set default config location
 export XDG_CONFIG_HOME="$HOME/.config"
