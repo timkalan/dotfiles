@@ -4,6 +4,7 @@ This repo contains all of the dotfiles to set up my development experience on a 
 
 ## Tools
 - `aerospace` (window manager)
+- `ghostty` (terminal)
 - `wezterm` (terminal)
 - `zsh` (shell)
 - `tmux` (terminal multiplexer)
