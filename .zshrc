@@ -68,8 +68,10 @@ export PATH="$PATH:/Users/timkalan/.local/bin"  # pipx
 export PATH="$PATH:~/go/bin"
 export PATH="$PATH":"$HOME/.scripts/"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin:/opt/local/bin
+
+export GOPATH=$HOME/go
+export GOPRIVATE=github.com/zerodays
 
 # set default config location
 export XDG_CONFIG_HOME="$HOME/.config"
