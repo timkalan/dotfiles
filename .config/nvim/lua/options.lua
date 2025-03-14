@@ -4,6 +4,17 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+-- some file types prefer two spaces
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "typescript", "javascript", "javascriptreact", "typescriptreact", "json", "yaml", "html", "css" },
+	callback = function()
+		vim.bo.shiftwidth = 2
+		vim.bo.tabstop = 2
+		vim.bo.softtabstop = 2
+		vim.bo.expandtab = true
+	end,
+})
+
 -- indentation
 vim.opt.autoindent = true
 vim.opt.smartindent = true
