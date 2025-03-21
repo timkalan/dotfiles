@@ -147,6 +147,7 @@ return {
 				},
 			},
 			yamlls = {},
+			black = {},
 		}
 
 		require("mason").setup()

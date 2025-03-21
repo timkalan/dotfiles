@@ -71,3 +71,6 @@ vim.opt.cursorline = true
 -- show whitespace characters
 vim.opt.list = true
 vim.opt.listchars = { tab = "▎ ", trail = "·", nbsp = "␣" }
+
+-- mouse support
+vim.opt.mouse = "a"
