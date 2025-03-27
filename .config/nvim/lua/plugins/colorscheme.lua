@@ -4,25 +4,28 @@ return {
 	priority = 1000,
 	config = function()
 		require("gruvbox").setup({
-			overrides = {
-				SignColumn = { link = "Normal" },
-				GruvboxGreenSign = { bg = "" },
-				GruvboxOrangeSign = { bg = "" },
-				GruvboxPurpleSign = { bg = "" },
-				GruvboxYellowSign = { bg = "" },
-				GruvboxRedSign = { bg = "" },
-				GruvboxBlueSign = { bg = "" },
-				GruvboxAquaSign = { bg = "" },
-			},
-			italic = {
-				strings = false,
-				emphasis = false,
-				comments = false,
-				operators = false,
-				folds = false,
-			},
+			-- overrides = {
+			-- 	SignColumn = { link = "Normal" },
+			-- 	GruvboxGreenSign = { bg = "" },
+			-- 	GruvboxOrangeSign = { bg = "" },
+			-- 	GruvboxPurpleSign = { bg = "" },
+			-- 	GruvboxYellowSign = { bg = "" },
+			-- 	GruvboxRedSign = { bg = "" },
+			-- 	GruvboxBlueSign = { bg = "" },
+			-- 	GruvboxAquaSign = { bg = "" },
+			-- },
+			-- italic = {
+			-- 	strings = false,
+			-- 	emphasis = false,
+			-- 	comments = false,
+			-- 	operators = false,
+			-- 	folds = false,
+			-- },
 			transparent_mode = true,
+			dim_inactive = false,
+			terminal_colors = false,
 		})
+		vim.o.background = "dark"
 		vim.cmd.colorscheme("gruvbox")
 	end,
 }
