@@ -1,7 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true },
+		{ "williamboman/mason.nvim", opts = {} },
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{
@@ -21,7 +21,6 @@ return {
 		},
 	},
 	config = function()
-		require("lazydev").setup()
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -29,6 +28,7 @@ return {
 					mode = mode or "n"
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
+
 				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 				map("<leader>gd", function()
 					vim.api.nvim_command("vsplit")
@@ -47,22 +47,19 @@ return {
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 				map("<leader>ho", vim.lsp.buf.hover, "[H][o]ver")
 
-				-- Rounded borders
-				vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-					border = "rounded",
-				})
-
-				vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-					border = "rounded",
-				})
-
-				vim.diagnostic.config({
-					float = { border = "rounded" },
-				})
-
+				-- Highlight references for word under cursor
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+				if
+					client
+					and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
+				then
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+
+					-- Highlight references like matching paranthesis
+					vim.api.nvim_set_hl(0, "LspReferenceText", { link = "MatchParen" })
+					vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "MatchParen" })
+					vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "MatchParen" })
+
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
 						group = highlight_augroup,
@@ -84,12 +81,44 @@ return {
 					})
 				end
 
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+				-- Toggle inlay hints
+				if
+					client
+					and client:supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
+				then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
 				end
 			end,
+		})
+
+		-- Diagnostic Config
+		vim.diagnostic.config({
+			severity_sort = true,
+			float = { border = "rounded", source = "if_many" },
+			underline = { severity = vim.diagnostic.severity.ERROR },
+			-- signs = vim.g.have_nerd_font and {
+			-- 	text = {
+			-- 		[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			-- 		[vim.diagnostic.severity.WARN] = "󰀪 ",
+			-- 		[vim.diagnostic.severity.INFO] = "󰋽 ",
+			-- 		[vim.diagnostic.severity.HINT] = "󰌶 ",
+			-- 	},
+			-- } or {},
+			virtual_text = {
+				source = "if_many",
+				spacing = 2,
+				format = function(diagnostic)
+					local diagnostic_message = {
+						[vim.diagnostic.severity.ERROR] = diagnostic.message,
+						[vim.diagnostic.severity.WARN] = diagnostic.message,
+						[vim.diagnostic.severity.INFO] = diagnostic.message,
+						[vim.diagnostic.severity.HINT] = diagnostic.message,
+					}
+					return diagnostic_message[diagnostic.severity]
+				end,
+			},
 		})
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -150,8 +179,6 @@ return {
 			black = {},
 		}
 
-		require("mason").setup()
-
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
@@ -159,6 +186,8 @@ return {
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
+			ensure_installed = {}, -- handled by mason-tool-installer
+			automatic_installation = false,
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}
@@ -170,5 +199,6 @@ return {
 				end,
 			},
 		})
+		require("lazydev").setup()
 	end,
 }

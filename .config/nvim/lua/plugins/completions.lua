@@ -27,9 +27,8 @@ return {
 		"onsails/lspkind.nvim",
 	},
 	config = function()
-		require("copilot_cmp").setup()
-		local lspkind = require("lspkind")
 		local cmp = require("cmp")
+		local lspkind = require("lspkind")
 		local luasnip = require("luasnip")
 		require("luasnip.loaders.from_vscode").lazy_load()
 		luasnip.config.setup({})
@@ -40,6 +39,8 @@ return {
 					mode = "symbol_text",
 					symbol_map = { Copilot = "" },
 				}),
+				expandable_indicator = true,
+				fields = { "abbr", "kind" },
 			},
 			snippet = {
 				expand = function(args)
@@ -85,5 +86,6 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 		})
+		require("copilot_cmp").setup()
 	end,
 }

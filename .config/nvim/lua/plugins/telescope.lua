@@ -1,7 +1,8 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		event = "VimEnter",
+		branch = "0.1.x",
 		dependencies = {
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
@@ -10,7 +11,6 @@ return {
 			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 			"nvim-lua/plenary.nvim",
 			"debugloop/telescope-undo.nvim",
-			"smartpde/telescope-recent-files",
 			"nvim-telescope/telescope-ui-select.nvim",
 		},
 		config = function()
@@ -35,13 +35,18 @@ return {
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
 			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
-			vim.keymap.set("n", "<leader>fc", builtin.resume, { desc = "[F]ind [R]esume" })
+			vim.keymap.set("n", "<leader>fc", builtin.resume, { desc = "[F]ind [C]ontinue" })
+			vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "[F]ind [R]ecent" })
+
+			vim.keymap.set("n", "<leader>/", function()
+				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
+				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end, { desc = "[/] Fuzzily search in current buffer" })
 
 			require("telescope").load_extension("undo")
 			vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>")
-
-			require("telescope").load_extension("recent_files")
-			vim.keymap.set("n", "<leader>fr", "<cmd>lua require('telescope').extensions.recent_files.pick()<CR>")
 
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("ui-select")

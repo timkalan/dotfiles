@@ -21,28 +21,27 @@ return {
 			local disable_filetypes = { c = true, cpp = true }
 			local lsp_format_opt
 			if disable_filetypes[vim.bo[bufnr].filetype] then
-				lsp_format_opt = "never"
+				return nil
 			else
-				lsp_format_opt = "fallback"
+				return {
+					timeout_ms = 1000,
+					lsp_format = "fallback",
+				}
 			end
-			return {
-				timeout_ms = 1000,
-				lsp_format = lsp_format_opt,
-			}
 		end,
 		formatters_by_ft = {
 			css = { "prettier" },
 			html = { "rustywind" },
-			javascript = { "rustywind", "prettier" },
-			javascriptreact = { "rustywind", "prettier" },
+			javascript = { "prettier", "rustywind" },
+			javascriptreact = { "prettier", "rustywind" },
+			typescript = { "prettier", "rustywind" },
+			typescriptreact = { "prettier", "rustywind" },
 			json = { "prettier" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
 			python = { "isort", "black" },
 			sh = { "shfmt" },
 			templ = { "templ", "rustywind" },
-			typescript = { "rustywind", "prettier" },
-			typescriptreact = { "rustywind", "prettier" },
 			yaml = { "prettier" },
 		},
 	},

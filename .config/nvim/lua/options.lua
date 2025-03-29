@@ -74,3 +74,6 @@ vim.opt.listchars = { tab = "▎ ", trail = "·", nbsp = "␣" }
 
 -- mouse support
 vim.opt.mouse = "a"
+
+-- rounded window borders
+vim.o.winborder = "rounded"

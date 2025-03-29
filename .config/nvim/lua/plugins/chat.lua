@@ -24,5 +24,11 @@ return {
 			ft = { "markdown", "Avante" },
 		},
 	},
-	opts = { provider = "copilot" },
+	opts = {
+		provider = "copilot",
+		behaviour = {
+			auto_apply_diff_after_generation = true,
+			enable_cursor_planning_mode = true,
+		},
+	},
 }
