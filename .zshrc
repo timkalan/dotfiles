@@ -1,32 +1,30 @@
-# Enable completion system
+# --- Enable completion system ---
 autoload -Uz compinit && compinit
 
-# Version Control System (VCS) Info
+# --- VCS (Git) Info ---
 autoload -Uz vcs_info
 zstyle ':vcs_info:git:*' formats '%b '
 
-# Timing and Prompt Configuration
+# --- Command timing and prompt config ---
 function preexec() {
   timer=${timer:-$SECONDS}
 }
 
 function precmd() {
-  # Load VCS branch info
   vcs_info
-  
-  # Show command execution time
-  if [ $timer ]; then
-    local timer_show=$((SECONDS - timer))
-    export RPROMPT="%F{cyan}${timer_show}s%{$reset_color%}"
+  if [[ -n $timer ]]; then
+    local elapsed=$((SECONDS - timer))
+    export RPROMPT="%F{cyan}${elapsed}s%f"
     unset timer
   fi
 }
 
-# Set prompt: directory_path branch ➜
+# --- Prompt ---
 setopt PROMPT_SUBST
 PS1='%B%F{blue}%c %F{magenta}${vcs_info_msg_0_}%f%(?.%F{green}.%F{red})➜%f%b '
 
-# Aliases
+# --- Aliases ---
+# General
 alias vim="nvim"
 alias vi="nvim"
 alias py="python3"
@@ -41,54 +39,37 @@ alias gst="git status"
 alias gf="git fetch"
 alias gp="git pull"
 
-# Tmux shortcuts
+# Tmux
 alias ta="tmux a -t"
 alias tk="tmux kill-session -t"
 alias tl="tmux ls"
 alias tn="tmux new -s"
 
 # Directory navigation with fzf
-alias sd="cd \$(find * -type d | fzf)"
-alias sdp="cd ~/projects && cd \$(find * -type d | fzf)"
-alias sdw="cd ~/projects/work && cd \$(find * -type d | fzf)"
+alias sd='cd "$(find * -type d | fzf)"'
+alias sdp='cd ~/projects && cd "$(find * -type d | fzf)"'
+alias sdw='cd ~/projects/work && cd "$(find * -type d | fzf)"'
 
-# fzf shell integration
+# --- fzf shell integration ---
 eval "$(fzf --zsh)"
 
-# fzf open windows
+# --- Aerospace window picker ---
 ff() {
-    aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
+  aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
 }
 
-# PATH Configuration
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-export PATH="/usr/local/smlnj/bin:$PATH"
-export PATH="/usr/local/opt/node@20/bin:$PATH"
-export PATH="$PATH:/Users/timkalan/.local/bin"  # pipx
-export PATH="$PATH:~/go/bin"
-export PATH="$PATH":"$HOME/.scripts/"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export PATH=$PATH:$GOPATH/bin:/opt/local/bin
-
-export GOPATH=$HOME/go
-export GOPRIVATE=github.com/zerodays
-
-# set default config location
-export XDG_CONFIG_HOME="$HOME/.config"
-
-# tmux-sessionizer
+# --- Tmux sessionizer keybind ---
 bindkey -s ^f "tmux-sessionizer.sh\n"
 
-# nvm (Node Version Manager)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# --- Plugins ---
+# Autosuggestions
+[[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# opam (OCaml Package Manager) Configuration
-[[ ! -r '/Users/timkalan/.opam/opam-init/init.zsh' ]] || \
-  source '/Users/timkalan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# Syntax highlighting
+[[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Extensions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Vi-mode
+[[ -f $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && \
+  source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"

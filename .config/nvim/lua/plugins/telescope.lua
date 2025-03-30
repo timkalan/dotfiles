@@ -38,7 +38,7 @@ return {
 			vim.keymap.set("n", "<leader>fc", builtin.resume, { desc = "[F]ind [C]ontinue" })
 			vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "[F]ind [R]ecent" })
 
-			vim.keymap.set("n", "<leader>/", function()
+			vim.keymap.set("n", "<leader>f/", function()
 				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 					previewer = false,
