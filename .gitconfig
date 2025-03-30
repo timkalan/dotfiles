@@ -1,0 +1,13 @@
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
+[user]
+	name = Tim Kalan
+	email = timkalan99@gmail.com
+
+[includeIf "gitdir:~/projects/work/"]
+    path = ~/.gitconfig-work
+
+[core]
+  excludesfile = ~/.gitignore_global
+
