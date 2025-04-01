@@ -1,5 +1,15 @@
 # --- Enable completion system ---
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+
+# Set location for the compdump cache file
+ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
+
+# Use cached compinit if available
+if [[ -r "$ZSH_COMPDUMP" ]]; then
+  compinit -C
+else
+  compinit
+fi
 
 # --- VCS (Git) Info ---
 autoload -Uz vcs_info

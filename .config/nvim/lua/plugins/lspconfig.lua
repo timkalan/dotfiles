@@ -177,6 +177,7 @@ return {
 			},
 			yamlls = {},
 			black = {},
+			nil_ls = {},
 		}
 
 		local ensure_installed = vim.tbl_keys(servers or {})
