@@ -12,7 +12,7 @@ stow .
 
 To create the symlinks from this folder to the home folder.
 
-## Nix
+## Nix (not yet implemented)
 
 Installed via the [Determinate installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#features)
 (which also provides an uninstall script, can survive macOS upgrades, ...)
@@ -42,13 +42,22 @@ One off packages can be run with
 nix run nixpkgs#PACKAGE -- -FLAG ARG
 ```
 
-### Nix Darwin
+### [Nix Darwin](https://github.com/nix-darwin/nix-darwin)
 
-Can be used to manage macOS using nix. Look in `nix/flake.nix` for the configuration. To install it, run
+Can be used to manage macOS using Nix. Look in `nix/flake.nix` for the configuration. Init flake in
+`~/nix/` with
 
 ```bash
-nix run nix-darwin/master#darwin-rebuild -- switch
+nix flake init -t nix-darwin --extra-experimental-features "nix-command flakes"
 ```
+
+To then install darwin, as you define it in the flake, run
+
+```bash
+nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake ~/nix#HOSTNAME
+```
+
+where HOSTNAME is defined in the flake (e.g. diego in my current case).
 
 After installation, apply changes using
 

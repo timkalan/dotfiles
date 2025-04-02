@@ -5,7 +5,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 # --- General environment variables ---
 export GOPATH="$HOME/go"
-export GOPRIVATE="github.com/zerodays"
+export GOPRIVATE="github.com/zerodays,github.com/llamajet"
 export EDITOR=nvim
 
 # --- Clean PATH setup ---

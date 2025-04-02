@@ -16,7 +16,4 @@ require("lazy.view.config").keys.close = "<Esc>"
 -- required modules
 require("options")
 require("keymaps")
-require("lazy").setup({
-	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-	{ import = "plugins" },
-})
+require("lazy").setup("plugins")

@@ -63,10 +63,11 @@ alias sdw='cd ~/projects/work && cd "$(find * -type d | fzf)"'
 # --- fzf shell integration ---
 eval "$(fzf --zsh)"
 
-# --- Aerospace window picker ---
-ff() {
-  aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
-}
+ # # Nix
+ # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+ #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ # fi
+ # # End Nix
 
 # --- Tmux sessionizer keybind ---
 bindkey -s ^f "tmux-sessionizer.sh\n"
