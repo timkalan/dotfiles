@@ -24,7 +24,8 @@ function precmd() {
   vcs_info
   if [[ -n $timer ]]; then
     local elapsed=$((SECONDS - timer))
-    export RPROMPT="%F{cyan}${elapsed}s%f"
+    local datetime=$(date +"%Y-%m-%d %H:%M:%S")
+    export RPROMPT="%F{cyan} ${elapsed}s%f | %F{yellow}${datetime}%f"
     unset timer
   fi
 }
@@ -40,7 +41,7 @@ alias vi="nvim"
 alias py="python3"
 alias python="python3"
 alias cl="clear"
-alias ls="ls -lhF --color=auto"
+alias ls="ls -lahF --color=auto"
 alias tree="tree -C"
 
 # Git
@@ -62,12 +63,6 @@ alias sdw='cd ~/projects/work && cd "$(find * -type d | fzf)"'
 
 # --- fzf shell integration ---
 eval "$(fzf --zsh)"
-
- # # Nix
- # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
- #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
- # fi
- # # End Nix
 
 # --- Tmux sessionizer keybind ---
 bindkey -s ^f "tmux-sessionizer.sh\n"
