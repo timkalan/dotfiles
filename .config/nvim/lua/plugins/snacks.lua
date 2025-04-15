@@ -15,7 +15,11 @@ return {
 			enabled = true,
 			configure = true,
 		},
-		picker = { enabled = true },
+		picker = {
+			enabled = true,
+			ui_select = true,
+		},
+		words = { enabled = true },
 	},
 	keys = {
 		-- Lazygit
@@ -31,7 +35,9 @@ return {
 		{
 			"<leader>ff",
 			function()
-				Snacks.picker.files({ hidden = true })
+				Snacks.picker.files({
+					hidden = true,
+				})
 			end,
 			desc = "[F]ind [F]iles",
 		},
@@ -105,5 +111,25 @@ return {
 			end,
 			desc = "[F]ind [H]elp",
 		},
+		{
+			"]]",
+			function()
+				Snacks.words.jump(vim.v.count1)
+			end,
+			desc = "Next Reference",
+			mode = { "n", "t" },
+		},
+		{
+			"[[",
+			function()
+				Snacks.words.jump(-vim.v.count1)
+			end,
+			desc = "Prev Reference",
+			mode = { "n", "t" },
+		},
 	},
+	vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Text" }),
+	vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { link = "Text" }),
+	vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { link = "Comment" }),
+	vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "Special" }),
 }

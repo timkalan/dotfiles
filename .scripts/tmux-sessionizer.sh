@@ -33,13 +33,19 @@ selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
+    tmux new-session -s $selected_name -c $selected -n editor
+    tmux send-keys -t $selected_name:1 'nvim .' C-m
+    tmux new-window -t $selected_name:2 -c $selected -n commands
+    tmux select-window -t $selected_name:1
     hydrate $selected_name $selected
     exit 0
 fi
 
 if ! has_session $selected_name; then
-    tmux new-session -ds $selected_name -c $selected
+    tmux new-session -ds $selected_name -c $selected -n editor
+    tmux send-keys -t $selected_name:1 'nvim .' C-m
+    tmux new-window -t $selected_name:2 -c $selected -n commands
+    tmux select-window -t $selected_name:1
     hydrate $selected_name $selected
 fi
 

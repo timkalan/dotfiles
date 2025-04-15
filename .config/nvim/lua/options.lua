@@ -62,3 +62,7 @@ vim.opt.mouse = "a"
 
 -- rounded window borders
 vim.o.winborder = "rounded"
+
+-- show some extra whitespace
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
