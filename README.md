@@ -10,60 +10,9 @@ Clone this repository from your home folder, so you get a `~/dotfiles/` folder. 
 stow .
 ```
 
-To create the symlinks from this folder to the home folder.
-
-## Nix (not yet implemented)
-
-Installed via the [Determinate installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#features)
-(which also provides an uninstall script, can survive macOS upgrades, ...)
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
-  sh -s -- install
-```
-
-Nix can be updated via
-
-```bash
-sudo -i nix upgrade-nix
-```
-
-and uninstalled via
-
-```bash
-/nix/nix-installer uninstall
-```
-
-### Nix commands
-
-One off packages can be run with
-
-```bash
-nix run nixpkgs#PACKAGE -- -FLAG ARG
-```
-
-### [Nix Darwin](https://github.com/nix-darwin/nix-darwin)
-
-Can be used to manage macOS using Nix. Look in `nix/flake.nix` for the configuration. Init flake in
-`~/nix/` with
-
-```bash
-nix flake init -t nix-darwin --extra-experimental-features "nix-command flakes"
-```
-
-To then install darwin, as you define it in the flake, run
-
-```bash
-nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake ~/nix#HOSTNAME
-```
-
-where HOSTNAME is defined in the flake (e.g. diego in my current case).
-
-After installation, apply changes using
-
-```bash
-darwin-rebuild switch
-```
+To create the symlinks from this folder to the home folder. I am also now using a `.env` file with
+an API key for OpenRouter. You can make it in the root of this project and add a `OPENROUTER_API_KEY`,
+field to it (and also stow it!).
 
 ## Tools
 - `aerospace` (window manager)
@@ -77,3 +26,5 @@ darwin-rebuild switch
 - `homebrew` (package manager)
 - `fzf` (fuzzy finder)
 - `stow`
+
+To find a lot of what requirements are missing, run `:checkhealth` in `nvim`.

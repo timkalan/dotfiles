@@ -67,6 +67,7 @@ return {
 			-- By default, you may press `<c-space>` to show the documentation.
 			-- Optionally, set `auto_show = true` to show the documentation after a delay.
 			documentation = { auto_show = true, auto_show_delay_ms = 0 },
+			-- ghost_text = { enabled = true },
 		},
 
 		sources = {
@@ -90,4 +91,8 @@ return {
 		-- Shows a signature help window while you type arguments for a function
 		signature = { enabled = true },
 	},
+
+	-- Change the bg color to be "transparent"
+	vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "BlinkCmpDoc" }),
+	vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "BlinkCmpDocBorder" }),
 }

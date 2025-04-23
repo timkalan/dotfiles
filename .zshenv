@@ -8,6 +8,15 @@ export GOPATH="$HOME/go"
 export GOPRIVATE="github.com/zerodays,github.com/llamajet"
 export EDITOR=nvim
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# --- Environment variables ---
+if [[ -r ~/.env ]]; then
+  export $(grep -v '^#' ~/.env | xargs)
+fi
+
 # --- Clean PATH setup ---
 # Define a helper to append to PATH only if the directory exists
 path_prepend() {
