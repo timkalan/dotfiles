@@ -61,9 +61,6 @@ alias sd='cd "$(find * -type d | fzf)"'
 alias sdp='cd ~/projects && cd "$(find * -type d | fzf)"'
 alias sdw='cd ~/projects/work && cd "$(find * -type d | fzf)"'
 
-# --- fzf shell integration ---
-eval "$(fzf --zsh)"
-
 # --- Tmux sessionizer keybind ---
 bindkey -s ^f "tmux-sessionizer.sh\n"
 
@@ -79,3 +76,6 @@ bindkey -s ^f "tmux-sessionizer.sh\n"
 # Vi-mode
 [[ -f $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && \
   source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+
+# --- fzf shell integration ---
+eval "$(fzf --zsh)"
