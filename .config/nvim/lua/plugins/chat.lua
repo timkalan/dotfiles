@@ -31,12 +31,12 @@ return {
 				__inherited_from = "openai",
 				endpoint = "https://openrouter.ai/api/v1",
 				api_key_name = "OPENROUTER_API_KEY",
-				model = "google/gemini-2.5-pro-preview-03-25",
+				model = "google/gemini-2.5-pro-preview",
 			},
 		},
-		behaviour = {
-			auto_apply_diff_after_generation = true,
-			enable_cursor_planning_mode = true,
-		},
+		-- behaviour = {
+		-- 	auto_apply_diff_after_generation = true,
+		-- 	enable_cursor_planning_mode = true,
+		-- },
 	},
 }

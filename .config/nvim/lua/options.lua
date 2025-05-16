@@ -1,19 +1,19 @@
 -- tab is four spaces
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
 -- indentation
-vim.opt.autoindent = true
-vim.opt.smartindent = true
+vim.o.autoindent = true
+vim.o.smartindent = true
 
 -- line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 -- save undo history
-vim.opt.undofile = true
+vim.o.undofile = true
 
 -- no swap
 vim.swapfile = false
@@ -22,47 +22,44 @@ vim.swapfile = false
 vim.o.clipboard = "unnamedplus"
 
 -- persistent gutter
-vim.opt.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 
 -- smarter searching
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.incsearch = true
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+vim.o.inccommand = "split"
 
 -- opening splits
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- better colors
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 
 -- faster updatetime (default 4000)
-vim.opt.updatetime = 50
+vim.o.updatetime = 50
 
 -- scrolloff
--- vim.opt.scrolloff = 8
+-- vim.o.scrolloff = 8
 
 -- line at 100 characters
-vim.opt.colorcolumn = "100"
-
--- more file names
-vim.opt.isfname:append("@-@")
+vim.o.colorcolumn = "100"
 
 -- no line wrapping
-vim.opt.wrap = false
+vim.o.wrap = false
 
 -- highlight cursor line
-vim.opt.cursorline = true
+vim.o.cursorline = true
 
 -- mouse support
-vim.opt.mouse = "a"
+vim.o.mouse = "a"
 
 -- rounded window borders
 vim.o.winborder = "rounded"
 
 -- show some extra whitespace
-vim.opt.list = true
+vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
