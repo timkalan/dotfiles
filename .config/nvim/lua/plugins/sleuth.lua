@@ -1,1 +1,1 @@
-return { "NMAC427/guess-indent.nvim" }
+return { "tpope/vim-sleuth" }
