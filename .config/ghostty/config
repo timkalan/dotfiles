@@ -1,11 +1,5 @@
 theme = GruvboxDark
-# font-family = MesloLGM Nerd Font Mono
 font-family = JetBrainsMono Nerd Font
-# font-family = Monaspice Nerd Font
-# font-family = Fira Code Nerd Font
-# font-family = Iosevka Nerd Font
-# font-family = SauceCodePro Nerd Font
-shell-integration-features = no-cursor,sudo,no-title
 mouse-hide-while-typing = true
 window-padding-balance = true
 window-save-state = always

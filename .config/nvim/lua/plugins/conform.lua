@@ -19,7 +19,6 @@ return {
 			-- have a well standardized coding style. You can add additional
 			-- languages here or re-enable it for the disabled ones.
 			local disable_filetypes = { c = true, cpp = true }
-			local lsp_format_opt
 			if disable_filetypes[vim.bo[bufnr].filetype] then
 				return nil
 			else
@@ -36,7 +35,7 @@ return {
 			javascriptreact = { "biome", "rustywind" },
 			typescript = { "biome", "rustywind" },
 			typescriptreact = { "biome", "rustywind" },
-			json = { "prettier" },
+			json = { "biome" },
 			lua = { "stylua" },
 			markdown = { "prettier" },
 			python = { "isort", "black" },

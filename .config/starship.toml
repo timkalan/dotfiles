@@ -1,17 +1,19 @@
 # Inserts a blank line between shell prompts
 add_newline = true
+right_format = """$cmd_duration"""
 
 [character]
 success_symbol = '[➜](bold green)'
 error_symbol = '[➜](bold red)'
 
 [directory]
-truncation_length = 3
+truncate_to_repo = true
+home_symbol = '~'
 
 [cmd_duration]
-min_time = 2
+min_time = 0
 format   = 'took [$duration]($style)'
-style    = "bold red"
+style    = "bold yellow"
 
 [jobs]
 threshold = 1
