@@ -16,7 +16,7 @@
 
 #############
 # Main model:
-model: openrouter/google/gemini-2.5-pro-preview
+model: openrouter/google/gemini-2.5-pro
 
 ########################
 # API Keys and settings:
@@ -91,7 +91,7 @@ model: openrouter/google/gemini-2.5-pro-preview
 # timeout: 120
 
 ## Specify what edit format the LLM should use (default depends on model)
-# edit-format: whole
+edit-format: diff-fenced
 
 ## Use architect edit format for the main chat
 #architect: false
@@ -157,7 +157,7 @@ restore-chat-history: true
 # Output settings:
 
 ## Use colors suitable for a dark terminal background (default: False)
-dark-mode: true
+# dark-mode: true
 
 ## Use colors suitable for a light terminal background (default: False)
 #light-mode: false
@@ -169,19 +169,19 @@ pretty: true
 stream: true
 
 ## Set the color for user input (default: #00cc00)
-# user-input-color: "#b8bb26"
+user-input-color: "#b8bb26"
 
 ## Set the color for tool output (default: None)
-# tool-output-color: "#d5c4a1"
+tool-output-color: "#d5c4a1"
 
 ## Set the color for tool error messages (default: #FF2222)
-# tool-error-color: "#fb4934"
+tool-error-color: "#fb4934"
 
 ## Set the color for tool warning messages (default: #FFA500)
-# tool-warning-color: "#fe8019"
+tool-warning-color: "#fe8019"
 
 ## Set the color for assistant output (default: #0088ff)
-# assistant-output-color: "#8ec07c"
+assistant-output-color: "#8ec07c"
 
 ## Set the color for the completion menu (default: terminal's default text color)
 # completion-menu-color: "#ebdbb2"
@@ -199,7 +199,7 @@ stream: true
 code-theme: monokai
 
 ## Show diffs when committing changes (default: False)
-show-diffs: true
+# show-diffs: true
 
 ###############
 # Git settings:

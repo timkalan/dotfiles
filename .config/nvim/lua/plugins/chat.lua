@@ -13,7 +13,23 @@ return {
 		"folke/snacks.nvim", -- for file_selector provider snacks
 		"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-		"zbirenbaum/copilot.lua", -- for providers='copilot'
+		{
+			-- support for image pasting
+			"HakonHarnes/img-clip.nvim",
+			event = "VeryLazy",
+			opts = {
+				-- recommended settings
+				default = {
+					embed_image_as_base64 = false,
+					prompt_for_file_name = false,
+					drag_and_drop = {
+						insert_mode = true,
+					},
+					-- required for Windows users
+					use_absolute_path = true,
+				},
+			},
+		},
 		{
 			-- Make sure to set this up properly if you have lazy=true
 			"MeanderingProgrammer/render-markdown.nvim",
@@ -24,14 +40,15 @@ return {
 		},
 	},
 	opts = {
-		-- provider = "copilot",
 		provider = "openrouter",
-		vendors = {
+		providers = {
 			openrouter = {
 				__inherited_from = "openai",
 				endpoint = "https://openrouter.ai/api/v1",
 				api_key_name = "OPENROUTER_API_KEY",
-				model = "google/gemini-2.5-pro-preview",
+				-- model = "anthropic/claude-sonnet-4",
+				-- model = "anthropic/claude-3.7-sonnet",
+				model = "google/gemini-2.5-pro",
 			},
 		},
 		-- behaviour = {
