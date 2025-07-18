@@ -141,7 +141,6 @@ return {
 			},
 		})
 
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
 		local servers = {
 			bashls = {},
 			clangd = {},
@@ -173,23 +172,16 @@ return {
 			pyright = {},
 			ruff = {},
 			rust_analyzer = {
-				check = {
-					command = "clippy",
-					-- extraArgs = { "--no-deps" },
+				settings = {
+					["rust-analyzer"] = {
+						check = {
+							command = "clippy",
+						},
+					},
 				},
 			},
 			svelte = {},
 			ltex = {},
-			ts_ls = {
-				root_dir = require("lspconfig").util.root_pattern({ "package.json", "tsconfig.json" }),
-				single_file_support = false,
-				settings = {},
-			},
-			-- denols = {
-			-- 	root_dir = require("lspconfig").util.root_pattern({ "deno.json", "deno.jsonc" }),
-			-- 	single_file_support = false,
-			-- 	settings = {},
-			-- },
 			templ = {},
 			tailwindcss = {
 				filetypes = {
@@ -219,20 +211,26 @@ return {
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+		---@type MasonLspconfigSettings
+		---@diagnostic disable-next-line: missing-fields
 		require("mason-lspconfig").setup({
-			ensure_installed = {}, -- handled by mason-tool-installer
-			automatic_installation = false,
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for ts_ls)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
+			automatic_enable = vim.tbl_keys(servers or {}),
+			require("lazydev").setup(),
 		})
-		require("lazydev").setup()
+
+		for server_name, config in pairs(servers) do
+			vim.lsp.config(server_name, config)
+		end
+		local nvim_lsp = require("lspconfig")
+		nvim_lsp.denols.setup({
+			on_attach = on_attach,
+			root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+		})
+
+		nvim_lsp.ts_ls.setup({
+			on_attach = on_attach,
+			root_dir = nvim_lsp.util.root_pattern("package.json"),
+			single_file_support = false,
+		})
 	end,
 }
