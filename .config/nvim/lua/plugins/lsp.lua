@@ -142,11 +142,17 @@ return {
 			},
 		})
 
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
+
 		local servers = {
 			bashls = {},
 			clangd = {},
 			cmake = {},
 			cssls = {},
+			denols = {
+				root_markers = { "deno.json", "deno.jsonc" },
+				workspace_required = true,
+			},
 			eslint = {},
 			gopls = {
 				gopls = {
@@ -201,9 +207,22 @@ return {
 					},
 				},
 			},
+			ts_ls = {
+				root_dir = function(bufnr, on_dir)
+					local root_path = vim.fs.find("package.json", {
+						upward = true,
+						type = "file",
+						path = vim.fn.getcwd(),
+					})[1]
+
+					if root_path then
+						on_dir(vim.fn.fnamemodify(root_path, ":h"))
+					end
+				end,
+			},
 			yamlls = {},
 			black = {},
-			nil_ls = {},
+			-- nil_ls = {},
 		}
 
 		local ensure_installed = vim.tbl_keys(servers or {})
@@ -219,19 +238,11 @@ return {
 			require("lazydev").setup(),
 		})
 
-		for server_name, config in pairs(servers) do
-			vim.lsp.config(server_name, config)
+		for server_name, server_config in pairs(servers) do
+			server_config.capabilities =
+				vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
+			vim.lsp.config(server_name, server_config)
+			vim.lsp.enable(server_name)
 		end
-		local nvim_lsp = require("lspconfig")
-		nvim_lsp.denols.setup({
-			on_attach = on_attach,
-			root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-		})
-
-		nvim_lsp.ts_ls.setup({
-			on_attach = on_attach,
-			root_dir = nvim_lsp.util.root_pattern("package.json"),
-			single_file_support = false,
-		})
 	end,
 }

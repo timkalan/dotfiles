@@ -21,6 +21,7 @@ field to it (and also stow it!).
 - `zsh` (shell)
 - `tmux` (terminal multiplexer)
 - `neovim` (editor)
+- `starship` (prompt)
 
 ## Requirements (wip)
 - `homebrew` (package manager)
