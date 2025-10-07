@@ -19,6 +19,7 @@ return {
 			enabled = true,
 			ui_select = true,
 		},
+		explorer = { enabled = true },
 		words = { enabled = true },
 	},
 	keys = {
@@ -110,6 +111,13 @@ return {
 				Snacks.picker.help()
 			end,
 			desc = "[F]ind [H]elp",
+		},
+		{
+			"<leader>fe",
+			function()
+				Snacks.explorer()
+			end,
+			desc = "[F]ile [E]xplorer",
 		},
 		{
 			"]]",
