@@ -41,6 +41,7 @@ path_prepend "/usr/local/opt/llvm/bin"
 path_prepend "/usr/local/smlnj/bin"
 path_prepend "/usr/local/opt/node@20/bin"
 path_prepend "/opt/homebrew/opt/libpq/bin"
+path_prepend "$(go env GOPATH)/bin"
 path_append "$GOPATH/bin"
 path_append "/opt/local/bin"
 

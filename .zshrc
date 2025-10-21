@@ -13,6 +13,7 @@ fi
 # General
 alias vim="nvim"
 alias vi="nvim"
+alias v="nvim"
 alias py="python3"
 alias python="python3"
 alias cl="clear"
@@ -36,6 +37,9 @@ alias tn="tmux new -s"
 alias sd='cd "$(fd . --type d | fzf)"'
 alias sdp='cd ~/projects && cd "$(fd . --type d | fzf)"'
 alias sdw='cd ~/projects/work && cd "$(fd . --type d | fzf)"'
+
+# Zoxide
+alias cd='z'
 
 # --- History ---
 HISTFILE=~/.zsh_history
@@ -94,6 +98,9 @@ export ZVM_INIT_MODE=sourcing
 
 # --- fzf shell integration ---
 eval "$(fzf --zsh)"
+
+# --- zoxide ---
+eval "$(zoxide init zsh)"
 
 # --- Tmux sessionizer keybind ---
 # define a widget that runs your script
