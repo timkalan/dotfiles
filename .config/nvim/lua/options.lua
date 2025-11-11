@@ -63,3 +63,9 @@ vim.o.winborder = "rounded"
 -- show some extra whitespace
 vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+-- word wrap
+vim.o.wrap = true
+vim.o.linebreak = true
+vim.opt.showbreak = "↪ "
+vim.o.breakindent = true

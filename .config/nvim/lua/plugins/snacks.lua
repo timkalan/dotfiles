@@ -113,6 +113,20 @@ return {
 			desc = "[F]ind [H]elp",
 		},
 		{
+			"<leader>fp",
+			function()
+				Snacks.picker.gh_pr()
+			end,
+			desc = "GitHub Pull Requests (open)",
+		},
+		{
+			"<leader>fP",
+			function()
+				Snacks.picker.gh_pr({ state = "all" })
+			end,
+			desc = "GitHub Pull Requests (all)",
+		},
+		{
 			"<leader>fe",
 			function()
 				Snacks.explorer()

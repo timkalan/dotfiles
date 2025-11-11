@@ -102,6 +102,9 @@ eval "$(fzf --zsh)"
 # --- zoxide ---
 eval "$(zoxide init zsh)"
 
+# --- mise ---
+eval "$(~/.local/bin/mise activate zsh)"
+
 # --- Tmux sessionizer keybind ---
 # define a widget that runs your script
 tmux_sessionizer_widget() {

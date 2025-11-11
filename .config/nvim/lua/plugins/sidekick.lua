@@ -39,11 +39,18 @@ return {
 		{
 			"<leader>as",
 			function()
-				require("sidekick.cli").select()
+				-- require("sidekick.cli").select()
+				-- Or to select only installed tools:
+				require("sidekick.cli").select({ filter = { installed = true } })
 			end,
-			-- Or to select only installed tools:
-			-- require("sidekick.cli").select({ filter = { installed = true } })
 			desc = "Select CLI",
+		},
+		{
+			"<leader>af",
+			function()
+				require("sidekick.cli").send({ msg = "{file}" })
+			end,
+			desc = "Send File",
 		},
 		{
 			"<leader>at",
