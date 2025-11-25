@@ -9,7 +9,7 @@ return {
 		local config = require("nvim-treesitter.configs")
 		config.setup({
 			sync_install = false,
-			ensure_installed = {},
+			ensure_installed = { "go", "typescript" },
 			ignore_install = {},
 			modules = {},
 			auto_install = true,
@@ -27,6 +27,7 @@ return {
 					node_decremental = "<M-Down>",
 				},
 			},
+			textobjects = { enable = true },
 		})
 		vim.api.nvim_set_hl(0, "TreesitterContext", { link = "ColorColumn" })
 	end,

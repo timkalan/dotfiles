@@ -1,6 +1,7 @@
 return {
 	"folke/sidekick.nvim",
 	opts = {
+		nes = { enabled = false },
 		cli = {
 			mux = {
 				backend = "tmux",
@@ -32,30 +33,28 @@ return {
 		{
 			"<leader>aa",
 			function()
-				require("sidekick.cli").toggle()
+				require("sidekick.cli").toggle({ name = "opencode" })
 			end,
 			desc = "Sidekick Toggle CLI",
 		},
 		{
 			"<leader>as",
 			function()
-				-- require("sidekick.cli").select()
-				-- Or to select only installed tools:
-				require("sidekick.cli").select({ filter = { installed = true } })
+				require("sidekick.cli").select()
 			end,
 			desc = "Select CLI",
 		},
 		{
 			"<leader>af",
 			function()
-				require("sidekick.cli").send({ msg = "{file}" })
+				require("sidekick.cli").send({ msg = "{file}", name = "opencode" })
 			end,
 			desc = "Send File",
 		},
 		{
 			"<leader>at",
 			function()
-				require("sidekick.cli").send({ msg = "{this}" })
+				require("sidekick.cli").send({ msg = "{this}", name = "opencode" })
 			end,
 			mode = { "x", "n" },
 			desc = "Send This",
@@ -63,7 +62,7 @@ return {
 		{
 			"<leader>av",
 			function()
-				require("sidekick.cli").send({ msg = "{selection}" })
+				require("sidekick.cli").send({ msg = "{selection}", name = "opencode" })
 			end,
 			mode = { "x" },
 			desc = "Send Visual Selection",
@@ -71,7 +70,7 @@ return {
 		{
 			"<leader>ap",
 			function()
-				require("sidekick.cli").prompt()
+				require("sidekick.cli").prompt({ name = "opencode" })
 			end,
 			mode = { "n", "x" },
 			desc = "Sidekick Select Prompt",
@@ -84,11 +83,10 @@ return {
 			mode = { "n", "x", "i", "t" },
 			desc = "Sidekick Switch Focus",
 		},
-		-- Example of a keybinding to open Claude directly
 		{
 			"<leader>ac",
 			function()
-				require("sidekick.cli").toggle({ name = "claude", focus = true })
+				require("sidekick.cli").toggle({ name = "opencode", focus = true })
 			end,
 			desc = "Sidekick Toggle Claude",
 		},

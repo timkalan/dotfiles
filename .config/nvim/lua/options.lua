@@ -22,7 +22,7 @@ vim.swapfile = false
 vim.o.clipboard = "unnamedplus"
 
 -- persistent gutter
-vim.o.signcolumn = "yes"
+vim.o.signcolumn = "yes:2"
 
 -- smarter searching
 vim.o.ignorecase = true
