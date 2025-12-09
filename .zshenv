@@ -9,8 +9,6 @@ export GOPRIVATE="github.com/zerodays,github.com/llamajet"
 export EDITOR=nvim
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # --- Environment variables ---
 if [[ -r ~/.env ]]; then
@@ -27,22 +25,22 @@ path_append() {
   [ -d "$1" ] && PATH="$PATH:$1"
 }
 
-# Reset PATH to something minimal
-PATH="/usr/bin:/bin:/usr/sbin:/sbin"
-
 # Prepend/append custom paths
 path_prepend "$HOME/.cargo/bin"
-path_prepend "/opt/homebrew/bin"
-path_prepend "/opt/homebrew/sbin"
 path_prepend "$HOME/.local/bin"
-path_prepend "$HOME/go/bin"
 path_prepend "$HOME/.scripts"
 path_prepend "/usr/local/opt/llvm/bin"
 path_prepend "/usr/local/smlnj/bin"
 path_prepend "/usr/local/opt/node@20/bin"
 path_prepend "/opt/homebrew/opt/libpq/bin"
-path_prepend "$(go env GOPATH)/bin"
-path_append "$GOPATH/bin"
+path_prepend "$GOPATH/bin"
+
+# pnpm
+export PNPM_HOME="/Users/timkalan/Library/pnpm"
+path_prepend "$PNPM_HOME"
+
 path_append "/opt/local/bin"
 
 export PATH
+
+unset -f path_prepend path_append

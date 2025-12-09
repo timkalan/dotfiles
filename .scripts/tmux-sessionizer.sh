@@ -43,7 +43,7 @@ if [[ $# -eq 1 ]]; then
     selected=$1
 else
     # Interactively select a directory
-    selected=$(fd --hidden --no-ignore --min-depth 1 --max-depth 2 --type d . ~ ~/projects/work ~/projects/personal ~/.config 2>/dev/null | fzf)
+    selected=$(fd --hidden --no-ignore --min-depth 1 --max-depth 2 --type d . ~ ~/projects/work ~/projects/personal ~/.config 2>/dev/null | fzf || true)
 fi
 
 if [[ -z $selected ]]; then
@@ -51,21 +51,14 @@ if [[ -z $selected ]]; then
 fi
 
 # Sanitize the directory name to create a valid tmux session name.
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
+selected_name=$(basename "$selected" | tr . _ | tr : _)
+tmux_running=$(pgrep tmux || true)
 
-# Case 1: No tmux server is running. Create one.
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s "$selected_name" -c "$selected" -n editor
-    setup_new_session_windows "$selected_name" "$selected"
-    exit 0
-fi
-
-# Case 2: Tmux server is running, but the session doesn't exist. Create it detached.
+# Create the session if it doesn't exist.
 if ! has_session "$selected_name"; then
     tmux new-session -ds "$selected_name" -c "$selected" -n editor
     setup_new_session_windows "$selected_name" "$selected"
 fi
 
-# Attach to the session (which now is guaranteed to exist).
+# Attach to the session.
 switch_to "$selected_name"

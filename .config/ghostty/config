@@ -1,5 +1,16 @@
 theme = Gruvbox Dark
 font-family = JetBrainsMono Nerd Font
-mouse-hide-while-typing = true
+font-thicken = true
+font-size = 14
 window-padding-balance = true
+
+mouse-hide-while-typing = true
+copy-on-select = true
 window-save-state = always
+shell-integration = detect
+shell-integration-features = cursor, sudo, title
+
+# macos-option-as-alt = left
+keybind = cmd+t=unbind
+keybind = cmd+w=unbind
+keybind = cmd+enter=unbind
