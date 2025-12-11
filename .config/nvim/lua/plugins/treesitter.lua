@@ -1,7 +1,14 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
-		{ "nvim-treesitter/nvim-treesitter-context", opts = { enable = true } },
+		{
+			"nvim-treesitter/nvim-treesitter-context",
+			opts = {
+				enable = true,
+				max_lines = 10,
+				trim_scope = "outer",
+			},
+		},
 		{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
 	build = ":TSUpdate",
@@ -9,7 +16,7 @@ return {
 		local config = require("nvim-treesitter.configs")
 		config.setup({
 			sync_install = false,
-			ensure_installed = { "go", "typescript" },
+			ensure_installed = { "go", "typescript", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 			ignore_install = {},
 			modules = {},
 			auto_install = true,
