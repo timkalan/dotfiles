@@ -42,6 +42,7 @@ return {
 			sh = { "shfmt" },
 			templ = { "templ", "rustywind" },
 			yaml = { "prettier", "biome" },
+			nix = { "nixfmt" },
 		},
 	},
 }
