@@ -9,37 +9,6 @@ else
     compinit -i -d "$ZDOTDIR/.zcompdump" # -d to specify dump file
 fi
 
-# --- Aliases ---
-# General
-alias vim="nvim"
-alias vi="nvim"
-alias v="nvim"
-alias py="python3"
-alias python="python3"
-alias cl="clear"
-alias ls="eza -lahF --git --icons"
-alias tree="tree -C"
-
-# Git
-alias lg="lazygit"
-alias gst="git status"
-alias gf="git fetch"
-alias gp="git pull"
-
-# Tmux
-alias ta="tmux a -t"
-alias tk="tmux kill-session -t"
-alias tl="tmux ls"
-alias tn="tmux new -s"
-
-# Directory navigation with fzf
-# If you have fd installed
-alias sd='cd "$(fd . --type d | fzf)"'
-alias sdp='cd ~/projects && cd "$(fd . --type d | fzf)"'
-alias sdw='cd ~/projects/work && cd "$(fd . --type d | fzf)"'
-
-# Zoxide
-
 
 # --- History ---
 HISTFILE=~/.zsh_history
@@ -77,66 +46,16 @@ setopt AUTO_MENU            # Automatically use menu completion.
 setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 setopt ALWAYS_TO_END        # Move cursor to the end of a completed word.
 
-# --- Plugins ---
-if (( $+commands[brew] )); then
-  BREW_PREFIX=$(brew --prefix)
-else
-  BREW_PREFIX="/opt/homebrew"
-fi
-
-# Autosuggestions
-[[ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
-  source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Syntax highlighting
-[[ -f $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
-  source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Vi-mode
-export ZVM_INIT_MODE=sourcing
-[[ -f $BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && \
-  source "$BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-
-# Some things depend on the plugins to run, so they come after
 
 # --- fzf shell integration ---
 eval "$(fzf --zsh)"
 export FZF_DEFAULT_OPTS="--preview '$HOME/.scripts/fzf-preview.sh {}'"
 bindkey '^g' fzf-cd-widget
 
-gsf() {
-  local branch=$(git branch -a | sed 's/^\*/ /' | fzf --preview "git log --oneline -n 10 --graph --color=always $(echo {} | sed 's/remotes\/origin\///' | sed 's/ //g')")
-  if [[ -n "$branch" ]]; then
-    git switch $(echo "$branch" | sed 's/remotes\/origin\///' | sed 's/ //g')
-  fi
-}
-
-alias glf='git log --pretty=oneline --graph --color=always | fzf --preview "git show --color=always {+1}"'
-
-fkill() {
-  local pid=$(ps -ef | sed 1d | fzf -m --preview 'echo {}' | awk '{print $2}')
-  if [[ -n "$pid" ]]; then
-    echo "$pid" | xargs kill -9
-  fi
-}
 
 # --- shai shell integration ---
 eval "$(shai --zsh-init)"
 
-# --- zoxide ---
-eval "$(zoxide init zsh --cmd cd)"
-
-# --- nvm ---
-export NVM_DIR="$HOME/.nvm"
-nvm() {
-  unset -f nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
-  nvm "$@"
-}
-
-# --- mise ---
-eval "$(~/.local/bin/mise activate zsh)"
 
 # --- Tmux sessionizer keybind ---
 # define a widget that runs your script
@@ -150,5 +69,3 @@ zle -N tmux_sessionizer_widget
 bindkey -M viins '^F' tmux_sessionizer_widget
 bindkey -M vicmd '^F' tmux_sessionizer_widget
 
-# Prompt
-eval "$(starship init zsh)"

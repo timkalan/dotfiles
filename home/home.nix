@@ -10,24 +10,28 @@
   };
 
   home.packages = with pkgs; [
+    # vanity
     fastfetch
 
+    # useful tools
     ripgrep
     fd
     jq
     fzf
     eza
+    zoxide
     unzip
     tmux
 
+    # monitoring
     btop
     iotop
     iftop
-
     strace
     ltrace
     lsof
 
+    # git
     gh
     lazygit
 
@@ -40,12 +44,21 @@
     lua
     python314
     nixfmt
+
+    # games
+    heroic
   ];
 
   programs.git = import ./git.nix { inherit pkgs; };
 
   programs.starship = {
     enable = true;
+    settings = {
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
+    };
   };
 
   programs.ghostty = {
@@ -67,9 +80,31 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake .";
+      rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/";
       lg = "lazygit";
+      ls = "eza -lahF --git --icons";
+      tree = "tree -C";
     };
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    plugins = [
+      {
+        name = "vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
+    ];
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    options = [ "--cmd cd" ];
   };
 
   programs.neovim = {

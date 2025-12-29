@@ -14,7 +14,6 @@ return {
 			},
 		})
 		require("mini.surround").setup()
-		require("mini.pairs").setup()
 		require("mini.splitjoin").setup({
 			mappings = { toggle = "<leader>m", split = "<leader>s", join = "<leader>j" },
 		})

@@ -5,16 +5,17 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-c792f8d3-e1ff-4c14-9e85-3a7210967788".device = "/dev/disk/by-uuid/c792f8d3-e1ff-4c14-9e85-3a7210967788";
+  boot.initrd.luks.devices."luks-c792f8d3-e1ff-4c14-9e85-3a7210967788".device =
+    "/dev/disk/by-uuid/c792f8d3-e1ff-4c14-9e85-3a7210967788";
   networking.hostName = "davor"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -44,11 +45,22 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services = {
+    xserver.enable = true;
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+    desktopManager.gnome = {
+      enable = true;
+      extraGSettingsOverridePackages = [ pkgs.mutter ];
+      extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer', 'xwayland-native-scaling']
+      '';
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -82,21 +94,28 @@
   users.users.timkalan = {
     isNormalUser = true;
     description = "Tim Kalan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z"
     ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
+      tmux
     ];
     useDefaultShell = true;
   };
 
-  # Install firefox.
   programs.firefox.enable = true;
-
+  programs.steam.enable = true;
+  programs.gamemode.enable = true;
   programs._1password.enable = true;
-  programs._1password-gui.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "timkalan" ];
+  };
 
   # zsh is the preferred shell
   programs.zsh.enable = true;
@@ -109,8 +128,11 @@
   # TODO: move off of Mason
   programs.nix-ld.enable = true;
 
-  # Enable flakes 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  # Enable flakes
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
