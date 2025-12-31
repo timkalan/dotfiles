@@ -47,7 +47,29 @@
 
     # games
     heroic
+
+    # hyprland
+    waybar
+    dunst
+    wofi
+    hyprpaper
+    kitty # TODO: can i remove this?
   ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "$mod" = "SUPER";
+      bind = [
+        "$mod, Q, exec, ghostty"
+        "$mod, M, exit"
+        "$mod, space, exec, wofi --show drun"
+      ];
+    };
+  };
+
+  programs.wofi = import ./wofi.nix { inherit pkgs; };
+  programs.waybar = import ./waybar.nix { inherit pkgs; };
 
   programs.git = import ./git.nix { inherit pkgs; };
 
