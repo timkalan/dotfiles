@@ -21,7 +21,6 @@
     tokei
     hyperfine
     fastfetch
-    stow
 
     gh
     lazygit

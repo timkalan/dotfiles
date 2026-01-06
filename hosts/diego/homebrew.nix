@@ -36,9 +36,6 @@ _: {
       "sqlite"
       "stripe"
       "supabase"
-      "zsh-autosuggestions"
-      "zsh-syntax-highlighting"
-      "zsh-vi-mode"
 
       # megabon
       "pixman"

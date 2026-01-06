@@ -1,8 +1,9 @@
-{ username, ... }:
+{ inputs, username, ... }:
 {
   imports = [
     ./homebrew.nix
     ../../shared
+    inputs.home-manager.darwinModules.home-manager
   ];
 
   # Free some storage space
@@ -69,5 +70,19 @@
     enable = true;
     touchIdAuth = true;
     reattach = true;
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+
+    # "backup" creates .backup files if there is a conflict
+    backupFileExtension = "backup";
+
+    users.${username} = {
+      imports = [
+        ../../shared/home.nix
+      ];
+    };
   };
 }
