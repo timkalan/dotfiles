@@ -15,15 +15,6 @@ has_session() {
     tmux has-session -t "$1" 2>/dev/null
 }
 
-# Run a setup script inside the new session if one exists.
-hydrate() {
-    if [ -f "$2/.tmux-sessionizer" ]; then
-        tmux send-keys -t "$1" "source '$2/.tmux-sessionizer'" C-m
-    elif [ -f "$HOME/.tmux-sessionizer" ]; then
-        tmux send-keys -t "$1" "source '$HOME/.tmux-sessionizer'" C-m
-    fi
-}
-
 # Configure the windows for a newly created session.
 setup_new_session_windows() {
     local session_name="$1"
@@ -34,8 +25,15 @@ setup_new_session_windows() {
 
     tmux select-window -t "$editor_window_target"
 
-    tmux send-keys -t "$editor_window_target" 'nvim .' C-m
-    hydrate "$session_name" "$session_path"
+    local cmd="nvim ."
+
+    if [ -f "$session_path/.tmux-sessionizer" ]; then
+        cmd="source '$session_path/.tmux-sessionizer'; $cmd"
+    elif [ -f "$HOME/.tmux-sessionizer" ]; then
+        cmd="source '$HOME/.tmux-sessionizer'; $cmd"
+    fi
+
+    tmux send-keys -t "$editor_window_target" "$cmd" C-m
 }
 
 
@@ -43,7 +41,7 @@ if [[ $# -eq 1 ]]; then
     selected=$1
 else
     # Interactively select a directory
-    selected=$(fd --hidden --no-ignore --min-depth 1 --max-depth 2 --type d . ~ ~/projects/work ~/projects/personal ~/.config 2>/dev/null | fzf || true)
+    selected=$(fd --min-depth 1 --max-depth 2 --type d . ~/projects/work ~/projects/personal ~ 2>/dev/null | fzf || true)
 fi
 
 if [[ -z $selected ]]; then
