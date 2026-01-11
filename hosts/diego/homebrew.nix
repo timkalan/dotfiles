@@ -31,11 +31,13 @@ _: {
       "heroku"
       "infisical"
       "memcached"
-      "opencode"
       "redis"
       "sqlite"
       "stripe"
       "supabase"
+      "zsh-autosuggestions"
+      "zsh-syntax-highlighting"
+      "zsh-vi-mode"
 
       # megabon
       "pixman"

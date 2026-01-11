@@ -13,7 +13,6 @@
     eza
     fzf
     zoxide
-    starship
     direnv
     jq
     tldr
@@ -30,6 +29,7 @@
     golangci-lint
     nodejs_24
     deno
+    bun
     python3
     lua
     luajit
@@ -42,5 +42,6 @@
     imagemagick
 
     slides
+    opencode
   ];
 }
