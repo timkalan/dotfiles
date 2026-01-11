@@ -1,12 +1,14 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # basic tools
     neovim
     tmux
     git
     wget
     curl
 
+    # fancy tools
     ripgrep
     fd
     bat
@@ -21,12 +23,13 @@
     hyperfine
     fastfetch
 
+    # devops
     gh
     lazygit
     lazydocker
 
+    # languages
     go
-    golangci-lint
     nodejs_24
     deno
     bun
@@ -35,12 +38,35 @@
     luajit
     cmake
     gnumake
-    nixfmt
     postgresql
 
+    # language tools
+    bash-language-server
+    clang-tools
+    gopls
+    golangci-lint
+    lua-language-server
+    pyright
+    ruff
+    rust-analyzer
+    tailwindcss-language-server
+    vscode-langservers-extracted
+    vtsls
+    yaml-language-server
+    nil
+
+    biome
+    black
+    isort
+    nixfmt
+    shfmt
+    stylua
+
+    # media
     ffmpeg
     imagemagick
 
+    # other
     slides
     opencode
   ];
