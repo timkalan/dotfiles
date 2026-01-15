@@ -143,23 +143,29 @@ return {
 
 		local servers = {
 			bashls = {},
+			biome = {},
 			clangd = {},
 			cssls = {},
 			denols = {
 				root_markers = { "deno.json", "deno.jsonc" },
 				workspace_required = true,
 			},
+			docker_compose_language_service = {},
 			eslint = {},
 			gopls = {
-				gopls = {
-					hints = {
-						compositeLiteralFields = true,
-						constantValues = true,
-						functionTypeParameters = true,
-						parameterNames = true,
-						rangeVariableTypes = true,
+				settings = {
+					gopls = {
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+						usePlaceholders = true,
+						staticcheck = true,
 					},
-					usePlaceholders = true,
 				},
 			},
 			golangci_lint_ls = {},
@@ -172,6 +178,7 @@ return {
 				},
 			},
 			-- ocamllsp = {},
+			marksman = {},
 			pyright = {},
 			ruff = {},
 			rust_analyzer = {
@@ -200,6 +207,7 @@ return {
 					},
 				},
 			},
+			taplo = {},
 			vtsls = {
 				root_markers = { "package.json" },
 				single_file_support = false,

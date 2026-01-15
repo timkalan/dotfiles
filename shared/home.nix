@@ -77,6 +77,8 @@
         "cmd+t=unbind"
         "cmd+w=unbind"
         "cmd+n=unbind"
+        "cmd+d=unbind"
+        "cmd+shift+d=unbind"
         "cmd+enter=unbind"
       ];
     };

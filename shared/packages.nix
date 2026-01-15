@@ -22,6 +22,7 @@
     tokei
     hyperfine
     fastfetch
+    btop
 
     # devops
     gh
@@ -45,22 +46,35 @@
     clang-tools
     gopls
     golangci-lint
+    golangci-lint-langserver
     lua-language-server
+    marksman
     pyright
     ruff
     rust-analyzer
     tailwindcss-language-server
+    taplo
     vscode-langservers-extracted
     vtsls
     yaml-language-server
     nil
 
+    actionlint
     biome
     black
+    codespell
+    hadolint
     isort
+    markdownlint-cli
     nixfmt
+    shellcheck
     shfmt
+    statix
     stylua
+    yamllint
+
+    protobuf
+    protoc-gen-go
 
     # media
     ffmpeg
@@ -69,5 +83,6 @@
     # other
     slides
     opencode
+    claude-code
   ];
 }
