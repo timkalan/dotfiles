@@ -8,7 +8,6 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    cowsay
     starship
   ];
 
@@ -34,6 +33,9 @@
     ignores = [
       ".DS_Store"
       ".env"
+      ".envrc"
+      ".direnv"
+      ".direnv/"
     ];
 
     includes = [
@@ -126,6 +128,11 @@
         error_symbol = "[➜](bold red)";
       };
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   home.file.".zshrc" = {

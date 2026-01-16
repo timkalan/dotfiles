@@ -7,6 +7,7 @@
     git
     wget
     curl
+    direnv
 
     # fancy tools
     ripgrep

@@ -39,6 +39,7 @@ alias sdp='cd ~/projects && cd "$(fd . --type d | fzf)"'
 alias sdw='cd ~/projects/work && cd "$(fd . --type d | fzf)"'
 
 alias rebuild='sudo darwin-rebuild switch --flake $HOME/dotfiles/'
+alias finit='rm -rf .envrc .direnv && echo "use flake" > .envrc && direnv allow'
 
 # Zoxide
 
@@ -100,6 +101,9 @@ export ZVM_INIT_MODE=sourcing
   source "$BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 # Some things depend on the plugins to run, so they come after
+
+# --- direnv ---
+eval "$(direnv hook zsh)"
 
 # --- fzf shell integration ---
 eval "$(fzf --zsh)"
