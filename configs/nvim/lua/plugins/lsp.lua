@@ -16,6 +16,10 @@ return {
 			"folke/lazydev.nvim",
 			ft = "lua",
 		},
+		{
+			"dmmulroy/ts-error-translator.nvim",
+			opts = {}, -- Automatic setup
+		},
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {

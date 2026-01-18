@@ -1,15 +1,18 @@
 { config, pkgs, ... }:
 
 {
-  # The version of Home Manager you are using.
-  home.stateVersion = "25.11";
+  home = {
+    # The version of Home Manager you are using.
+    stateVersion = "25.11";
+    packages = with pkgs; [
+      starship
+    ];
+  };
 
-  # Let Home Manager manage itself.
-  programs.home-manager.enable = true;
-
-  home.packages = with pkgs; [
-    starship
-  ];
+  programs = {
+    # Let Home Manager manage itself.
+    home-manager.enable = true;
+  };
 
   programs.git = {
     enable = true;
@@ -135,31 +138,33 @@
     nix-direnv.enable = true;
   };
 
-  home.file.".zshrc" = {
-    source = ./../.zshrc;
-  };
-  home.file.".zprofile" = {
-    source = ./../.zprofile;
-  };
-  home.file.".zshenv" = {
-    source = ./../.zshenv;
+  home.file = {
+    ".zshrc" = {
+      source = ./../configs/.zshrc;
+    };
+    ".zprofile" = {
+      source = ./../configs/.zprofile;
+    };
+    ".zshenv" = {
+      source = ./../configs/.zshenv;
+    };
+    ".tmux.conf" = {
+      source = ./../configs/.tmux.conf;
+    };
+    ".scripts/fzf-preview.sh" = {
+      source = ./../scripts/fzf-preview.sh;
+      executable = true;
+    };
+    ".scripts/tmux-sessionizer.sh" = {
+      source = ./../scripts/tmux-sessionizer.sh;
+      executable = true;
+    };
   };
 
-  xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
-
-  home.file.".tmux.conf" = {
-    source = ./../.tmux.conf;
-  };
-
-  home.file.".scripts/fzf-preview.sh" = {
-    source = ./../scripts/fzf-preview.sh;
-    executable = true;
-  };
-
-  home.file.".scripts/tmux-sessionizer.sh" = {
-    source = ./../scripts/tmux-sessionizer.sh;
-    executable = true;
+  xdg.configFile = {
+    "nvim".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
+    "aerospace/aerospace.toml".source = ../configs/aerospace/aerospace.toml;
   };
 
 }
