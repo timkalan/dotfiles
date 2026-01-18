@@ -12,7 +12,13 @@
   };
 
   outputs =
-    inputs@{ self, nix-darwin, ... }:
+    inputs@{
+      self,
+      nix-darwin,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     let
       username = "timkalan";
     in
@@ -21,6 +27,24 @@
         specialArgs = { inherit self username inputs; };
         modules = [
           ./hosts/diego
+        ];
+      };
+
+      nixosConfigurations."davor" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit self username inputs; };
+        modules = [
+          ./hosts/davor
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit username inputs; };
+              users.${username} = import ./hosts/davor/home.nix;
+            };
+          }
         ];
       };
     };

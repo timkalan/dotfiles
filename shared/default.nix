@@ -11,6 +11,9 @@
     ];
   };
 
+  # Optimize storage (hard-link duplicates)
+  nix.optimise.automatic = true;
+
   nixpkgs.config.allowUnfree = true;
   programs.zsh.enable = true;
 

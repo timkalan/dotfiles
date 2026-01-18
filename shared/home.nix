@@ -64,7 +64,6 @@
 
   programs.ghostty = {
     enable = true;
-    package = null; # Don't try to install this package (macos thing)
     enableZshIntegration = true;
     settings = {
       font-size = 14;
@@ -77,15 +76,6 @@
       window-save-state = "always";
       shell-integration = "detect";
       shell-integration-features = "cursor, sudo, title";
-
-      keybind = [
-        "cmd+t=unbind"
-        "cmd+w=unbind"
-        "cmd+n=unbind"
-        "cmd+d=unbind"
-        "cmd+shift+d=unbind"
-        "cmd+enter=unbind"
-      ];
     };
   };
 
@@ -164,7 +154,6 @@
   xdg.configFile = {
     "nvim".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
-    "aerospace/aerospace.toml".source = ../configs/aerospace/aerospace.toml;
   };
 
 }
