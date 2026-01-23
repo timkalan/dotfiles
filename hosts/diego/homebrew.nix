@@ -38,13 +38,6 @@ _: {
       "zsh-autosuggestions"
       "zsh-syntax-highlighting"
       "zsh-vi-mode"
-
-      # megabon
-      "pixman"
-      "cairo"
-      "pango"
-      "jpeg-turbo"
-      "giflib"
     ];
 
     taps = [

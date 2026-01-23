@@ -60,6 +60,7 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    withNodeJs = true;
   };
 
   programs.ghostty = {
