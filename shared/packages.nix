@@ -38,6 +38,7 @@
     lua
     luajit
     cmake
+    gcc
     gnumake
     postgresql
 
