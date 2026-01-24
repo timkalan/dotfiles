@@ -135,19 +135,19 @@
     nix-direnv.enable = true;
   };
 
+  programs.zsh = {
+    enable = true;
+    initContent = builtins.readFile ./../configs/.zshrc;
+    profileExtra = builtins.readFile ./../configs/.zprofile;
+    envExtra = builtins.readFile ./../configs/.zshenv;
+  };
+
+  programs.tmux = {
+    enable = true;
+    extraConfig = builtins.readFile ./../configs/.tmux.conf;
+  };
+
   home.file = {
-    ".zshrc" = {
-      source = ./../configs/.zshrc;
-    };
-    ".zprofile" = {
-      source = ./../configs/.zprofile;
-    };
-    ".zshenv" = {
-      source = ./../configs/.zshenv;
-    };
-    ".tmux.conf" = {
-      source = ./../configs/.tmux.conf;
-    };
     ".scripts/fzf-preview.sh" = {
       source = ./../scripts/fzf-preview.sh;
       executable = true;

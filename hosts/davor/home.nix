@@ -5,9 +5,15 @@
     ../../shared/home.nix
   ];
 
+  home.sessionVariables = {
+    PNPM_HOME = "$HOME/.local/share/pnpm";
+  };
+  home.sessionPath = [ "$HOME/.local/share/pnpm" ];
+
   home.packages = with pkgs; [
     # Monitoring (Linux specific tools)
     iotop
+    wl-clipboard
     iftop
     strace
     ltrace
@@ -36,16 +42,12 @@
     };
   };
 
-  # Assuming you have these files in hosts/davor/ or similar
-  # If they are simple, you can inline them here too.
   programs.wofi = import ./wofi.nix { inherit pkgs; };
   programs.waybar = import ./waybar.nix { inherit pkgs; };
 
   programs.ghostty = {
-    # Package is automagically handled by shared enable=true + pkgs.ghostty default
-    # We only override font size here if it differs from Mac
     settings = {
-      font-size = 12; # Your Mac config uses 14, so this override keeps Linux smaller
+      font-size = 12;
     };
   };
 
@@ -56,12 +58,11 @@
 
   programs.zsh = {
     shellAliases = {
-      # This alias is super helpful on Linux
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#davor";
-
-      # 'ls' and 'tree' aliases might duplicate shared/home.nix or shared/configs/.zshrc
-      # Check if you already have them there!
     };
-    # The plugins (vi-mode) might be better in shared/home.nix if you want them on Mac too!
   };
+
+  programs.tmux.extraConfig = ''
+    bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "wl-copy"
+  '';
 }

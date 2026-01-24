@@ -18,17 +18,11 @@
     loader.efi.canTouchEfiVariables = true;
     initrd.luks.devices."luks-c792f8d3-e1ff-4c14-9e85-3a7210967788".device =
       "/dev/disk/by-uuid/c792f8d3-e1ff-4c14-9e85-3a7210967788";
-    networking.hostName = "davor"; # Define your hostname.
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  networking.hostName = "davor";
   networking.networkmanager.enable = true;
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
