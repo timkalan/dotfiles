@@ -47,6 +47,8 @@
     bash-language-server
     clang-tools
     docker-compose-language-service
+    dockerfile-language-server
+    gofumpt
     gopls
     golangci-lint
     golangci-lint-langserver
@@ -65,15 +67,17 @@
     actionlint
     biome
     black
-    codespell
     hadolint
     isort
     markdownlint-cli
     nixfmt
+    prettierd
     shellcheck
     shfmt
     statix
     stylua
+    tree-sitter
+    typos
     rustywind
     yamllint
 

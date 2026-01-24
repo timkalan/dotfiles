@@ -58,6 +58,17 @@ return {
 				map("n", "<leader>hD", function()
 					gitsigns.diffthis("~")
 				end)
+				map("n", "<leader>tg", function()
+					require("gitsigns").setqflist("attached")
+					require("trouble").open("quickfix")
+				end, { desc = "Git Review (Current File)" })
+				map("n", "<leader>tG", function()
+					require("gitsigns").setqflist("all")
+					require("trouble").open("quickfix")
+				end, { desc = "Git Review (Current Project)" })
+				map("n", "<leader>fv", function()
+					Snacks.picker.git_status()
+				end, { desc = "Git Review (Current Project)" })
 
 				-- Text object
 				map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "text object: [i]nside [h]unk" })

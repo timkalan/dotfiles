@@ -155,6 +155,7 @@ return {
 				workspace_required = true,
 			},
 			docker_compose_language_service = {},
+			dockerls = {},
 			eslint = {},
 			gopls = {
 				settings = {
@@ -203,12 +204,6 @@ return {
 					"javascriptreact",
 					"typescript",
 					"typescriptreact",
-					"templ",
-				},
-				init_options = {
-					userLanguages = {
-						templ = "html",
-					},
 				},
 			},
 			taplo = {},
