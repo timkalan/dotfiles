@@ -35,10 +35,6 @@ path_prepend "/usr/local/opt/node@20/bin"
 path_prepend "/opt/homebrew/opt/libpq/bin"
 path_prepend "$GOPATH/bin"
 
-# pnpm
-export PNPM_HOME="/Users/timkalan/Library/pnpm"
-path_prepend "$PNPM_HOME"
-
 path_append "/opt/local/bin"
 
 export PATH

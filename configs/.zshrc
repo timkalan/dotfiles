@@ -21,7 +21,6 @@ alias ls="eza -lahF --git --icons"
 alias tree="tree -C"
 
 # Git
-alias lg="lazygit"
 alias gst="git status"
 alias gf="git fetch"
 alias gp="git pull"
@@ -38,7 +37,6 @@ alias sd='cd "$(fd . --type d | fzf)"'
 alias sdp='cd ~/projects && cd "$(fd . --type d | fzf)"'
 alias sdw='cd ~/projects/work && cd "$(fd . --type d | fzf)"'
 
-alias rebuild='sudo darwin-rebuild switch --flake $HOME/dotfiles/'
 alias finit='rm -rf .envrc .direnv && echo "use flake" > .envrc && direnv allow'
 
 # Zoxide
