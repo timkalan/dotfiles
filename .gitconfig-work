@@ -1,4 +1,0 @@
-[user]
-    name = Tim Kalan
-    email = tim.kalan@zerodays.dev
-    signingkey = ~/.ssh/id_ed25519.pub

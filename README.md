@@ -1,31 +1,32 @@
 # dotfiles
 
-This repo contains all the dotfiles to set up my development experience on a new machine.
+Nix flake configuration for my machines.
 
-## Installation
+## Hosts
 
-Clone this repository from your home folder, so you get a `~/dotfiles/` folder. `cd` into it and run
+- **diego** - macOS (darwin)
+- **davor** - NixOS (x86_64-linux)
+
+## Usage
 
 ```bash
-stow .
+# macOS
+darwin-rebuild switch --flake .
+
+# NixOS
+sudo nixos-rebuild switch --flake .
 ```
 
-To create the symlinks from this folder to the home folder. I am also now using a `.env` file with
-an API key for OpenRouter. You can make it in the root of this project and add a `OPENROUTER_API_KEY`,
-field to it (and also stow it!).
+## Structure
 
-## Tools
-- `aerospace` (window manager)
-- `ghostty` (terminal)
-- `wezterm` (terminal)
-- `zsh` (shell)
-- `tmux` (terminal multiplexer)
-- `neovim` (editor)
-- `starship` (prompt)
+```
+flake.nix          # Entry point
+hosts/             # Host-specific configs
+shared/            # Shared modules (home-manager, packages)
+configs/           # Dotfiles (nvim, zsh, tmux, etc.)
+```
 
-## Requirements (wip)
-- `homebrew` (package manager)
-- `fzf` (fuzzy finder)
-- `stow`
+## Personalization
 
-To find a lot of what requirements are missing, run `:checkhealth` in `nvim`.
+All personal data (name, email, SSH keys) is defined in `flake.nix`. Update the
+`let` block to make it your own.
