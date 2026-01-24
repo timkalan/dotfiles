@@ -37,6 +37,7 @@
     python3
     lua
     luajit
+    cargo
     cmake
     gcc
     gnumake

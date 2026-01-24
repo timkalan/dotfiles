@@ -106,7 +106,7 @@
 
       # Behavior settings
       git = {
-        paging = {
+        pager = {
           colorArg = "always";
           pager = "${pkgs.delta}/bin/delta --dark --paging=never";
         };
