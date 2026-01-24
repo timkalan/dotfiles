@@ -71,6 +71,7 @@
     shfmt
     statix
     stylua
+    rustywind
     yamllint
 
     protobuf

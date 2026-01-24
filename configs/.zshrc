@@ -78,27 +78,8 @@ setopt AUTO_MENU            # Automatically use menu completion.
 setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 setopt ALWAYS_TO_END        # Move cursor to the end of a completed word.
 
-# --- Plugins ---
-if (( $+commands[brew] )); then
-  BREW_PREFIX=$(brew --prefix)
-else
-  BREW_PREFIX="/opt/homebrew"
-fi
-
-# Autosuggestions
-[[ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
-  source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Syntax highlighting
-[[ -f $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
-  source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Vi-mode
+# --- Plugins (managed by home-manager) ---
 export ZVM_INIT_MODE=sourcing
-[[ -f $BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && \
-  source "$BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-
-# Some things depend on the plugins to run, so they come after
 
 # --- direnv ---
 eval "$(direnv hook zsh)"
@@ -125,7 +106,7 @@ fkill() {
 }
 
 # --- shai shell integration ---
-eval "$(shai --zsh-init)"
+(( $+commands[shai] )) && eval "$(shai --zsh-init)"
 
 # --- zoxide ---
 eval "$(zoxide init zsh --cmd cd)"

@@ -140,6 +140,15 @@
     initContent = builtins.readFile ./../configs/.zshrc;
     profileExtra = builtins.readFile ./../configs/.zprofile;
     envExtra = builtins.readFile ./../configs/.zshenv;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    plugins = [
+      {
+        name = "zsh-vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
+    ];
   };
 
   programs.tmux = {
