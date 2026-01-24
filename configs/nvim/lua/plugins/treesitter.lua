@@ -9,7 +9,7 @@ return {
 				trim_scope = "outer",
 			},
 		},
-		{ "nvim-treesitter/nvim-treesitter-textobjects", lazy = true },
+		{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main", lazy = true },
 	},
 	build = ":TSUpdate",
 	main = "nvim-treesitter",

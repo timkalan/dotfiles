@@ -46,6 +46,7 @@
     # language tools
     bash-language-server
     clang-tools
+    docker-compose-language-service
     gopls
     golangci-lint
     golangci-lint-langserver

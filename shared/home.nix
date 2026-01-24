@@ -104,14 +104,7 @@
         };
       };
 
-      # Behavior settings
-      git = {
-        pager = {
-          colorArg = "always";
-          pager = "${pkgs.delta}/bin/delta --dark --paging=never";
-        };
-        commit.signOff = true;
-      };
+      git.commit.signOff = true;
 
       # Disable the startup popup
       update.method = "never";

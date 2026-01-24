@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   ...
 }:
@@ -31,6 +32,10 @@
   };
 
   xdg.configFile."aerospace/aerospace.toml".source = ../../configs/aerospace/aerospace.toml;
+
+  # Symlink lazygit config from macOS location to XDG location
+  xdg.configFile."lazygit/config.yml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Application Support/lazygit/config.yml";
 
   programs.zsh.shellAliases = {
     rebuild = "sudo darwin-rebuild switch --flake ~/dotfiles";
