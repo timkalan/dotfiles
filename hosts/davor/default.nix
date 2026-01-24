@@ -1,4 +1,10 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  username,
+  fullName,
+  keys,
+  ...
+}:
 
 {
   imports = [
@@ -7,13 +13,15 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    initrd.luks.devices."luks-c792f8d3-e1ff-4c14-9e85-3a7210967788".device =
+      "/dev/disk/by-uuid/c792f8d3-e1ff-4c14-9e85-3a7210967788";
+    networking.hostName = "davor"; # Define your hostname.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  boot.initrd.luks.devices."luks-c792f8d3-e1ff-4c14-9e85-3a7210967788".device =
-    "/dev/disk/by-uuid/c792f8d3-e1ff-4c14-9e85-3a7210967788";
-  networking.hostName = "davor"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -87,16 +95,14 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.timkalan = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "Tim Kalan";
+    description = fullName;
     extraGroups = [
       "networkmanager"
       "wheel"
     ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z"
-    ];
+    openssh.authorizedKeys.keys = [ keys.diego ];
     useDefaultShell = true;
   };
 
@@ -106,7 +112,7 @@
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    polkitPolicyOwners = [ "timkalan" ];
+    polkitPolicyOwners = [ username ];
   };
 
   users.defaultUserShell = pkgs.zsh;

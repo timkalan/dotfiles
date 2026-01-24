@@ -1,4 +1,11 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  fullName,
+  email,
+  workEmail,
+  ...
+}:
 
 {
   home = {
@@ -24,9 +31,8 @@
 
     settings = {
       user = {
-        name = "Tim Kalan";
-        email = "timkalan99@gmail.com";
-
+        name = fullName;
+        inherit email;
       };
       gpg.format = "ssh";
 
@@ -48,8 +54,8 @@
         # ...apply these settings automatically.
         contents = {
           user = {
-            name = "Tim Kalan";
-            email = "tim.kalan@zerodays.dev";
+            name = fullName;
+            email = workEmail;
             signingkey = "~/.ssh/id_ed25519.pub";
           };
         };
