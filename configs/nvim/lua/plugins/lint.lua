@@ -11,7 +11,6 @@ return {
 			nix = { "statix" },
 			sh = { "shellcheck" },
 			yaml = { "yamllint" },
-			["*"] = { "codespell" },
 		}
 
 		-- Runs linting on save, insert leave, or when reading a file
@@ -20,6 +19,7 @@ return {
 			group = lint_augroup,
 			callback = function()
 				lint.try_lint()
+				lint.try_lint("typos")
 
 				if vim.fn.expand("%:p"):match("%.github/workflows") then
 					lint.try_lint("actionlint")
