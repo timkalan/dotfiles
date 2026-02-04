@@ -24,6 +24,7 @@ _: {
       "tailscale-app"
       "the-unarchiver"
       "zen"
+      "windows-app"
     ];
 
     brews = [

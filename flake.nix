@@ -82,5 +82,25 @@
           }
         ];
       };
+
+      templates = {
+        node = {
+          path = ./templates/node;
+          description = "Node.js development environment with nodejs_24, corepack, and infisical";
+        };
+        go = {
+          path = ./templates/go;
+          description = "Go development environment with gopls, gofumpt, golangci-lint";
+        };
+        python = {
+          path = ./templates/python;
+          description = "Python development environment with uv, pyright, and ruff";
+        };
+        rust = {
+          path = ./templates/rust;
+          description = "Rust development environment with cargo, rust-analyzer, and clippy";
+        };
+        default = self.templates.node;
+      };
     };
 }

@@ -23,6 +23,7 @@
     hyperfine
     fastfetch
     btop
+    delta
 
     # devops
     gh

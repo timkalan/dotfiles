@@ -63,6 +63,17 @@
     ];
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      syntax-theme = "gruvbox-dark";
+      line-numbers = true;
+      side-by-side = true;
+      navigate = true;
+    };
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -90,23 +101,31 @@
     enable = true;
 
     settings = {
-      # This looks much better on modern terminals
+      git = {
+        pagers = [
+          {
+            colorArg = "always";
+            pager = "${pkgs.delta}/bin/delta --paging=never --color-only";
+          }
+        ];
+      };
       gui = {
         nerdFontsVersion = "3";
         showIcons = true;
         theme = {
           activeBorderColor = [
-            "green"
+            "#fabd2f"
             "bold"
-          ];
-          inactiveBorderColor = [ "white" ];
-          selectedLineBgColor = [ "reverse" ];
+          ]; # gruvbox yellow
+          inactiveBorderColor = [ "#665c54" ]; # gruvbox bg3
+          selectedLineBgColor = [ "#3c3836" ]; # gruvbox bg1
+          optionsTextColor = [ "#83a598" ]; # gruvbox blue
+          unstagedChangesColor = [ "#fb4934" ]; # gruvbox red
+          defaultFgColor = [ "#ebdbb2" ]; # gruvbox fg
+          cherryPickedCommitBgColor = [ "#504945" ]; # gruvbox bg2
+          cherryPickedCommitFgColor = [ "#b8bb26" ]; # gruvbox green
         };
       };
-
-      git.commit.signOff = true;
-
-      # Disable the startup popup
       update.method = "never";
       notARepository = "quit";
     };
@@ -126,6 +145,11 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    config = {
+      global = {
+        hide_env_diff = true;
+      };
+    };
   };
 
   programs.zsh = {
