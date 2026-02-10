@@ -18,7 +18,7 @@ return {
 			-- Disable "format_on_save lsp_fallback" for languages that don't
 			-- have a well standardized coding style. You can add additional
 			-- languages here or re-enable it for the disabled ones.
-			local disable_filetypes = { c = true, cpp = true, javascript = true }
+			local disable_filetypes = { c = true, cpp = true }
 			if disable_filetypes[vim.bo[bufnr].filetype] then
 				return nil
 			else
@@ -29,20 +29,20 @@ return {
 			end
 		end,
 		formatters_by_ft = {
-			css = { "biome" },
+			css = { "deno_fmt", "prettierd", "biome" },
 			go = { "gofumpt" },
 			html = { "rustywind" },
-			javascript = { "biome" },
-			javascriptreact = { "biome" },
-			json = { "biome" },
+			javascript = { "deno_fmt", "prettierd", "biome" },
+			javascriptreact = { "deno_fmt", "prettierd", "biome" },
+			json = { "deno_fmt", "prettierd", "biome" },
 			lua = { "stylua" },
-			markdown = { "prettierd" },
+			markdown = { "mdformat" },
 			nix = { "nixfmt" },
 			python = { "isort", "black" },
 			sh = { "shfmt" },
-			typescript = { "biome" },
-			typescriptreact = { "biome" },
-			yaml = { "biome" },
+			typescript = { "deno_fmt", "prettierd", "biome" },
+			typescriptreact = { "deno_fmt", "prettierd", "biome" },
+			yaml = { "deno_fmt", "prettierd", "biome" },
 		},
 	},
 }

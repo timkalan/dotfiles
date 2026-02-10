@@ -16,11 +16,13 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            python3
-            uv
-            pyright
-            ruff
+            black
             infisical
+            isort
+            pyright
+            python3
+            ruff
+            uv
           ];
 
           shellHook = ''

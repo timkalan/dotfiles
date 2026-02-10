@@ -19,7 +19,19 @@
             nodejs_24
             pnpm
             typescript
+
+            # LSPs and language servers
+            tailwindcss-language-server
+            vscode-langservers-extracted
+            vtsls
+
+            # Formatters
             biome
+            # prettierd
+
+            # Tailwind class sorter
+            rustywind
+
             infisical
           ];
 
