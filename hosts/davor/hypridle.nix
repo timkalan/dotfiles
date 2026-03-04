@@ -21,6 +21,11 @@
         on-timeout = "hyprctl dispatch dpms off";
         on-resume = "hyprctl dispatch dpms on";
       }
+      # Sleep after 10 minutes of being locked (15 min total idle)
+      {
+        timeout = 900;
+        on-timeout = "systemctl suspend";
+      }
     ];
   };
 }

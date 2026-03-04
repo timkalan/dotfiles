@@ -114,6 +114,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     openssh.authorizedKeys.keys = [ keys.diego ];
     useDefaultShell = true;
@@ -139,6 +140,12 @@
       PasswordAuthentication = false;
     };
     openFirewall = true;
+  };
+
+  # ── Docker ────────────────────────────────────────────────
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
   };
 
   system.stateVersion = "25.11";

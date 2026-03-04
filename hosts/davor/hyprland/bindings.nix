@@ -12,6 +12,12 @@
     "$mod, Space, exec, wofi --show drun --sort-order=alphabetical"
     "$mod SHIFT, Space, exec, pkill -SIGUSR1 waybar"
 
+    # ── Webapps ────────────────────────────────────────────
+    "$mod, C, exec, brave --app=https://calendar.google.com"
+    "$mod, M, exec, brave --app=https://mail.google.com"
+    "$mod, Y, exec, brave --app=https://youtube.com"
+    "$mod, A, exec, brave --app=https://music.apple.com"
+
     # ── Window management ─────────────────────────────────
     "$mod, W, killactive"
     "$mod, F, fullscreen"
@@ -78,7 +84,7 @@
 
     # ── Session ───────────────────────────────────────────
     "$mod, Escape, exec, hyprlock"
-    "$mod SHIFT, Escape, exit"
+    "$mod SHIFT, Escape, exec, hyprlock & sleep 0.5 && systemctl suspend"
     "$mod CTRL, Escape, exec, systemctl reboot"
     "$mod SHIFT CTRL, Escape, exec, systemctl poweroff"
 

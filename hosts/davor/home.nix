@@ -44,6 +44,7 @@ in
       pavucontrol
       bluetuith
       obsidian
+      brave
 
       # Games
       heroic
@@ -79,6 +80,7 @@ in
     settings = {
       font-size = 12;
       background-opacity = 0.95;
+      confirm-close-surface = false;
       keybind = [
         "performable:ctrl+c=copy_to_clipboard"
         "ctrl+v=paste_from_clipboard"
