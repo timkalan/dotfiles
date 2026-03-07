@@ -6,10 +6,11 @@ return {
 
 		lint.linters_by_ft = {
 			dockerfile = { "hadolint" },
-			-- go = { "golangci-lint" }, -- Commented out: currently using LSP version
+			-- go = { "golangci-lint" }, -- currently using LSP version
 			markdown = { "markdownlint" },
 			nix = { "statix" },
 			sh = { "shellcheck" },
+			sql = { "sqlfluff" },
 			yaml = { "yamllint" },
 		}
 

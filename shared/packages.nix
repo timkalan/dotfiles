@@ -54,8 +54,10 @@
     markdownlint-cli
     mdformat
     nixfmt
+    pgformatter
     shellcheck
     shfmt
+    sqlfluff
     statix
     stylua
     tree-sitter

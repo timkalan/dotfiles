@@ -196,4 +196,11 @@
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
   };
 
+  xdg.configFile."sqlfluff/.sqlfluff".text = ''
+    [sqlfluff]
+    dialect = postgres
+    exclude_rules = LT12, LT01, LT02, LT09
+    max_line_length = 120
+  '';
+
 }
