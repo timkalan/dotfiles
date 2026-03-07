@@ -40,6 +40,7 @@ return {
 			nix = { "nixfmt" },
 			python = { "isort", "black" },
 			sh = { "shfmt" },
+			sql = { "pg_format" },
 			typescript = { "deno_fmt", "prettierd", "biome" },
 			typescriptreact = { "deno_fmt", "prettierd", "biome" },
 			yaml = { "deno_fmt", "prettierd", "biome" },
