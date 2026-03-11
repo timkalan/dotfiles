@@ -1,5 +1,3 @@
-{ colors }:
-
 {
   input = {
     kb_layout = "us";

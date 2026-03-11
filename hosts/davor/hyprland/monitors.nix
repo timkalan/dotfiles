@@ -1,5 +1,3 @@
-{ colors }:
-
 {
   monitor = [
     # Main monitor: Gigabyte M28U 4K, 1.5x scale

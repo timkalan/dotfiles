@@ -1,5 +1,3 @@
-{ colors }:
-
 {
   exec-once = [
     "hyprlock"

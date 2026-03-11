@@ -1,8 +1,5 @@
-{ colors }:
-
 {
   bind = [
-    # ── Apps ──────────────────────────────────────────────
     "$mod, Return, exec, ghostty"
     "$mod, B, exec, firefox"
     "$mod, O, exec, obsidian"
@@ -12,13 +9,11 @@
     "$mod, Space, exec, wofi --show drun --sort-order=alphabetical"
     "$mod SHIFT, Space, exec, pkill -SIGUSR1 waybar"
 
-    # ── Webapps ────────────────────────────────────────────
     "$mod, C, exec, brave --app=https://calendar.google.com"
     "$mod, M, exec, brave --app=https://mail.google.com"
     "$mod, Y, exec, brave --app=https://youtube.com"
     "$mod, A, exec, brave --app=https://music.apple.com"
 
-    # ── Window management ─────────────────────────────────
     "$mod, W, killactive"
     "$mod, F, fullscreen"
     "$mod, V, togglefloating"
@@ -42,7 +37,6 @@
     "$mod SHIFT, Minus, resizeactive, 0 -40"
     "$mod SHIFT, Equal, resizeactive, 0 40"
 
-    # ── Workspaces ────────────────────────────────────────
     "$mod, 1, workspace, 1"
     "$mod, 2, workspace, 2"
     "$mod, 3, workspace, 3"
@@ -73,25 +67,20 @@
     "$mod, S, togglespecialworkspace, magic"
     "$mod SHIFT, S, movetoworkspace, special:magic"
 
-    # ── Screenshots ───────────────────────────────────────
     ", Print, exec, hyprshot -m region"
     "SHIFT, Print, exec, hyprshot -m window"
     "CTRL, Print, exec, hyprshot -m output"
     "$mod, Print, exec, hyprpicker -a"
 
-    # ── Clipboard ─────────────────────────────────────────
     "CTRL $mod, V, exec, ghostty -e clipse"
 
-    # ── Session ───────────────────────────────────────────
     "$mod, Escape, exec, hyprlock"
-    "$mod SHIFT, Escape, exec, hyprlock & sleep 0.5 && systemctl suspend"
+    "$mod SHIFT, Escape, exec, hyprlock & sleep 1 && systemctl suspend"
     "$mod CTRL, Escape, exec, systemctl reboot"
     "$mod SHIFT CTRL, Escape, exec, systemctl poweroff"
 
-    # ── Projector toggle ──────────────────────────────────
     "$mod, P, exec, $HOME/.scripts/toggle-projector.sh"
 
-    # ── Scroll through workspaces ─────────────────────────
     "$mod, mouse_down, workspace, e+1"
     "$mod, mouse_up, workspace, e-1"
   ];

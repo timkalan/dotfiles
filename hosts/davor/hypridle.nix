@@ -1,5 +1,3 @@
-{ colors }:
-
 {
   enable = true;
   settings = {

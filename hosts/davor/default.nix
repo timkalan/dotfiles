@@ -12,7 +12,6 @@
     ../../shared
   ];
 
-  # Bootloader.
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -29,7 +28,6 @@
     options = "--delete-older-than 7d";
   };
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -44,7 +42,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # ── Display: auto-login + hyprlock ────────────────────────
   # Auto-login to Hyprland, hyprlock locks immediately on boot
   services.greetd = {
     enable = true;
@@ -67,22 +64,21 @@
     TTYVTDisallocate = true;
   };
 
-  # Hyprland
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # ── Audio: PipeWire ─────────────────────────────────────
+  # Secret Service provider (for gh, etc.)
+  services.gnome.gnome-keyring.enable = true;
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -93,13 +89,11 @@
     jack.enable = true;
   };
 
-  # ── Bluetooth ───────────────────────────────────────────
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
   };
 
-  # ── Fonts ───────────────────────────────────────────────
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     noto-fonts
@@ -107,7 +101,6 @@
     noto-fonts-color-emoji
   ];
 
-  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.${username} = {
     isNormalUser = true;
     description = fullName;
@@ -131,7 +124,6 @@
 
   users.defaultUserShell = pkgs.zsh;
 
-  # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     settings = {
@@ -142,7 +134,6 @@
     openFirewall = true;
   };
 
-  # ── Docker ────────────────────────────────────────────────
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;

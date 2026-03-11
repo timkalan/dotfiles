@@ -1,12 +1,12 @@
 { colors }:
 
 let
-  monitors = import ./monitors.nix { inherit colors; };
-  autostart = import ./autostart.nix { inherit colors; };
-  bindings = import ./bindings.nix { inherit colors; };
+  monitors = import ./monitors.nix;
+  autostart = import ./autostart.nix;
+  bindings = import ./bindings.nix;
   looknfeel = import ./looknfeel.nix { inherit colors; };
-  input = import ./input.nix { inherit colors; };
-  windows = import ./windows.nix { inherit colors; };
+  input = import ./input.nix;
+  windows = import ./windows.nix;
 in
 
 monitors

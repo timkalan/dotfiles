@@ -1,5 +1,3 @@
-{ colors }:
-
 {
   windowrule = [
     # Float utility windows

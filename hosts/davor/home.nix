@@ -7,8 +7,10 @@ in
 {
   imports = [
     ../../shared/home.nix
-    ./hyprpaper.nix
   ];
+
+  # Wallpaper (used by swaybg and hyprlock)
+  home.file."Pictures/Wallpapers/wallpaper.jpg".source = ./wallpapers/wallpaper.jpg;
 
   home = {
     sessionVariables = {
@@ -54,28 +56,21 @@ in
     ];
   };
 
-  # ── Hyprland ────────────────────────────────────────────
   wayland.windowManager.hyprland = {
     enable = true;
     settings = import ./hyprland/default.nix { inherit colors; };
   };
 
-  # ── Waybar ──────────────────────────────────────────────
   programs.waybar = import ./waybar.nix { inherit colors; };
 
-  # ── Wofi ────────────────────────────────────────────────
   programs.wofi = import ./wofi.nix { inherit colors; };
 
-  # ── Mako (notifications) ────────────────────────────────
   services.mako = import ./mako.nix { inherit colors; };
 
-  # ── Hyprlock (lock screen) ──────────────────────────────
   programs.hyprlock = import ./hyprlock.nix { inherit colors; };
 
-  # ── Hypridle (idle management) ──────────────────────────
-  services.hypridle = import ./hypridle.nix { inherit colors; };
+  services.hypridle = import ./hypridle.nix;
 
-  # ── Ghostty ─────────────────────────────────────────────
   programs.ghostty = {
     settings = {
       font-size = 12;
@@ -88,7 +83,6 @@ in
     };
   };
 
-  # ── Btop ───────────────────────────────────────────────
   programs.btop = {
     enable = true;
     settings = {
@@ -114,7 +108,6 @@ in
     };
   };
 
-  # ── GTK theming ─────────────────────────────────────────
   gtk = {
     enable = true;
     theme = {
@@ -137,7 +130,6 @@ in
     };
   };
 
-  # ── Cursor ──────────────────────────────────────────────
   home.pointerCursor = {
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
@@ -145,25 +137,30 @@ in
     gtk.enable = true;
   };
 
-  # ── Zsh ─────────────────────────────────────────────────
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+    };
+  };
+
   programs.zsh = {
     shellAliases = {
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#davor";
     };
   };
 
-  # ── Tmux ────────────────────────────────────────────────
   programs.tmux.extraConfig = ''
     bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "wl-copy"
   '';
 
-  # ── Scripts ─────────────────────────────────────────────
   home.file.".scripts/toggle-projector.sh" = {
     source = ../../scripts/toggle-projector.sh;
     executable = true;
   };
 
-  # ── networkmanager_dmenu config ────────────────────────
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]
     dmenu_command = wofi --dmenu -i -p "WiFi"
@@ -172,7 +169,6 @@ in
     terminal = ghostty
   '';
 
-  # ── Firefox ─────────────────────────────────────────────
   programs.firefox = {
     enable = true;
     profiles.default = {
