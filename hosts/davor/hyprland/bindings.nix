@@ -17,7 +17,9 @@
     "$mod, W, killactive"
     "$mod, F, fullscreen"
     "$mod, V, togglefloating"
+    "$mod SHIFT, V, pin"
     "$mod, J, togglesplit"
+    "$mod, U, focusurgentorlast"
 
     # Focus movement
     "$mod, Left, movefocus, l"
@@ -67,10 +69,10 @@
     "$mod, S, togglespecialworkspace, magic"
     "$mod SHIFT, S, movetoworkspace, special:magic"
 
-    ", Print, exec, hyprshot -m region"
-    "SHIFT, Print, exec, hyprshot -m window"
-    "CTRL, Print, exec, hyprshot -m output"
-    "$mod, Print, exec, hyprpicker -a"
+    "$mod, G, exec, hyprshot -m region --clipboard-only"
+    "$mod SHIFT, G, exec, hyprshot -m region"
+    "$mod CTRL, G, exec, hyprpicker -a"
+    "$mod SHIFT CTRL, G, exec, hyprshot -m output"
 
     "CTRL $mod, V, exec, ghostty -e clipse"
 

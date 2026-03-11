@@ -49,7 +49,13 @@
       clock = {
         format = "{:%A %H:%M}";
         format-alt = "{:%d %B W%V %Y}";
-        tooltip = false;
+        tooltip = true;
+        tooltip-format = "{calendar}";
+        calendar = {
+          format = {
+            today = "<b><u>{}</u></b>";
+          };
+        };
       };
 
       cpu = {
