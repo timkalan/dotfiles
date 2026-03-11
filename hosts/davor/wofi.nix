@@ -1,4 +1,5 @@
-_: {
+{ colors }:
+{
   enable = true;
   settings = {
     width = 600;
@@ -19,14 +20,14 @@ _: {
   };
   style = ''
     * {
-      font-family: 'JetBrains Mono Nerd Font', monospace;
+      font-family: '${colors.font}', monospace;
       font-size: 18px;
     }
 
     window {
       margin: 0px;
-      padding: 20px;
-      background-color: #282828;
+      padding: 0px;
+      background-color: ${colors.bg};
       opacity: 0.95;
     }
 
@@ -34,29 +35,29 @@ _: {
       margin: 0;
       padding: 0;
       border: none;
-      background-color: #282828;
+      background-color: ${colors.bg};
     }
 
     #outer-box {
       margin: 0;
       padding: 20px;
-      border: none;
-      background-color: #282828;
+      border: 2px solid ${colors.border};
+      background-color: ${colors.bg};
     }
 
     #scroll {
       margin: 0;
       padding: 0;
       border: none;
-      background-color: #282828;
+      background-color: ${colors.bg};
     }
 
     #input {
       margin: 0;
       padding: 10px;
       border: none;
-      background-color: #282828;
-      color: @text;
+      background-color: ${colors.bg};
+      color: ${colors.fg};
     }
 
     #input:focus {
@@ -68,11 +69,11 @@ _: {
     #text {
       margin: 5px;
       border: none;
-      color: #a89984;
+      color: ${colors.fg_dim};
     }
 
     #entry {
-      background-color: #282828;
+      background-color: ${colors.bg};
     }
 
     #entry:selected {
@@ -81,7 +82,7 @@ _: {
     }
 
     #entry:selected #text {
-      color: #d79921;
+      color: ${colors.accent};
     }
 
     #entry image {

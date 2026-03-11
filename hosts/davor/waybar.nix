@@ -1,4 +1,5 @@
-_: {
+{ colors }:
+{
   enable = true;
   settings = [
     {
@@ -6,6 +7,7 @@ _: {
       position = "top";
       spacing = 0;
       height = 26;
+
       modules-left = [
         "hyprland/workspaces"
       ];
@@ -13,15 +15,12 @@ _: {
         "clock"
       ];
       modules-right = [
-        # "custom/dropbox"
-        "tray"
         "bluetooth"
         "network"
         "wireplumber"
         "cpu"
-        "power-profiles-daemon"
-        "battery"
       ];
+
       "hyprland/workspaces" = {
         on-click = "activate";
         format = "{icon}";
@@ -46,16 +45,25 @@ _: {
           "5" = [ ];
         };
       };
+
+      clock = {
+        format = "{:%A %H:%M}";
+        format-alt = "{:%d %B W%V %Y}";
+        tooltip = true;
+        tooltip-format = "{calendar}";
+        calendar = {
+          format = {
+            today = "<b><u>{}</u></b>";
+          };
+        };
+      };
+
       cpu = {
         interval = 5;
         format = "󰍛";
         on-click = "ghostty -e btop";
       };
-      clock = {
-        format = "{:%A %I:%M %p}";
-        format-alt = "{:%d %B W%V %Y}";
-        tooltip = false;
-      };
+
       network = {
         format-icons = [
           "󰤯"
@@ -72,58 +80,19 @@ _: {
         tooltip-format-ethernet = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
         tooltip-format-disconnected = "Disconnected";
         interval = 3;
-        nospacing = 1;
-        on-click = "ghostty -e nmcli";
+        on-click = "networkmanager_dmenu";
       };
-      battery = {
-        interval = 5;
-        format = "{capacity}% {icon}";
-        format-discharging = "{icon}";
-        format-charging = "{icon}";
-        format-plugged = "";
-        format-icons = {
-          charging = [
-            "󰢜"
-            "󰂆"
-            "󰂇"
-            "󰂈"
-            "󰢝"
-            "󰂉"
-            "󰢞"
-            "󰂊"
-            "󰂋"
-            "󰂅"
-          ];
-          default = [
-            "󰁺"
-            "󰁻"
-            "󰁼"
-            "󰁽"
-            "󰁾"
-            "󰁿"
-            "󰂀"
-            "󰂁"
-            "󰂂"
-            "󰁹"
-          ];
-        };
-        format-full = "Charged ";
-        tooltip-format-discharging = "{power:>1.0f}W↓ {capacity}%";
-        tooltip-format-charging = "{power:>1.0f}W↑ {capacity}%";
-        states = {
-          warning = 20;
-          critical = 10;
-        };
-      };
+
       bluetooth = {
         format = "󰂯";
         format-disabled = "󰂲";
         format-connected = "";
         tooltip-format = "Devices connected: {num_connections}";
-        on-click = "blueberry";
+        on-click = "ghostty -e bluetuith";
       };
+
       wireplumber = {
-        "format" = "";
+        format = "󰕾";
         format-muted = "󰝟";
         scroll-step = 5;
         on-click = "pavucontrol";
@@ -131,29 +100,84 @@ _: {
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         max-volume = 150;
       };
-      tray = {
-        spacing = 13;
-      };
-      power-profiles-daemon = {
-        format = "{icon}";
-        tooltip-format = "Power profile: {profile}";
-        tooltip = true;
-        format-icons = {
-          power-saver = "󰡳";
-          balanced = "󰊚";
-          performance = "󰡴";
-        };
-      };
+
     }
   ];
+
   style = ''
-    @define-color background #282828;
+    @define-color bg ${colors.bg};
+    @define-color bg1 ${colors.bg1};
+    @define-color fg ${colors.fg};
+    @define-color fg_dim ${colors.fg_dim};
+    @define-color accent ${colors.accent};
+    @define-color border ${colors.border};
+    @define-color red ${colors.red};
+
     * {
-      color: #928374;
+      font-family: "${colors.font}", monospace;
+      font-size: 14px;
+      min-height: 0;
+      border: none;
+      border-radius: 0;
     }
 
     window#waybar {
-      background-color: #282828;
+      background-color: alpha(@bg, 0.85);
+      color: @fg_dim;
+    }
+
+    tooltip {
+      background-color: @bg1;
+      color: @fg;
+      border: 1px solid @border;
+      border-radius: 0;
+    }
+
+    /* ── Workspaces ─────────────────────────────────────── */
+    #workspaces button {
+      padding: 0 6px;
+      color: @fg_dim;
+      background: transparent;
+    }
+
+    #workspaces button.active {
+      color: @accent;
+    }
+
+    #workspaces button.urgent {
+      color: @red;
+    }
+
+    #workspaces button:hover {
+      background: transparent;
+      color: @fg;
+    }
+
+    /* ── Clock ──────────────────────────────────────────── */
+    #clock {
+      color: @fg;
+    }
+
+    /* ── Right modules ──────────────────────────────────── */
+    #bluetooth,
+    #network,
+    #wireplumber,
+    #cpu {
+      margin: 0 8px;
+      min-width: 16px;
+      color: @fg_dim;
+    }
+
+    #wireplumber.muted {
+      color: @border;
+    }
+
+    #bluetooth.connected {
+      color: @accent;
+    }
+
+    #network.disconnected {
+      color: @border;
     }
   '';
 }
