@@ -9,6 +9,9 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    worktrunk.url = "github:max-sixty/worktrunk";
+    worktrunk.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -35,15 +38,37 @@
           inherit
             self
             username
-            fullName
-            email
-            workEmail
             keys
             inputs
             ;
         };
         modules = [
           ./hosts/diego
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit
+                  username
+                  fullName
+                  email
+                  workEmail
+                  inputs
+                  ;
+                worktrunk-pkgs = inputs.worktrunk.packages.aarch64-darwin;
+              };
+              users.${username} = {
+                imports = [
+                  ./hosts/diego/home.nix
+                  inputs.worktrunk.homeModules.default
+                ];
+              };
+            };
+          }
         ];
       };
 
@@ -77,8 +102,14 @@
                   workEmail
                   inputs
                   ;
+                worktrunk-pkgs = inputs.worktrunk.packages.x86_64-linux;
               };
-              users.${username} = import ./hosts/davor/home.nix;
+              users.${username} = {
+                imports = [
+                  ./hosts/davor/home.nix
+                  inputs.worktrunk.homeModules.default
+                ];
+              };
             };
           }
         ];

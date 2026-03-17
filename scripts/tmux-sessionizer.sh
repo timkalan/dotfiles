@@ -41,7 +41,7 @@ if [[ $# -eq 1 ]]; then
     selected=$1
 else
     # Interactively select a directory
-    selected=$(fd --min-depth 1 --max-depth 2 --type d . ~/projects/work ~/projects/personal ~ 2>/dev/null | fzf || true)
+    selected=$(fd --min-depth 1 --max-depth 1 --type d . ~/projects/work ~/projects/personal ~ 2>/dev/null | fzf || true)
 fi
 
 if [[ -z $selected ]]; then

@@ -1,16 +1,12 @@
 {
   inputs,
   username,
-  fullName,
-  email,
-  workEmail,
   ...
 }:
 {
   imports = [
     ./homebrew.nix
     ../../shared
-    inputs.home-manager.darwinModules.home-manager
   ];
 
   # Free some storage space
@@ -78,26 +74,4 @@
     reattach = true;
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = {
-      inherit
-        username
-        fullName
-        email
-        workEmail
-        inputs
-        ;
-    };
-
-    # "backup" creates .backup files if there is a conflict
-    backupFileExtension = "backup";
-
-    users.${username} = {
-      imports = [
-        ./home.nix
-      ];
-    };
-  };
 }

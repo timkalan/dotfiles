@@ -16,7 +16,7 @@ alias vi="nvim"
 alias v="nvim"
 alias py="python3"
 alias python="python3"
-alias cl="clear"
+alias cl="printf '\033[2J\033[H'"
 alias ls="eza -lahF --git --icons"
 alias tree="tree -C"
 

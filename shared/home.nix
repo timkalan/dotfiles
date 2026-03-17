@@ -149,6 +149,11 @@
     };
   };
 
+  programs.worktrunk = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -195,6 +200,15 @@
     "nvim".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
   };
+
+  xdg.configFile."worktrunk/config.toml".text = ''
+    worktree-path = "{{ repo_path }}/../{{ repo }}_{{ branch | sanitize }}"
+    post-switch = "~/.scripts/tmux-sessionizer.sh {{ worktree_path }}"
+    post-remove = "tmux switch-client -t {{ repo }} 2>/dev/null; tmux kill-session -t {{ repo }}_{{ branch | sanitize }} 2>/dev/null || true"
+
+    [switch]
+    no-cd = true
+  '';
 
   xdg.configFile."sqlfluff/.sqlfluff".text = ''
     [sqlfluff]
