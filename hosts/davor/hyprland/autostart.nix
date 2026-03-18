@@ -3,7 +3,7 @@
     "hyprlock"
     "waybar"
     "mako"
-    "swaybg -i $HOME/Pictures/Wallpapers/wallpaper.jpg -m fill"
+    "hyprpaper"
     "systemctl --user start hyprpolkitagent"
     "wl-clip-persist --clipboard both"
     "clipse -listen"

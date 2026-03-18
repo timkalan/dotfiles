@@ -47,8 +47,8 @@
       };
 
       clock = {
-        format = "{:%A %H:%M}";
-        format-alt = "{:%d %B W%V %Y}";
+        format = "{:%d %B %H:%M}";
+        format-alt = "{:%A W%V %Y}";
         tooltip = true;
         tooltip-format = "{calendar}";
         calendar = {

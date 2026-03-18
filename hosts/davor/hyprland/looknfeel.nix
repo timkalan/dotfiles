@@ -18,10 +18,10 @@
 
     blur = {
       enabled = true;
-      size = 5;
+      size = 3;
       passes = 2;
-      new_optimizations = true;
       ignore_opacity = true;
+      special = true;
     };
 
     shadow = {
@@ -33,7 +33,7 @@
     enabled = true;
 
     bezier = [
-      "easeOutQuint, 0.22, 1, 0.36, 1"
+      "easeOutQuint, 0.23, 1, 0.32, 1"
       "easeInOutCubic, 0.65, 0, 0.35, 1"
       "linear, 0, 0, 1, 1"
       "almostLinear, 0.5, 0.5, 0.75, 1.0"
@@ -54,7 +54,8 @@
       "layersOut, 1, 1.5, linear, fade"
       "fadeLayersIn, 1, 1.79, almostLinear"
       "fadeLayersOut, 1, 1.39, almostLinear"
-      "workspaces, 1, 1.94, almostLinear, fade"
+      "workspaces, 0, 0, ease"
+      "specialWorkspace, 1, 4, easeOutQuint, slidevert"
     ];
   };
 

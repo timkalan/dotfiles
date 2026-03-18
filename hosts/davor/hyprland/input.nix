@@ -10,6 +10,7 @@
 
   cursor = {
     default_monitor = "DP-2";
+    hide_on_key_press = true;
   };
 
   env = [

@@ -31,7 +31,7 @@ in
       clipse
       waybar
       wofi
-      swaybg
+      hyprpaper
       hyprshot
       hyprpicker
       hyprlock
@@ -43,13 +43,17 @@ in
 
       # Desktop apps
       nautilus
+      sushi
       pavucontrol
       bluetuith
       obsidian
       brave
 
       # Games
-      heroic
+      # heroic # TODO: broken on nixpkgs-unstable (electron 39 patch failure)
+
+      # Media
+      mpv
 
       # Utils
       jq
@@ -70,6 +74,16 @@ in
   programs.hyprlock = import ./hyprlock.nix { inherit colors; };
 
   services.hypridle = import ./hypridle.nix;
+
+  services.wlsunset = {
+    enable = true;
+    latitude = 46.05;
+    longitude = 14.51;
+    temperature = {
+      day = 6500;
+      night = 4500;
+    };
+  };
 
   programs.ghostty = {
     settings = {
@@ -143,6 +157,7 @@ in
       "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
+      "video/*" = "mpv.desktop";
     };
   };
 
@@ -160,6 +175,12 @@ in
     source = ../../scripts/toggle-projector.sh;
     executable = true;
   };
+
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    preload = ~/Pictures/Wallpapers/wallpaper.jpg
+    wallpaper = ,~/Pictures/Wallpapers/wallpaper.jpg
+    splash = false
+  '';
 
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]
