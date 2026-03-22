@@ -20,6 +20,11 @@
     "size 622 652, match:class com.mitchellh.ghostty, match:title clipse"
     "stay_focused on, match:class com.mitchellh.ghostty, match:title clipse"
 
+    # nmtui network popup
+    "float on, match:class com.mitchellh.ghostty, match:title nmtui"
+    "size 622 500, match:class com.mitchellh.ghostty, match:title nmtui"
+    "stay_focused on, match:class com.mitchellh.ghostty, match:title nmtui"
+
     # Full opacity for video / games
     "opacity 1.0 override 1.0 override, match:class firefox"
     "opacity 1.0 override 1.0 override, match:class ^(steam_app_.*)$"
@@ -28,10 +33,8 @@
   ];
 
   layerrule = [
-    # Blur behind waybar and wofi
+    # Blur behind waybar
     "blur on, match:namespace waybar"
-    "blur on, match:namespace wofi"
     "ignore_alpha 0.3, match:namespace waybar"
-    "ignore_alpha 0.3, match:namespace wofi"
   ];
 }

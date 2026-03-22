@@ -30,14 +30,12 @@ in
       wl-clip-persist
       clipse
       waybar
-      wofi
       swaybg
       hyprshot
       hyprpicker
       hyprlock
       hypridle
       swaynotificationcenter
-      networkmanager_dmenu
       playerctl
       brightnessctl
 
@@ -67,7 +65,7 @@ in
 
   programs.waybar = import ./waybar.nix { inherit colors; };
 
-  programs.wofi = import ./wofi.nix { inherit colors; };
+  programs.walker = import ./walker.nix { inherit colors; };
 
   services.swaync = import ./swaync.nix { inherit colors; };
 
@@ -175,14 +173,6 @@ in
     source = ../../scripts/toggle-projector.sh;
     executable = true;
   };
-
-  xdg.configFile."networkmanager-dmenu/config.ini".text = ''
-    [dmenu]
-    dmenu_command = wofi --dmenu -i -p "WiFi"
-
-    [editor]
-    terminal = ghostty
-  '';
 
   programs.firefox = {
     enable = true;

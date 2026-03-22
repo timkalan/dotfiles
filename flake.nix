@@ -12,6 +12,10 @@
 
     worktrunk.url = "github:max-sixty/worktrunk";
     worktrunk.inputs.nixpkgs.follows = "nixpkgs";
+
+    elephant.url = "github:abenz1267/elephant";
+    walker.url = "github:abenz1267/walker";
+    walker.inputs.elephant.follows = "elephant";
   };
 
   outputs =
@@ -108,6 +112,7 @@
                 imports = [
                   ./hosts/davor/home.nix
                   inputs.worktrunk.homeModules.default
+                  inputs.walker.homeManagerModules.default
                 ];
               };
             };

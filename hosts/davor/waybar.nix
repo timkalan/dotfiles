@@ -81,7 +81,7 @@
         tooltip-format-ethernet = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
         tooltip-format-disconnected = "Disconnected";
         interval = 3;
-        on-click = "networkmanager_dmenu";
+        on-click = "ghostty -e nmtui";
       };
 
       "custom/notification" = {

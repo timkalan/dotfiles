@@ -6,7 +6,7 @@
     "$mod, E, exec, nautilus --new-window"
     "$mod, N, exec, ghostty -e nvim"
     "$mod, T, exec, ghostty -e btop"
-    "$mod, Space, exec, wofi --show drun --sort-order=alphabetical"
+    "$mod, Space, exec, walker -H"
     "$mod SHIFT, Space, exec, pkill -SIGUSR1 waybar"
 
     "$mod, C, exec, brave --app=https://calendar.google.com"
