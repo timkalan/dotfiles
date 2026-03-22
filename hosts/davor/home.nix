@@ -31,12 +31,12 @@ in
       clipse
       waybar
       wofi
-      hyprpaper
+      swaybg
       hyprshot
       hyprpicker
       hyprlock
       hypridle
-      mako
+      swaynotificationcenter
       networkmanager_dmenu
       playerctl
       brightnessctl
@@ -69,7 +69,7 @@ in
 
   programs.wofi = import ./wofi.nix { inherit colors; };
 
-  services.mako = import ./mako.nix { inherit colors; };
+  services.swaync = import ./swaync.nix { inherit colors; };
 
   programs.hyprlock = import ./hyprlock.nix { inherit colors; };
 
@@ -175,12 +175,6 @@ in
     source = ../../scripts/toggle-projector.sh;
     executable = true;
   };
-
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ~/Pictures/Wallpapers/wallpaper.jpg
-    wallpaper = ,~/Pictures/Wallpapers/wallpaper.jpg
-    splash = false
-  '';
 
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]

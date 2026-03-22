@@ -19,6 +19,7 @@
         "network"
         "wireplumber"
         "cpu"
+        "custom/notification"
       ];
 
       "hyprland/workspaces" = {
@@ -83,8 +84,26 @@
         on-click = "networkmanager_dmenu";
       };
 
+      "custom/notification" = {
+        tooltip = false;
+        format = "{icon}";
+        format-icons = {
+          notification = "󰂚";
+          none = "󰂜";
+          dnd-notification = "󰂛";
+          dnd-none = "󰪑";
+        };
+        exec = "swaync-client -swb";
+        exec-if = "which swaync-client";
+        on-click = "swaync-client -t -sw";
+        on-click-right = "swaync-client -C -sw";
+        return-type = "json";
+        escape = true;
+      };
+
       bluetooth = {
         format = "󰂯";
+        format-off = "󰂲";
         format-disabled = "󰂲";
         format-connected = "";
         tooltip-format = "Devices connected: {num_connections}";
@@ -159,6 +178,7 @@
     }
 
     /* ── Right modules ──────────────────────────────────── */
+    #custom-notification,
     #bluetooth,
     #network,
     #wireplumber,

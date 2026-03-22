@@ -2,8 +2,8 @@
   exec-once = [
     "hyprlock"
     "waybar"
-    "mako"
-    "hyprpaper"
+    "swaync"
+    "swaybg -i /home/timkalan/Pictures/Wallpapers/wallpaper.jpg -m fill"
     "systemctl --user start hyprpolkitagent"
     "wl-clip-persist --clipboard both"
     "clipse -listen"
