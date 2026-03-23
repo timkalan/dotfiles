@@ -196,25 +196,26 @@
     };
   };
 
-  xdg.configFile = {
-    "nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
+  xdg = {
+    configFile = {
+      "nvim".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
+
+      "worktrunk/config.toml".text = ''
+        worktree-path = "{{ repo_path }}/../{{ repo }}_{{ branch | sanitize }}"
+        post-switch = "~/.scripts/tmux-sessionizer.sh {{ worktree_path }}"
+        post-remove = "tmux switch-client -t {{ repo }} 2>/dev/null; tmux kill-session -t {{ repo }}_{{ branch | sanitize }} 2>/dev/null || true"
+
+        [switch]
+        no-cd = true
+      '';
+
+      "sqlfluff/.sqlfluff".text = ''
+        [sqlfluff]
+        dialect = postgres
+        exclude_rules = LT12, LT01, LT02, LT09
+        max_line_length = 120
+      '';
+    };
   };
-
-  xdg.configFile."worktrunk/config.toml".text = ''
-    worktree-path = "{{ repo_path }}/../{{ repo }}_{{ branch | sanitize }}"
-    post-switch = "~/.scripts/tmux-sessionizer.sh {{ worktree_path }}"
-    post-remove = "tmux switch-client -t {{ repo }} 2>/dev/null; tmux kill-session -t {{ repo }}_{{ branch | sanitize }} 2>/dev/null || true"
-
-    [switch]
-    no-cd = true
-  '';
-
-  xdg.configFile."sqlfluff/.sqlfluff".text = ''
-    [sqlfluff]
-    dialect = postgres
-    exclude_rules = LT12, LT01, LT02, LT09
-    max_line_length = 120
-  '';
-
 }

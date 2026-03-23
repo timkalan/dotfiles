@@ -81,9 +81,6 @@ setopt ALWAYS_TO_END        # Move cursor to the end of a completed word.
 # --- Plugins (managed by home-manager) ---
 export ZVM_INIT_MODE=sourcing
 
-# --- direnv ---
-eval "$(direnv hook zsh)"
-
 # --- fzf shell integration ---
 eval "$(fzf --zsh)"
 export FZF_DEFAULT_OPTS="--preview '$HOME/.scripts/fzf-preview.sh {}'"

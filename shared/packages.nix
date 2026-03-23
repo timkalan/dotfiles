@@ -15,7 +15,6 @@
     eza
     fzf
     zoxide
-    direnv
     jq
     tldr
     tree
