@@ -49,7 +49,7 @@ in
       brave
 
       # Games
-      # heroic # TODO: broken on nixpkgs-unstable (electron 39 patch failure)
+      heroic
 
       # Media
       mpv
@@ -132,6 +132,7 @@ in
 
   gtk = {
     enable = true;
+    gtk4.theme = null;
     theme = {
       name = "Adwaita-dark";
       package = pkgs.adwaita-icon-theme;
