@@ -35,6 +35,7 @@ in
       hyprpicker
       hyprlock
       hypridle
+      hyprpolkitagent
       swaynotificationcenter
       playerctl
       brightnessctl
@@ -66,6 +67,15 @@ in
   programs.waybar = import ./waybar.nix { inherit colors; };
 
   programs.walker = import ./walker.nix { inherit colors; };
+
+  programs.elephant.provider."1password".settings.vaults = [ "Personal" ];
+
+  programs.elephant.provider.websearch.settings.entries = [
+    { name = "Google"; url = "https://www.google.com/search?q=%TERM%"; default = true; }
+    { name = "Define"; url = "https://www.dictionary.com/browse/%TERM%"; prefix = "def"; }
+    { name = "YouTube"; url = "https://youtube.com/results?search_query=%TERM%"; prefix = "yt"; }
+    { name = "GitHub"; url = "https://github.com/search?q=%TERM%"; prefix = "gh"; }
+  ];
 
   services.swaync = import ./swaync.nix { inherit colors; };
 

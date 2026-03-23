@@ -25,6 +25,7 @@
         "desktopapplications"
         "calc"
         "websearch"
+        "windows"
       ];
       empty = [
         "desktopapplications"
@@ -33,10 +34,12 @@
         { prefix = "="; provider = "calc"; }
         { prefix = "@"; provider = "websearch"; }
         { prefix = ":"; provider = "clipboard"; }
-        { prefix = "."; provider = "emojis"; }
+        { prefix = "."; provider = "symbols"; }
         { prefix = "/"; provider = "files"; }
         { prefix = ";"; provider = "providerlist"; }
         { prefix = ">"; provider = "runner"; }
+        { prefix = "$"; provider = "1password"; }
+        { prefix = "^"; provider = "windows"; }
       ];
     };
   };
