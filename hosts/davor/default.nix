@@ -19,8 +19,10 @@
       "/dev/disk/by-uuid/c792f8d3-e1ff-4c14-9e85-3a7210967788";
   };
 
-  networking.hostName = "davor";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "davor";
+    networkmanager.enable = true;
+  };
 
   nix.gc = {
     automatic = true;
@@ -28,28 +30,18 @@
     options = "--delete-older-than 7d";
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "sl_SI.UTF-8";
-    LC_IDENTIFICATION = "sl_SI.UTF-8";
-    LC_MEASUREMENT = "sl_SI.UTF-8";
-    LC_MONETARY = "sl_SI.UTF-8";
-    LC_NAME = "sl_SI.UTF-8";
-    LC_NUMERIC = "sl_SI.UTF-8";
-    LC_PAPER = "sl_SI.UTF-8";
-    LC_TELEPHONE = "sl_SI.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
-  # Auto-login to Hyprland, hyprlock locks immediately on boot
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
-        user = "${username}";
-      };
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "sl_SI.UTF-8";
+      LC_IDENTIFICATION = "sl_SI.UTF-8";
+      LC_MEASUREMENT = "sl_SI.UTF-8";
+      LC_MONETARY = "sl_SI.UTF-8";
+      LC_NAME = "sl_SI.UTF-8";
+      LC_NUMERIC = "sl_SI.UTF-8";
+      LC_PAPER = "sl_SI.UTF-8";
+      LC_TELEPHONE = "sl_SI.UTF-8";
+      LC_TIME = "en_US.UTF-8";
     };
   };
 
@@ -64,30 +56,83 @@
     TTYVTDisallocate = true;
   };
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
+  # Auto-login to Hyprland, hyprlock locks immediately on boot
+  services = {
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
+          user = "${username}";
+        };
+      };
+    };
+
+    xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
+
+    printing.enable = true;
+
+    # Secret Service provider (for gh, etc.)
+    gnome.gnome-keyring.enable = true;
+
+    pulseaudio.enable = false;
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+
+    openssh = {
+      enable = true;
+      settings = {
+        X11Forwarding = true;
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+      openFirewall = true;
+    };
   };
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+  programs = {
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
+
+    firefox.enable = true;
+    steam.enable = true;
+    gamemode.enable = true;
+
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ username ];
+    };
   };
 
-  services.printing.enable = true;
+  users = {
+    users.${username} = {
+      isNormalUser = true;
+      description = fullName;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "docker"
+      ];
+      openssh.authorizedKeys.keys = [ keys.diego ];
+      useDefaultShell = true;
+    };
 
-  # Secret Service provider (for gh, etc.)
-  services.gnome.gnome-keyring.enable = true;
+    defaultUserShell = pkgs.zsh;
+  };
 
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
 
   hardware.bluetooth = {
     enable = true;
@@ -100,39 +145,6 @@
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];
-
-  users.users.${username} = {
-    isNormalUser = true;
-    description = fullName;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
-    openssh.authorizedKeys.keys = [ keys.diego ];
-    useDefaultShell = true;
-  };
-
-  programs.firefox.enable = true;
-  programs.steam.enable = true;
-  programs.gamemode.enable = true;
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ username ];
-  };
-
-  users.defaultUserShell = pkgs.zsh;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      X11Forwarding = true;
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-    openFirewall = true;
-  };
 
   virtualisation.docker = {
     enable = true;

@@ -13,6 +13,8 @@
     "$mod, M, exec, brave --app=https://mail.google.com"
     "$mod, Y, exec, brave --app=https://youtube.com"
     "$mod, A, exec, brave --app=https://music.apple.com"
+    "$mod, I, exec, brave --app=https://claude.ai"
+    "$mod, D, exec, brave --app=https://fb.com/messages"
 
     "$mod, W, killactive"
     "$mod, F, fullscreen"
