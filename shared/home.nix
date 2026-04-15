@@ -78,6 +78,8 @@
     enable = true;
     defaultEditor = true;
     withNodeJs = true;
+    withRuby = false;
+    withPython3 = false;
   };
 
   programs.ghostty = {
@@ -99,7 +101,7 @@
 
   programs.opencode = {
     enable = true;
-    settings = {
+    tui = {
       theme = "gruvbox";
     };
   };
