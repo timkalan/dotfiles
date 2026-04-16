@@ -17,5 +17,4 @@ require("lazy.view.config").keys.close = "<Esc>"
 require("options")
 require("keymaps")
 require("autocmd")
-vim.g.lazy_debug = true
 require("lazy").setup("plugins")

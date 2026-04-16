@@ -16,10 +16,12 @@ vim.o.relativenumber = true
 vim.o.undofile = true
 
 -- no swap
-vim.swapfile = false
+vim.o.swapfile = false
 
 -- clipboard
-vim.o.clipboard = "unnamedplus"
+vim.schedule(function()
+	vim.o.clipboard = "unnamedplus"
+end)
 
 -- persistent gutter
 vim.o.signcolumn = "yes:2"
@@ -43,13 +45,10 @@ vim.o.termguicolors = true
 vim.o.updatetime = 50
 
 -- scrolloff
--- vim.o.scrolloff = 8
+vim.o.scrolloff = 10
 
 -- line at 100 characters
 vim.o.colorcolumn = "100"
-
--- no line wrapping
-vim.o.wrap = false
 
 -- highlight cursor line
 vim.o.cursorline = true
@@ -69,3 +68,9 @@ vim.o.wrap = true
 vim.o.linebreak = true
 vim.opt.showbreak = "↪ "
 vim.o.breakindent = true
+
+-- :q doesn't error on unsaved changes
+vim.o.confirm = true
+
+-- faster key sequences
+vim.o.timeoutlen = 300
