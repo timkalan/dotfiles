@@ -12,6 +12,7 @@
     # The version of Home Manager you are using.
     stateVersion = "25.11";
     packages = with pkgs; [
+      nodejs
       starship
     ];
   };
@@ -80,6 +81,7 @@
     withNodeJs = true;
     withRuby = false;
     withPython3 = false;
+    sideloadInitLua = true;
   };
 
   programs.ghostty = {
