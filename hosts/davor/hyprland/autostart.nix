@@ -7,6 +7,7 @@
     "systemctl --user start hyprpolkitagent"
     "wl-clip-persist --clipboard both"
     "clipse -listen"
+    "udiskie"
   ];
 
   # Restart waybar on reload (picks up config changes)

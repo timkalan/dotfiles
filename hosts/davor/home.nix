@@ -46,6 +46,7 @@ in
       swaynotificationcenter
       playerctl
       brightnessctl
+      udiskie
 
       # Desktop apps
       nautilus

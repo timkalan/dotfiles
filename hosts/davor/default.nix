@@ -58,6 +58,7 @@
 
   # Auto-login to Hyprland, hyprlock locks immediately on boot
   services = {
+    udisks2.enable = true;
     greetd = {
       enable = true;
       settings = {
@@ -138,6 +139,8 @@
     enable = true;
     powerOnBoot = true;
   };
+
+  hardware.keyboard.qmk.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

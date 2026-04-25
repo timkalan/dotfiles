@@ -86,6 +86,19 @@ eval "$(fzf --zsh)"
 export FZF_DEFAULT_OPTS="--preview '$HOME/.scripts/fzf-preview.sh {}'"
 bindkey '^g' fzf-cd-widget
 
+# --- fzf-tab configuration ---
+# Use fzf-preview script for file/directory completions
+zstyle ':fzf-tab:complete:*' fzf-preview '$HOME/.scripts/fzf-preview.sh $realpath'
+# Preview for cd and zoxide
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -lahF --git --icons --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -lahF --git --icons --color=always $realpath'
+# Disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# Set list-colors for better coloring
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# Switch groups with < and >
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
 gsf() {
   local branch=$(git branch -a | sed 's/^\*/ /' | fzf --preview "git log --oneline -n 10 --graph --color=always $(echo {} | sed 's/remotes\/origin\///' | sed 's/ //g')")
   if [[ -n "$branch" ]]; then
