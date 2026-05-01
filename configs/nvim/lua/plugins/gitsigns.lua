@@ -57,7 +57,7 @@ return {
 				map("n", "<leader>hd", gitsigns.diffthis, { desc = "git [d]iff" })
 				map("n", "<leader>hD", function()
 					gitsigns.diffthis("~")
-				end)
+				end, { desc = "git diff this" })
 				map("n", "<leader>tg", function()
 					require("gitsigns").setqflist("attached")
 					require("trouble").open("quickfix")
