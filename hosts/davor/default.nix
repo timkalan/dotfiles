@@ -98,6 +98,8 @@
       };
       openFirewall = true;
     };
+
+    tailscale.enable = true;
   };
 
   programs = {
