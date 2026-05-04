@@ -12,7 +12,7 @@ return {
 			else
 				return "<Tab>"
 			end
-		end, { expr = true, silent = true })
-		vim.keymap.set("i", "<M-CR>", require("copilot.suggestion").next)
+		end, { expr = true, silent = true, desc = "accept copilot suggestion line" })
+		vim.keymap.set("i", "<M-CR>", require("copilot.suggestion").next, { desc = "next copilot suggestion" })
 	end,
 }

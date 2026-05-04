@@ -26,7 +26,7 @@ return {
 					else
 						gitsigns.nav_hunk("next")
 					end
-				end)
+				end, { desc = "next git hunk / change" })
 
 				map("n", "[c", function()
 					if vim.wo.diff then
@@ -34,7 +34,7 @@ return {
 					else
 						gitsigns.nav_hunk("prev")
 					end
-				end)
+				end, { desc = "prev git hunk / change" })
 
 				-- Actions
 				map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "git [s]tage [h]unk" })
@@ -45,7 +45,7 @@ return {
 				map("v", "<leader>hr", function()
 					gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 				end, { desc = "git [r]eset [h]unk" })
-				map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "git [S]tage k" })
+				map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "git [S]tage buffer" })
 				map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "git [R]eset buffer" })
 				map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "git [p]review [h]unk" })
 				map("n", "<leader>hi", gitsigns.preview_hunk_inline, { desc = "git preview [h]unk [i]nline" })
@@ -54,21 +54,18 @@ return {
 				end, { desc = "git [b]lame line" })
 				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "git [t]oggle [b]lame" })
 				map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "git [t]oggle [w]ord diff" })
-				map("n", "<leader>hd", gitsigns.diffthis, { desc = "git [d]iff" })
+				map("n", "<leader>hd", gitsigns.diffthis, { desc = "git [h]unks [d]iff (vs index)" })
 				map("n", "<leader>hD", function()
 					gitsigns.diffthis("~")
-				end, { desc = "git diff this" })
+				end, { desc = "git [h]unks [D]iff (vs HEAD)" })
 				map("n", "<leader>tg", function()
 					require("gitsigns").setqflist("attached")
 					require("trouble").open("quickfix")
-				end, { desc = "Git Review (Current File)" })
+				end, { desc = "[t]rouble [g]it review (file)" })
 				map("n", "<leader>tG", function()
 					require("gitsigns").setqflist("all")
 					require("trouble").open("quickfix")
-				end, { desc = "Git Review (Current Project)" })
-				map("n", "<leader>fv", function()
-					Snacks.picker.git_status()
-				end, { desc = "Git Review (Current Project)" })
+				end, { desc = "[t]rouble [G]it review (all)" })
 
 				-- Text object
 				map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "text object: [i]nside [h]unk" })

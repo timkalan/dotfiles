@@ -15,6 +15,12 @@ return {
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",
+			opts = {
+				library = {
+					{ path = "snacks.nvim", words = { "Snacks" } },
+					{ path = "lazy.nvim", words = { "LazyVim" } },
+				},
+			},
 		},
 		{
 			"dmmulroy/ts-error-translator.nvim",
@@ -39,35 +45,35 @@ return {
 
 				map("gd", function()
 					Snacks.picker.lsp_definitions()
-				end, "[G]oto [D]efinition")
+				end, "[g]oto [d]efinition")
 				map("<leader>gd", function()
 					vim.api.nvim_command("vsplit")
 					vim.api.nvim_command("wincmd l")
 					vim.lsp.buf.definition()
-				end, "[G]oto [D]efinition [Split]")
+				end, "[g]oto [d]efinition (split)")
 				map("gr", function()
 					Snacks.picker.lsp_references()
-				end, "[G]oto [R]eferences")
-				map("<leader>gr", vim.lsp.buf.references, "[G]oto [R]eferences")
+				end, "[g]oto [r]eferences")
+				map("<leader>gr", vim.lsp.buf.references, "[g]oto [r]eferences")
 				map("gi", function()
 					Snacks.picker.lsp_implementations()
-				end, "[G]oto [I]mplementation")
-				map("<leader>gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+				end, "[g]oto [i]mplementation")
+				map("<leader>gi", vim.lsp.buf.implementation, "[g]oto [i]mplementation")
 				map("gt", function()
 					Snacks.picker.lsp_type_definitions()
-				end, "[G]oto [T]ype Definition")
+				end, "[g]oto [t]ype definition")
 				map("gD", function()
 					Snacks.picker.lsp_declarations()
-				end, "[G]oto [D]eclaration")
+				end, "[g]oto [D]eclaration")
 				map("<leader>ds", function()
 					Snacks.picker.lsp_symbols()
-				end, "[D]ocument [S]ymbols")
+				end, "[d]ocument [s]ymbols")
 				map("<leader>ws", function()
 					Snacks.picker.lsp_workspace_symbols()
-				end, "[W]orkspace [S]ymbols")
-				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-				map("<leader>ho", vim.lsp.buf.hover, "[H][o]ver")
+				end, "[w]orkspace [s]ymbols")
+				map("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
+				map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction", { "n", "x" })
+				map("<leader>ho", vim.lsp.buf.hover, "[h][o]ver")
 
 				-- Highlight references for word under cursor
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -110,7 +116,7 @@ return {
 				then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-					end, "[T]oggle Inlay [H]ints")
+					end, "[t]oggle inlay [h]ints")
 				end
 			end,
 		})
@@ -177,9 +183,11 @@ return {
 			html = {},
 			jsonls = {},
 			lua_ls = {
-				Lua = {
-					workspace = { checkThirdParty = false },
-					telemetry = { enable = false },
+				settings = {
+					Lua = {
+						workspace = { checkThirdParty = false },
+						telemetry = { enable = false },
+					},
 				},
 			},
 			-- ocamllsp = {},

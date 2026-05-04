@@ -9,7 +9,7 @@ return {
 				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
 			mode = "",
-			desc = "[F][o]rmat buffer",
+			desc = "[f][o]rmat buffer",
 		},
 	},
 	opts = {

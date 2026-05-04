@@ -11,8 +11,8 @@ return {
 				prompt_save_on_select_new_entry = false,
 				lsp_file_methods = {
 					enabled = true,
-					timeout_ms = 1000,
-					autosave_changes = false,
+					timeout_ms = 3000,
+					autosave_changes = true,
 				},
 				delete_to_trash = true,
 				view_options = {
