@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   colors = import ./colors.nix;
@@ -152,6 +152,7 @@ in
 
     firefox = {
       enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
       profiles.default = {
         id = 0;
         name = "default";
