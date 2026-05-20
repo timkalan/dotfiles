@@ -108,6 +108,17 @@
     };
   };
 
+  programs.btop = {
+    enable = true;
+    settings = {
+      color_theme = "gruvbox_dark_v2";
+      theme_background = false;
+      rounded_corners = false;
+      vim_keys = true;
+      clock_format = "%H:%M";
+    };
+  };
+
   programs.lazygit = {
     enable = true;
 

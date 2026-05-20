@@ -119,31 +119,6 @@ in
       };
     };
 
-    btop = {
-      enable = true;
-      settings = {
-        color_theme = "gruvbox_dark_v2";
-        theme_background = false;
-        rounded_corners = false;
-        truecolor = true;
-        vim_keys = true;
-        update_ms = 2000;
-        proc_sorting = "cpu lazy";
-        proc_tree = false;
-        proc_colors = true;
-        proc_gradient = true;
-        proc_per_core = false;
-        show_uptime = true;
-        check_temp = true;
-        show_coretemp = true;
-        temp_scale = "celsius";
-        show_cpu_freq = true;
-        show_battery = false;
-        graph_symbol = "braille";
-        clock_format = "%H:%M";
-      };
-    };
-
     zsh = {
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#davor";

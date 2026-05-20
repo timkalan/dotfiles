@@ -24,7 +24,7 @@ _: {
       "tailscale-app"
       "the-unarchiver"
       "zen"
-      "windows-app"
+      "whatcable"
     ];
 
     brews = [
@@ -32,6 +32,7 @@ _: {
       "heroku"
       "infisical"
       "memcached"
+      "mole"
       "redis"
       "sqlite"
       "stripe"
@@ -47,6 +48,7 @@ _: {
       "infisical/get-cli"
       "nikitabobko/tap"
       "stripe/stripe-cli"
+      "darrylmorley/whatcable"
     ];
   };
 }
