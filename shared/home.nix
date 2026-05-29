@@ -214,6 +214,9 @@
       source = ./../scripts/tmux-sessionizer.sh;
       executable = true;
     };
+
+    ".claude/CLAUDE.md".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/CLAUDE.md";
   };
 
   xdg = {
