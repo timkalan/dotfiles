@@ -20,7 +20,7 @@
     "$mod, F, fullscreen"
     "$mod, V, togglefloating"
     "$mod SHIFT, V, pin"
-    "$mod, J, togglesplit"
+    "$mod, J, layoutmsg, togglesplit"
     "$mod, U, focusurgentorlast"
 
     # Focus movement

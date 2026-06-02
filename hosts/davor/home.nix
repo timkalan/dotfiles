@@ -55,6 +55,7 @@ in
       bluetuith
       obsidian
       brave
+      qbittorrent
 
       # Games
       heroic
@@ -118,6 +119,8 @@ in
         ];
       };
     };
+
+    btop.package = pkgs.btop-rocm;
 
     zsh = {
       shellAliases = {

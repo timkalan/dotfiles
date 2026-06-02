@@ -100,6 +100,13 @@
     };
 
     tailscale.enable = true;
+
+    ollama = {
+      enable = true;
+      package = pkgs.ollama-rocm;
+      rocmOverrideGfx = "10.3.0"; # gfx1030 (RX 6800/6800XT/6900XT)
+      environmentVariables.OLLAMA_CONTEXT_LENGTH = "131072"; # 128K
+    };
   };
 
   programs = {
