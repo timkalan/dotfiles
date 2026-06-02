@@ -85,6 +85,9 @@
 
     "$mod, P, exec, $HOME/.scripts/toggle-projector.sh"
 
+    # KVM: hand the shared monitor (+ keyboard/mouse) to the Mac (diego)
+    "CTRL ALT, K, exec, $HOME/.scripts/kvm-switch.sh"
+
     "$mod, mouse_down, workspace, e+1"
     "$mod, mouse_up, workspace, e-1"
   ];

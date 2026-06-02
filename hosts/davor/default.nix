@@ -134,6 +134,7 @@
         "networkmanager"
         "wheel"
         "docker"
+        "i2c"
       ];
       openssh.authorizedKeys.keys = [ keys.diego ];
       useDefaultShell = true;
@@ -150,6 +151,9 @@
   };
 
   hardware.keyboard.qmk.enable = true;
+
+  # DDC/CI access for ddcutil (KVM monitor input switching)
+  hardware.i2c.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

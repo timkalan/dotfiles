@@ -17,6 +17,10 @@ in
         source = ../../scripts/toggle-projector.sh;
         executable = true;
       };
+      ".scripts/kvm-switch.sh" = {
+        source = ../../scripts/kvm-switch.sh;
+        executable = true;
+      };
     };
 
     sessionVariables = {
@@ -65,6 +69,7 @@ in
 
       # Utils
       jq
+      ddcutil # DDC/CI monitor control (KVM input switching)
     ];
 
     pointerCursor = {

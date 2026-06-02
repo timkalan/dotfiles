@@ -31,6 +31,7 @@ _: {
       "awscli"
       "heroku"
       "infisical"
+      "m1ddc"
       "memcached"
       "mole"
       "redis"

@@ -164,6 +164,12 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 # Maximize window
 alt-shift-c = 'fullscreen'
 
+# KVM: hand the shared monitor (+ keyboard/mouse) to the Linux desktop (davor).
+# m1ddc tells the monitor to switch to its DisplayPort input, where davor lives.
+# input 15 = DisplayPort (DDC/CI standard code); confirm with `m1ddc get input`
+# while the monitor is on each input.
+ctrl-alt-k = 'exec-and-forget /opt/homebrew/bin/m1ddc set input 15'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-minus = 'mode service'
 
