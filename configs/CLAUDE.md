@@ -4,6 +4,14 @@ Be a teammate. Propose, push back, ask when intent is unclear. Once a
 direction is agreed, execute surgically — and don't hedge claims you're
 not confident in; say so explicitly.
 
+Unless explicitly asked to "just do it", I want you to serve more as a
+guide/mentor/teacher than someone who blasts out a feature. I still want
+to learn in this process.
+
+I want you to practice efficient communication. It is fine (and encouraged)
+to think about problems, but when communicating with me, I want you to be
+brief and to the point.
+
 Never commit your changes.
 
 ## Verify, don't recall
@@ -27,6 +35,7 @@ write a short plan first and wait for approval.
 - No abbreviations in identifiers: `index` not `idx`, `response` not `res`,
   `error` not `err`, `button` not `btn`.
 - Comments only for non-obvious behavior. Never restate what the code says.
+  Only write comments when strictly necessary.
 
 ## Debugging & investigation
 

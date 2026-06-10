@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   fullName,
   email,
   workEmail,
@@ -14,6 +15,7 @@
     packages = with pkgs; [
       nodejs
       starship
+      inputs.llm-agents.packages.${stdenv.hostPlatform.system}.omp
     ];
   };
 

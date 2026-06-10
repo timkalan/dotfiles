@@ -27,6 +27,12 @@
     home = "/Users/${username}";
   };
 
+  networking = {
+    computerName = "diego";
+    hostName = "diego";
+    localHostName = "diego";
+  };
+
   system = {
     # Machine-specific unique ID
     stateVersion = 6;
@@ -34,9 +40,13 @@
     primaryUser = username;
 
     defaults = {
+      controlcenter.BatteryShowPercentage = true;
       dock = {
         autohide = true;
+        autohide-delay = 0.0;
         autohide-time-modifier = 0.1;
+        expose-group-apps = true;
+        mru-spaces = false;
         orientation = "right";
         persistent-apps = [
           "/Applications/Ghostty.app/"
@@ -52,18 +62,32 @@
         persistent-others = [
           "/Users/${username}/Downloads"
         ];
+        show-recents = false;
+        # 14 = Quick Note
+        wvous-br-corner = 14;
       };
       finder = {
         AppleShowAllExtensions = true;
+        FXPreferredViewStyle = "clmv";
+        NewWindowTarget = "Recents";
         ShowPathbar = true;
         ShowStatusBar = true;
       };
+      loginwindow.GuestEnabled = false;
+      menuExtraClock.ShowSeconds = true;
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
+        ApplePressAndHoldEnabled = false;
         KeyRepeat = 2;
         InitialKeyRepeat = 15;
+        NSAutomaticCapitalizationEnabled = false;
+        NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticPeriodSubstitutionEnabled = false;
+        NSAutomaticQuoteSubstitutionEnabled = false;
+        NSAutomaticSpellingCorrectionEnabled = false;
       };
       trackpad.Clicking = true;
+      WindowManager.EnableStandardClickToShowDesktop = false;
     };
   };
 
