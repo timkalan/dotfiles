@@ -4,6 +4,9 @@ _: {
 
     onActivation = {
       cleanup = "zap";
+      # brew >=4.5 (2026-05-24) requires force for non-interactive cleanup;
+      # drop once nix-darwin#1789 lands.
+      extraFlags = [ "--force-cleanup" ];
       autoUpdate = true;
       upgrade = true;
     };
@@ -23,6 +26,7 @@ _: {
       "slack"
       "tailscale-app"
       "the-unarchiver"
+      "utm"
       "zen"
       "whatcable"
     ];

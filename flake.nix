@@ -122,6 +122,49 @@
         ];
       };
 
+      nixosConfigurations."devon" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {
+          inherit
+            self
+            username
+            fullName
+            email
+            workEmail
+            keys
+            inputs
+            ;
+        };
+        modules = [
+          ./hosts/devon
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit
+                  username
+                  fullName
+                  email
+                  workEmail
+                  inputs
+                  ;
+                worktrunk-pkgs = inputs.worktrunk.packages.aarch64-linux;
+              };
+              users.${username} = {
+                imports = [
+                  ./hosts/devon/home.nix
+                  inputs.worktrunk.homeModules.default
+                ];
+              };
+            };
+          }
+        ];
+      };
+
       templates = {
         node = {
           path = ./templates/node;
