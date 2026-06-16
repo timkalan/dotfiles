@@ -15,6 +15,10 @@
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    # Rosetta on macOS 15 (Sequoia) can't parse AT_HWCAP3, which arm64
+    # kernels >=6.13 emit -> "unhandled auxillary vector type 29" on x86
+    # containers. Pin to 6.12 LTS. Drop once on macOS 26+ (newer Rosetta).
+    kernelPackages = pkgs.linuxPackages_6_12;
   };
 
   networking.hostName = "devon";
