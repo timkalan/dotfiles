@@ -5,6 +5,7 @@
   fullName,
   email,
   workEmail,
+  keys,
   ...
 }:
 
@@ -24,11 +25,17 @@
     home-manager.enable = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    includes = [ "~/.ssh/config.local" ];
+  };
+
   programs.git = {
     enable = true;
 
     signing = {
-      key = "~/.ssh/id_ed25519.pub";
+      key = keys.identity;
       signByDefault = true;
     };
 
@@ -59,7 +66,7 @@
           user = {
             name = fullName;
             email = workEmail;
-            signingkey = "~/.ssh/id_ed25519.pub";
+            signingkey = keys.identity;
           };
         };
       }

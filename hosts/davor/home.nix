@@ -86,6 +86,8 @@ in
   };
 
   programs = {
+    ssh.settings."*".IdentityAgent = "~/.1password/agent.sock";
+
     waybar = import ./waybar.nix { inherit colors; };
     walker = import ./walker.nix { inherit colors; };
 

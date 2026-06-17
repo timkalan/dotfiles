@@ -1,5 +1,6 @@
 _: {
   homebrew = {
+
     enable = true;
 
     onActivation = {
@@ -16,7 +17,6 @@ _: {
       "aerospace"
       "betterdisplay"
       "bruno"
-      "docker-desktop"
       "ghostty"
       "google-chrome"
       "helium-browser"

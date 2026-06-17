@@ -43,7 +43,7 @@
     bash-language-server
     lua-language-server
     marksman
-    nil
+    nixd
     taplo
     yaml-language-server
 

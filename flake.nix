@@ -34,8 +34,7 @@
       email = "timkalan99@gmail.com";
       workEmail = "tim.kalan@zerodays.dev";
       keys = {
-        diego = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z";
-        davor = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGc1JHW7HfZxlNrIxHEnsfy3kqG1mhMSwupx9z4zLJrn";
+        identity = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z";
       };
     in
     {
@@ -64,6 +63,7 @@
                   email
                   workEmail
                   inputs
+                  keys
                   ;
                 worktrunk-pkgs = inputs.worktrunk.packages.aarch64-darwin;
               };
@@ -107,6 +107,7 @@
                   email
                   workEmail
                   inputs
+                  keys
                   ;
                 worktrunk-pkgs = inputs.worktrunk.packages.x86_64-linux;
               };
@@ -151,6 +152,7 @@
                   email
                   workEmail
                   inputs
+                  keys
                   ;
                 worktrunk-pkgs = inputs.worktrunk.packages.aarch64-linux;
               };

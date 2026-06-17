@@ -220,7 +220,26 @@ return {
 				single_file_support = false,
 			},
 			yamlls = {},
-			nil_ls = {},
+			nixd = {
+				settings = {
+					nixd = {
+						nixpkgs = {
+							expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }",
+						},
+						options = {
+							nixos = {
+								expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.davor.options",
+							},
+							nix_darwin = {
+								expr = "(builtins.getFlake (toString ./.)).darwinConfigurations.diego.options",
+							},
+							home_manager = {
+								expr = "(builtins.getFlake (toString ./.)).darwinConfigurations.diego.options.home-manager.users.type.getSubOptions []",
+							},
+						},
+					},
+				},
+			},
 		}
 
 		require("lazydev").setup()

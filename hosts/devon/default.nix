@@ -71,7 +71,7 @@
         "wheel"
         "docker"
       ];
-      openssh.authorizedKeys.keys = [ keys.diego ];
+      openssh.authorizedKeys.keys = [ keys.identity ];
       useDefaultShell = true;
     };
 

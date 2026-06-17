@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -14,9 +15,24 @@
       PNPM_HOME = "$HOME/Library/pnpm";
     };
     sessionPath = [ "$HOME/Library/pnpm" ];
+    packages = with pkgs; [
+      colima
+      docker-client
+      docker-compose
+    ];
+    activation.colimaConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run install -Dm644 ${../../configs/colima.yaml} "${config.xdg.configHome}/colima/default/colima.yaml"
+    '';
   };
 
   programs = {
+    ssh.settings = {
+      "*".IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+      "devon.local".ForwardAgent = true;
+    };
+
+    git.settings.gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+
     ghostty = {
       # We override 'package' to null because on Mac we use the DMG/Brew version.
       package = lib.mkForce null;
