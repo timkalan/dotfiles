@@ -54,14 +54,11 @@
       ".env"
       ".envrc"
       ".direnv"
-      ".direnv/"
     ];
 
     includes = [
       {
-        # If the directory matches this path...
         condition = "gitdir:~/projects/work/";
-        # ...apply these settings automatically.
         contents = {
           user = {
             name = fullName;
