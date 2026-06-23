@@ -36,7 +36,6 @@ setup_new_session_windows() {
     tmux send-keys -t "$editor_window_target" "$cmd" C-m
 }
 
-
 if [[ $# -eq 1 ]]; then
     selected=$1
 else

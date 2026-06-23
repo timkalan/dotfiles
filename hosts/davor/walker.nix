@@ -15,8 +15,14 @@
     };
 
     keybinds = {
-      next = [ "ctrl j" "Down" ];
-      previous = [ "ctrl k" "Up" ];
+      next = [
+        "ctrl j"
+        "Down"
+      ];
+      previous = [
+        "ctrl k"
+        "Up"
+      ];
       close = [ "Escape" ];
     };
 
@@ -31,15 +37,42 @@
         "desktopapplications"
       ];
       prefixes = [
-        { prefix = "="; provider = "calc"; }
-        { prefix = "@"; provider = "websearch"; }
-        { prefix = ":"; provider = "clipboard"; }
-        { prefix = "."; provider = "symbols"; }
-        { prefix = "/"; provider = "files"; }
-        { prefix = ";"; provider = "providerlist"; }
-        { prefix = ">"; provider = "runner"; }
-        { prefix = "$"; provider = "1password"; }
-        { prefix = "^"; provider = "windows"; }
+        {
+          prefix = "=";
+          provider = "calc";
+        }
+        {
+          prefix = "@";
+          provider = "websearch";
+        }
+        {
+          prefix = ":";
+          provider = "clipboard";
+        }
+        {
+          prefix = ".";
+          provider = "symbols";
+        }
+        {
+          prefix = "/";
+          provider = "files";
+        }
+        {
+          prefix = ";";
+          provider = "providerlist";
+        }
+        {
+          prefix = ">";
+          provider = "runner";
+        }
+        {
+          prefix = "$";
+          provider = "1password";
+        }
+        {
+          prefix = "^";
+          provider = "windows";
+        }
       ];
     };
   };
