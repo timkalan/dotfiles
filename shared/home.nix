@@ -236,7 +236,7 @@
         post-remove = "tmux switch-client -t {{ repo }} 2>/dev/null; tmux kill-session -t {{ repo }}_{{ branch | sanitize }} 2>/dev/null || true"
 
         [switch]
-        no-cd = true
+        cd = false
       '';
 
       "sqlfluff/.sqlfluff".text = ''

@@ -10,7 +10,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    worktrunk.url = "github:max-sixty/worktrunk/73a220118eca42e6df3173f2d1fa2fb0df984542";
+    worktrunk.url = "github:max-sixty/worktrunk";
     worktrunk.inputs.nixpkgs.follows = "nixpkgs";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
@@ -65,7 +65,6 @@
                   inputs
                   keys
                   ;
-                worktrunk-pkgs = inputs.worktrunk.packages.aarch64-darwin;
               };
               users.${username} = {
                 imports = [
@@ -109,7 +108,6 @@
                   inputs
                   keys
                   ;
-                worktrunk-pkgs = inputs.worktrunk.packages.x86_64-linux;
               };
               users.${username} = {
                 imports = [
@@ -154,7 +152,6 @@
                   inputs
                   keys
                   ;
-                worktrunk-pkgs = inputs.worktrunk.packages.aarch64-linux;
               };
               users.${username} = {
                 imports = [
