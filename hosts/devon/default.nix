@@ -39,15 +39,6 @@
       openFirewall = true;
     };
 
-    # Resolvable as devon.local from the host (UTM DHCP leases drift)
-    avahi = {
-      enable = true;
-      publish = {
-        enable = true;
-        addresses = true;
-      };
-    };
-
     # Return deleted blocks to the host's sparse disk image
     fstrim.enable = true;
   };
@@ -59,7 +50,7 @@
     };
 
     # x86_64 binaries via Rosetta.
-    # Requires UTM engine "Apple Virtualization" with "Enable Rosetta" ticked.
+    # The vfkit host must attach a rosetta device (devon-vfkit.sh: --device rosetta).
     rosetta.enable = true;
   };
 

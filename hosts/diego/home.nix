@@ -19,7 +19,13 @@
       colima
       docker-client
       docker-compose
+      vfkit
+      gvproxy
     ];
+    file.".scripts/devon-vfkit.sh" = {
+      source = ../../scripts/devon-vfkit.sh;
+      executable = true;
+    };
     activation.colimaConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run install -Dm644 ${../../configs/colima.yaml} "${config.xdg.configHome}/colima/default/colima.yaml"
     '';
@@ -28,7 +34,11 @@
   programs = {
     ssh.settings = {
       "*".IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
-      "devon.local".ForwardAgent = true;
+      "devon" = {
+        HostName = "localhost";
+        Port = 2223;
+        ForwardAgent = true;
+      };
     };
 
     git.settings.gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
@@ -52,6 +62,7 @@
 
     zsh.shellAliases = {
       rebuild = "sudo darwin-rebuild switch --flake ~/dotfiles";
+      devon = "~/.scripts/devon-vfkit.sh";
     };
 
     tmux.extraConfig = ''

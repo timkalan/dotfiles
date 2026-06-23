@@ -1,4 +1,4 @@
-# Hand-written for a UTM (Apple Virtualization) guest rather than generated:
+# Hand-written for a vfkit (Apple Virtualization) guest rather than generated:
 # filesystems are referenced by label, which the install steps create.
 # Replace with nixos-generate-config output after install if it ever drifts.
 { modulesPath, ... }:

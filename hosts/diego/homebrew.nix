@@ -26,7 +26,6 @@ _: {
       "slack"
       "tailscale-app"
       "the-unarchiver"
-      "utm"
       "zen"
       "whatcable"
     ];
