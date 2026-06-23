@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # devon-vfkit — run the devon NixOS VM under vfkit instead of UTM.
 #
 # `utmctl start devon` drives UTM.app over Apple Events (TCC) and hangs. vfkit
@@ -9,10 +8,9 @@
 # Persistence: vfkit boots a fixed raw disk with no snapshot, so guest state
 # survives start/stop — devon stays a pet.
 #
-# vfkit/gvproxy are taken from PATH when present (i.e. once declared in the
-# system closure) and otherwise built from nixpkgs, so this works before any
-# rebuild. Subcommands: start | stop | status | ssh [args…] | logs
-set -euo pipefail
+# vfkit and gvproxy are provided by this script's Nix wrapper (runtimeInputs);
+# cpus, memory, ssh_port and mac are injected by it too.
+# Subcommands: start | stop | status | ssh [args…] | logs
 
 data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/devon-vfkit"
 # devon.img was seeded once as an APFS copy-on-write clone of the UTM disk:
@@ -28,24 +26,9 @@ vfkit_pid="$data_dir/vfkit.pid"
 known_hosts="$data_dir/known_hosts"
 
 rest_host="127.0.0.1:8081"
-ssh_port=2223
 ssh_user="$USER"
-# gvproxy hands the guest NIC this fixed MAC over the vfkit unix socket; the
-# vfkit virtio-net mac= must match it or DHCP/forwarding silently break.
-mac="5a:94:ef:e4:0c:ee"
-cpus=4
-memory=6144
 
 die() { echo "devon-vfkit: $*" >&2; exit 1; }
-
-# PATH first (system closure), else build from nixpkgs so this works pre-rebuild.
-resolve() {
-  local name="$1" out
-  if command -v "$name" >/dev/null; then command -v "$name"; return; fi
-  out="$(nix build --no-link --print-out-paths "nixpkgs#$name")" \
-    || die "'$name' is not on PATH and could not be built from nixpkgs"
-  printf '%s/bin/%s\n' "$out" "$name"
-}
 
 pid_alive() { local f="$1"; [[ -f "$f" ]] && kill -0 "$(cat "$f")" 2>/dev/null; }
 running() { pid_alive "$vfkit_pid"; }
@@ -53,13 +36,10 @@ running() { pid_alive "$vfkit_pid"; }
 cmd_start() {
   running && { echo "already running (vfkit pid $(cat "$vfkit_pid"))"; return; }
   [[ -f "$disk" ]] || die "no disk at $disk — see the comment above 'disk=' to seed it"
-  local gvproxy_bin vfkit_bin
-  gvproxy_bin="$(resolve gvproxy)"
-  vfkit_bin="$(resolve vfkit)"
   mkdir -p "$data_dir"
   rm -f "$net_sock" "$gvproxy_pid" "$vfkit_pid"
 
-  daemonize "$gvproxy_log" "$gvproxy_bin" -mtu 1500 -ssh-port "$ssh_port" \
+  daemonize "$gvproxy_log" gvproxy -mtu 1500 -ssh-port "$ssh_port" \
     -listen-vfkit "unixgram://$net_sock" -pid-file "$gvproxy_pid" -log-file "$gvproxy_log"
   local i
   for ((i = 0; i < 50; i++)); do [[ -S "$net_sock" ]] && break; sleep 0.1; done
@@ -67,7 +47,7 @@ cmd_start() {
 
   local gui=()
   [[ "${DEVON_VFKIT_GUI:-0}" == 1 ]] && gui=(--gui)
-  daemonize "$vfkit_log" "$vfkit_bin" --cpus "$cpus" --memory "$memory" "${gui[@]+"${gui[@]}"}" \
+  daemonize "$vfkit_log" vfkit --cpus "$cpus" --memory "$memory" "${gui[@]+"${gui[@]}"}" \
     --bootloader "efi,variable-store=$efi_vars,create" \
     --device "virtio-blk,path=$disk" \
     --device "virtio-net,unixSocketPath=$net_sock,mac=$mac" \
@@ -82,6 +62,7 @@ cmd_start() {
   local ready=0 banner
   printf 'devon booting'
   for ((i = 0; i < 60; i++)); do
+    running || { printf '\n'; die "vfkit exited during boot — try 'devon logs'"; }
     banner="$(nc -w 2 127.0.0.1 "$ssh_port" </dev/null 2>/dev/null || true)"
     case "$banner" in *SSH-2.0*) ready=1; break ;; esac
     printf '.'; sleep 1
@@ -130,7 +111,7 @@ cmd_status() {
 }
 
 cmd_ssh() {
-  running || die "not running — 'devon-vfkit start' first"
+  running || die "not running — 'devon start' first"
   mkdir -p "$data_dir"
   exec ssh -A -p "$ssh_port" \
     -o UserKnownHostsFile="$known_hosts" \
@@ -153,5 +134,5 @@ case "${1:-}" in
   status)  cmd_status ;;
   ssh)     shift; cmd_ssh "$@" ;;
   logs)    cmd_logs ;;
-  *) echo "usage: devon-vfkit {start|stop|status|ssh [args…]|logs}" >&2; exit 2 ;;
+  *) echo "usage: devon {start|stop|status|ssh [args…]|logs}" >&2; exit 2 ;;
 esac

@@ -8,7 +8,7 @@ disposable: everything but uncommitted code is rebuildable from this repo.
 Config: `hosts/devon/{default,home,hardware-configuration}.nix` and
 `nixosConfigurations."devon"` in `flake.nix`. It runs under vfkit + gvproxy
 (Apple's Virtualization.framework — no app, no daemon) via
-`scripts/devon-vfkit.sh`; the guest's sshd is reachable at `localhost:2223`.
+the `devon` command (`scripts/devon-vfkit.{nix,sh}`); the guest's sshd is reachable at `localhost:2223`.
 
 ## Prerequisites
 
@@ -86,8 +86,8 @@ read, then re-run from the `mkfs` lines — the partition table persists.
 
 ## 3. First connection + dotfiles
 
-From the Mac host, start devon and log in. `devon` is a shell alias for the
-launcher (`~/.scripts/devon-vfkit.sh`, set in `hosts/diego/home.nix`); it
+From the Mac host, start devon and log in. `devon` is the launcher command
+(built by `scripts/devon-vfkit.nix`, on PATH via `hosts/diego/home.nix`); it
 forwards diego's 1Password SSH agent (`ssh -A`), so no private key lives on devon:
 
 ```sh

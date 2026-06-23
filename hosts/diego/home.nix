@@ -5,6 +5,10 @@
   ...
 }:
 
+let
+  devonSshPort = 2223;
+  devon = pkgs.callPackage ../../scripts/devon-vfkit.nix { sshPort = devonSshPort; };
+in
 {
   imports = [
     ../../shared/home.nix
@@ -15,17 +19,14 @@
       PNPM_HOME = "$HOME/Library/pnpm";
     };
     sessionPath = [ "$HOME/Library/pnpm" ];
-    packages = with pkgs; [
+    packages = [
+      devon
+    ]
+    ++ (with pkgs; [
       colima
       docker-client
       docker-compose
-      vfkit
-      gvproxy
-    ];
-    file.".scripts/devon-vfkit.sh" = {
-      source = ../../scripts/devon-vfkit.sh;
-      executable = true;
-    };
+    ]);
     activation.colimaConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run install -Dm644 ${../../configs/colima.yaml} "${config.xdg.configHome}/colima/default/colima.yaml"
     '';
@@ -36,7 +37,7 @@
       "*".IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
       "devon" = {
         HostName = "localhost";
-        Port = 2223;
+        Port = devonSshPort;
         ForwardAgent = true;
       };
     };
@@ -62,7 +63,6 @@
 
     zsh.shellAliases = {
       rebuild = "sudo darwin-rebuild switch --flake ~/dotfiles";
-      devon = "~/.scripts/devon-vfkit.sh";
     };
 
     tmux.extraConfig = ''

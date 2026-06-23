@@ -87,6 +87,7 @@ in
 
   programs = {
     ssh.settings."*".IdentityAgent = "~/.1password/agent.sock";
+    git.settings.gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
 
     waybar = import ./waybar.nix { inherit colors; };
     walker = import ./walker.nix { inherit colors; };
