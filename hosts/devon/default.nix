@@ -19,6 +19,14 @@
     # kernels >=6.13 emit -> "unhandled auxillary vector type 29" on x86
     # containers. Pin to 6.12 LTS. Drop once on macOS 26+ (newer Rosetta).
     kernelPackages = pkgs.linuxPackages_6_12;
+    # Break-glass serial console for when ssh/networking is down (otherwise the
+    # only way in). The last console= becomes /dev/console and gets the getty,
+    # so the serial line (hvc0) goes last; tty0 is the GUI window opened by
+    # DEVON_VFKIT_GUI=1.
+    kernelParams = [
+      "console=tty0"
+      "console=hvc0"
+    ];
   };
 
   networking.hostName = "devon";

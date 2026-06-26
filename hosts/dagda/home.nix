@@ -61,6 +61,9 @@
   xdg.configFile = {
     "aerospace/aerospace.toml".source = ../../configs/aerospace/aerospace.toml;
 
+    "karabiner/karabiner.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/karabiner/karabiner.json";
+
     "lazygit/config.yml".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Application Support/lazygit/config.yml";
   };

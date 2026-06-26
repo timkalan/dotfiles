@@ -81,9 +81,12 @@ more powerful work MacBook is expected to land.
     `runtimeInputs`, build-time shellcheck); `devon` on PATH via `hosts/diego/home.nix`.
     Killed the per-start `nix build`, the `home.file` copy, and the alias.
   - ~~ssh: replace the dead `devon.local` entry with `Host devon → localhost:2223, ForwardAgent`~~ **done** — `hosts/diego/home.nix`.
-  - `boot.kernelParams = [ "console=hvc0" "console=tty0" ]` in `hosts/devon` for a
-    full serial break-glass console (interim: `DEVON_VFKIT_GUI=1 devon start`
-    opens a GUI window).
+  - ~~`boot.kernelParams` for a serial break-glass console~~ **done** — wired
+    `[ "console=tty0" "console=hvc0" ]` in `hosts/devon` (serial last, so hvc0 wins
+    /dev/console + the getty). Serial now carries boot output + a login prompt;
+    interactive headless login still wants a launcher `console` attach onto the
+    serial socket, so `DEVON_VFKIT_GUI=1 devon start` stays the interactive
+    break-glass until then.
   - ~~Update `hosts/devon/README.md`~~ **done** — rewritten vfkit-centric; §1
     from-scratch boot flagged unverified (no ISO on hand to validate).
   - **Retiring UTM (in progress).** `utm` cask removed from
@@ -112,9 +115,10 @@ more powerful work MacBook is expected to land.
   awscli2, heroku, stripe-cli, supabase-cli, infisical, m1ddc, memcached,
   redis, sqlite. Keep `mole` on brew (marked broken in nixpkgs). Tradeoff:
   brew autoUpdate keeps fast-moving CLIs fresher than flake updates.
-- **karabiner.json is unversioned** — the esc/ctrl dual-role config dies
-  with the machine. Vendor into `configs/karabiner/` via
-  `mkOutOfStoreSymlink` (same pattern as lazygit).
+- **karabiner.json — vendored.** esc/ctrl + F20/F21 dual-role config now lives in
+  `configs/karabiner/karabiner.json`, symlinked into both mac hosts (diego + dagda)
+  via `mkOutOfStoreSymlink` — repo-backed + mutable like nvim (not a read-only store
+  symlink like aerospace), so Karabiner's in-place rewrites flow back to the repo.
 - **Neovim plugins to consider** (not currently included):
   - **[flash.nvim](https://github.com/folke/flash.nvim)** — labeled jumps for `/`, `f`, and `t` motions. Makes navigating visible text near-instant.
   - **[diffview.nvim](https://github.com/sindrets/diffview.nvim)** — multi-file diffs and merge conflict resolution. Fills the gap between gitsigns and lazygit.
