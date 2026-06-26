@@ -17,28 +17,37 @@ the `devon` command (`scripts/devon-vfkit.{nix,sh}`); the guest's sshd is reacha
 
 ## 1. Boot the installer (one-time)
 
-> **Not yet re-run since the UTM→vfkit cutover.** The console install in §2 is
-> backend-agnostic, but the vfkit invocation that boots the *installer ISO* is
-> reconstructed from `scripts/devon-vfkit.sh start` (the same EFI removable-media
-> path that boots the installed disk) plus the ISO and a blank disk — validate it
-> on first use. The declarative raw-efi image (TODO, needs a `nix.linux-builder`)
-> is the intended replacement for this whole step.
+> Manual bootstrap — unverified since the UTM→vfkit cutover (no ISO on hand to
+> re-run). The `gvproxy`/`vfkit` invocations are lifted from the verified
+> `devon start` path (`scripts/devon-vfkit.sh`), so the device set is correct by
+> construction; only the ISO boot itself is untested. For a from-scratch rebuild,
+> prefer [nixos-lima](https://github.com/nixos-lima/nixos-lima) (lima-managed NixOS:
+> reproducible image, no host builder) over re-running this manual path.
 
-Create the blank target disk, then boot the minimal ISO under vfkit with a
-graphical console (`--gui`) for the install. Mirror the device set from
-`devon start` (gvproxy networking, Rosetta, rng) and attach the ISO as a
-second `virtio-blk`:
+`vfkit` and `gvproxy` are `runtimeInputs` of the `devon` package, not on `PATH`
+standalone. Pull them, make the blank target disk, start user-mode networking,
+then boot the ISO with a graphical console. cpus/memory/mac mirror
+`scripts/devon-vfkit.nix`; the `virtio-net` mac MUST equal gvproxy's.
 
 ```sh
-mkdir -p ~/.local/share/devon-vfkit
-truncate -s 64G ~/.local/share/devon-vfkit/devon.img
-# then boot, roughly (see scripts/devon-vfkit.sh for the full device set):
-#   vfkit --cpus 4 --memory 6144 --gui \
-#     --bootloader efi,variable-store=<vars>,create \
-#     --device virtio-blk,path=~/.local/share/devon-vfkit/devon.img \
-#     --device virtio-blk,path=<minimal.iso> \
-#     --device virtio-net,unixSocketPath=<gvproxy.sock>,mac=5a:94:ef:e4:0c:ee \
-#     --device rosetta,mountTag=rosetta --device virtio-rng
+nix shell nixpkgs#vfkit nixpkgs#gvproxy   # opens a subshell with both on PATH; run the rest there
+
+dir=~/.local/share/devon-vfkit
+iso="$HOME/Downloads/nixos-minimal-aarch64-linux.iso"   # rename to your download
+mkdir -p "$dir"
+truncate -s 64G "$dir/devon.img"
+
+# user-mode networking — creates "$dir/net.sock"; leave it running
+gvproxy -mtu 1500 -ssh-port 2223 -listen-vfkit "unixgram://$dir/net.sock" &
+
+# blank disk first, installer ISO second; --gui gives a console for the install
+vfkit --cpus 4 --memory 6144 --gui \
+  --bootloader "efi,variable-store=$dir/efi_vars.fd,create" \
+  --device "virtio-blk,path=$dir/devon.img" \
+  --device "virtio-blk,path=$iso" \
+  --device "virtio-net,unixSocketPath=$dir/net.sock,mac=5a:94:ef:e4:0c:ee" \
+  --device "rosetta,mountTag=rosetta" \
+  --device "virtio-rng"
 ```
 
 Rosetta must be attached or the first boot of the installed system drops to
@@ -96,12 +105,15 @@ devon ssh                     # log in  (≡ ssh devon)
 ```
 
 The nvim and CLAUDE.md configs are out-of-store symlinks into `~/dotfiles`
-(`shared/home.nix`), so they dangle until the repo is cloned. The `insteadOf`
-git rewrite clones over the forwarded agent key:
+(`shared/home.nix`), so they dangle until the repo is cloned. Clone over the
+forwarded agent — no private key lives on devon:
 
 ```sh
 git clone git@github.com:timkalan/dotfiles ~/dotfiles
 ```
+
+(`shared/home.nix` also sets `insteadOf` so `https://github.com/` remotes
+rewrite to SSH — https clones use the forwarded key too.)
 
 The symlinks resolve as soon as `~/dotfiles` exists — no rebuild needed. Project
 repos live here too; never develop across virtiofs shares.
