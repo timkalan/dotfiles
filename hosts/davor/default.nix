@@ -136,7 +136,7 @@
         "docker"
         "i2c"
       ];
-      openssh.authorizedKeys.keys = [ keys.diego ];
+      openssh.authorizedKeys.keys = [ keys.identity ];
       useDefaultShell = true;
     };
 

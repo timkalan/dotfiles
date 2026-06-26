@@ -9,7 +9,7 @@
 MAC_INPUT_CODE="0x10"
 
 if ddcutil setvcp 0x60 "$MAC_INPUT_CODE"; then
-	notify-send "KVM" "Handed monitor to the Mac (diego)" -t 2000
+    notify-send "KVM" "Handed monitor to the Mac (diego)" -t 2000
 else
-	notify-send "KVM" "Switch failed — check ddcutil / input code" -t 3000
+    notify-send "KVM" "Switch failed — check ddcutil / input code" -t 3000
 fi

@@ -5,6 +5,7 @@
   fullName,
   email,
   workEmail,
+  keys,
   ...
 }:
 
@@ -24,11 +25,17 @@
     home-manager.enable = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    includes = [ "~/.ssh/config.local" ];
+  };
+
   programs.git = {
     enable = true;
 
     signing = {
-      key = "~/.ssh/id_ed25519.pub";
+      key = keys.identity;
       signByDefault = true;
     };
 
@@ -47,19 +54,16 @@
       ".env"
       ".envrc"
       ".direnv"
-      ".direnv/"
     ];
 
     includes = [
       {
-        # If the directory matches this path...
         condition = "gitdir:~/projects/work/";
-        # ...apply these settings automatically.
         contents = {
           user = {
             name = fullName;
             email = workEmail;
-            signingkey = "~/.ssh/id_ed25519.pub";
+            signingkey = keys.identity;
           };
         };
       }
@@ -232,7 +236,7 @@
         post-remove = "tmux switch-client -t {{ repo }} 2>/dev/null; tmux kill-session -t {{ repo }}_{{ branch | sanitize }} 2>/dev/null || true"
 
         [switch]
-        no-cd = true
+        cd = false
       '';
 
       "sqlfluff/.sqlfluff".text = ''

@@ -110,10 +110,7 @@ return {
 				end
 
 				-- Toggle inlay hints
-				if
-					client
-					and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
-				then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[t]oggle inlay [h]ints")
@@ -220,7 +217,26 @@ return {
 				single_file_support = false,
 			},
 			yamlls = {},
-			nil_ls = {},
+			nixd = {
+				settings = {
+					nixd = {
+						nixpkgs = {
+							expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }",
+						},
+						options = {
+							nixos = {
+								expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.davor.options",
+							},
+							nix_darwin = {
+								expr = "(builtins.getFlake (toString ./.)).darwinConfigurations.diego.options",
+							},
+							home_manager = {
+								expr = "(builtins.getFlake (toString ./.)).darwinConfigurations.diego.options.home-manager.users.type.getSubOptions []",
+							},
+						},
+					},
+				},
+			},
 		}
 
 		require("lazydev").setup()

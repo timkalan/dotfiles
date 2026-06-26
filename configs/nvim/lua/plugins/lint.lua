@@ -18,7 +18,24 @@ return {
 		lint.linters.lll = {
 			cmd = "lll",
 			stdin = false,
-			args = { "--format", "editor" },
+			args = {
+				"--format",
+				"editor",
+				"--diagnostics",
+				function()
+					local payload = {}
+					for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
+						if diagnostic.source ~= "lll" then
+							table.insert(payload, {
+								line = diagnostic.lnum + 1,
+								message = diagnostic.message,
+								source = diagnostic.source,
+							})
+						end
+					end
+					return vim.json.encode(payload)
+				end,
+			},
 			append_fname = true,
 			ignore_exitcode = true,
 			parser = require("lint.parser").from_pattern(

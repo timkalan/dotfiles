@@ -31,6 +31,11 @@
     computerName = "diego";
     hostName = "diego";
     localHostName = "diego";
+
+    applicationFirewall = {
+      enable = true;
+      enableStealthMode = true;
+    };
   };
 
   system = {

@@ -10,7 +10,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    worktrunk.url = "github:max-sixty/worktrunk/73a220118eca42e6df3173f2d1fa2fb0df984542";
+    worktrunk.url = "github:max-sixty/worktrunk";
     worktrunk.inputs.nixpkgs.follows = "nixpkgs";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
@@ -34,8 +34,7 @@
       email = "timkalan99@gmail.com";
       workEmail = "tim.kalan@zerodays.dev";
       keys = {
-        diego = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z";
-        davor = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGc1JHW7HfZxlNrIxHEnsfy3kqG1mhMSwupx9z4zLJrn";
+        identity = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z";
       };
     in
     {
@@ -64,8 +63,8 @@
                   email
                   workEmail
                   inputs
+                  keys
                   ;
-                worktrunk-pkgs = inputs.worktrunk.packages.aarch64-darwin;
               };
               users.${username} = {
                 imports = [
@@ -107,14 +106,57 @@
                   email
                   workEmail
                   inputs
+                  keys
                   ;
-                worktrunk-pkgs = inputs.worktrunk.packages.x86_64-linux;
               };
               users.${username} = {
                 imports = [
                   ./hosts/davor/home.nix
                   inputs.worktrunk.homeModules.default
                   inputs.walker.homeManagerModules.default
+                ];
+              };
+            };
+          }
+        ];
+      };
+
+      nixosConfigurations."devon" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {
+          inherit
+            self
+            username
+            fullName
+            email
+            workEmail
+            keys
+            inputs
+            ;
+        };
+        modules = [
+          ./hosts/devon
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit
+                  username
+                  fullName
+                  email
+                  workEmail
+                  inputs
+                  keys
+                  ;
+              };
+              users.${username} = {
+                imports = [
+                  ./hosts/devon/home.nix
+                  inputs.worktrunk.homeModules.default
                 ];
               };
             };

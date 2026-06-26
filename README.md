@@ -6,6 +6,7 @@ Nix flake configuration for my machines.
 
 - **diego** - macOS (darwin)
 - **davor** - NixOS (x86_64-linux)
+- **devon** - NixOS (aarch64-linux), headless vfkit guest on diego
 
 ## Usage
 

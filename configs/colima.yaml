@@ -1,0 +1,16 @@
+# Declarative colima VM spec — source of truth.
+# Copied (writable) to ~/.config/colima/default/colima.yaml on each `rebuild`; colima
+# may enrich it at runtime, the next rebuild re-asserts these values.
+# To change CPU/memory: edit here, then `colima stop && colima start`.
+# (read-only symlinking this file breaks colima — see nix-darwin notes; the
+#  home.nix activation copies it instead.)
+#
+# vmType is immutable after first create. vz = Apple Virtualization backend
+# (lighter/faster than qemu; Rosetta-capable for x86 images).
+# runtime is REQUIRED — colima's Config.Empty() keys off this field alone; without
+# it the whole file is treated as empty and every value below is silently ignored.
+runtime: docker
+cpu: 4
+memory: 4
+disk: 60
+vmType: vz
