@@ -77,6 +77,46 @@
         ];
       };
 
+      darwinConfigurations."dagda" = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit
+            self
+            username
+            keys
+            inputs
+            ;
+        };
+        modules = [
+          ./hosts/dagda
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit
+                  username
+                  fullName
+                  email
+                  workEmail
+                  inputs
+                  keys
+                  ;
+                isWork = true;
+              };
+              users.${username} = {
+                imports = [
+                  ./hosts/dagda/home.nix
+                  inputs.worktrunk.homeModules.default
+                ];
+              };
+            };
+          }
+        ];
+      };
+
       nixosConfigurations."davor" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {

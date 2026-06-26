@@ -4,9 +4,10 @@ Nix flake configuration for my machines.
 
 ## Hosts
 
-- **diego** - macOS (darwin)
+- **diego** - macOS (darwin), personal
+- **dagda** - macOS (darwin), work
 - **davor** - NixOS (x86_64-linux)
-- **devon** - NixOS (aarch64-linux), headless vfkit guest on diego
+- **devon** - NixOS (aarch64-linux), headless vfkit guest on darwin
 
 ## Usage
 

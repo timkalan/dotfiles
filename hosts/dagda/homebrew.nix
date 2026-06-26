@@ -13,25 +13,25 @@ _: {
       "1password"
       "aerospace"
       "betterdisplay"
+      "bruno"
       "ghostty"
       "google-chrome"
-      "helium-browser"
       "karabiner-elements"
-      "obsidian"
       "raycast"
+      "slack"
       "tailscale-app"
       "the-unarchiver"
-      "zen"
-      "whatcable"
     ];
 
     brews = [
       "awscli"
-      "m1ddc"
+      "heroku"
+      "infisical"
       "memcached"
-      "mole"
       "redis"
       "sqlite"
+      "stripe"
+      "supabase"
     ];
 
     # Non-official taps: brew >=6.0 (HOMEBREW_REQUIRE_TAP_TRUST) refuses to load
@@ -44,8 +44,11 @@ _: {
           trusted = true;
         })
         [
+          "heroku/brew"
+          "supabase/tap"
+          "infisical/get-cli"
           "nikitabobko/tap"
-          "darrylmorley/whatcable"
+          "stripe/stripe-cli"
         ];
   };
 }

@@ -28,9 +28,9 @@
   };
 
   networking = {
-    computerName = "diego";
-    hostName = "diego";
-    localHostName = "diego";
+    computerName = "dagda";
+    hostName = "dagda";
+    localHostName = "dagda";
 
     applicationFirewall = {
       enable = true;
@@ -55,11 +55,11 @@
         orientation = "right";
         persistent-apps = [
           "/Applications/Ghostty.app/"
-          "/Applications/Zen.app/"
-          "/Applications/Obsidian.app/"
+          "/Applications/Google Chrome.app/"
+          "/Applications/Slack.app/"
+          "/Applications/Bruno.app/"
           "/Applications/1Password.app/"
           "/System/Applications/Mail.app/"
-          "/System/Applications/Music.app/"
           "/System/Applications/System Settings.app/"
         ];
         persistent-others = [

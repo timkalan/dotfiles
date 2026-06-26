@@ -7,8 +7,11 @@
   workEmail,
   keys,
   ...
-}:
+}@args:
 
+let
+  isWork = args.isWork or false;
+in
 {
   home = {
     # The version of Home Manager you are using.
@@ -42,7 +45,7 @@
     settings = {
       user = {
         name = fullName;
-        inherit email;
+        email = if isWork then workEmail else email;
       };
       gpg.format = "ssh";
 
@@ -54,19 +57,6 @@
       ".env"
       ".envrc"
       ".direnv"
-    ];
-
-    includes = [
-      {
-        condition = "gitdir:~/projects/work/";
-        contents = {
-          user = {
-            name = fullName;
-            email = workEmail;
-            signingkey = keys.identity;
-          };
-        };
-      }
     ];
   };
 
