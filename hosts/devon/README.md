@@ -130,8 +130,9 @@ devon stop     # graceful ACPI shutdown — frees RAM/CPU
 
 A stopped devon costs zero RAM/CPU — only the sparse disk
 (`~/.local/share/devon-vfkit/devon.img`) remains. Nothing auto-starts it. It
-runs headless; for a console, `DEVON_VFKIT_GUI=1 devon start` opens a
-window (break-glass until `console=hvc0` is wired).
+runs headless. `console=hvc0` routes boot output + a login prompt to the virtio
+serial line (`devon logs` tails it, read-only); for an interactive break-glass
+login, `DEVON_VFKIT_GUI=1 devon start` opens a window.
 
 Rebuild after a config change, from inside devon:
 

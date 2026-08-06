@@ -31,12 +31,6 @@ alias tk="tmux kill-session -t"
 alias tl="tmux ls"
 alias tn="tmux new -s"
 
-# Directory navigation with fzf
-# If you have fd installed
-alias sd='cd "$(fd . --type d | fzf)"'
-alias sdp='cd ~/projects && cd "$(fd . --type d | fzf)"'
-alias sdw='cd ~/projects/work && cd "$(fd . --type d | fzf)"'
-
 alias finit='rm -rf .envrc .direnv && echo "use flake" > .envrc && direnv allow'
 
 # Zoxide

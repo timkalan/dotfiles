@@ -7,8 +7,23 @@
   workEmail,
   keys,
   ...
-}:
+}@args:
 
+let
+  isWork = args.isWork or false;
+
+  gruvbox-truecolor = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "gruvbox-truecolor";
+    version = "unstable-bcc1d78";
+    rtpFilePath = "colorscheme-tpm.tmux";
+    src = pkgs.fetchFromGitHub {
+      owner = "lawabidingcactus";
+      repo = "tmux-gruvbox-truecolor";
+      rev = "bcc1d78310c94de59be860f3d5ec277878e34e73";
+      hash = "sha256-0ERXKX3RjsJTTHCe2x0ZtvSuXRxaU7x9C+IpqKlKnCE=";
+    };
+  };
+in
 {
   home = {
     # The version of Home Manager you are using.
@@ -42,7 +57,7 @@
     settings = {
       user = {
         name = fullName;
-        inherit email;
+        email = if isWork then workEmail else email;
       };
       gpg.format = "ssh";
 
@@ -54,19 +69,6 @@
       ".env"
       ".envrc"
       ".direnv"
-    ];
-
-    includes = [
-      {
-        condition = "gitdir:~/projects/work/";
-        contents = {
-          user = {
-            name = fullName;
-            email = workEmail;
-            signingkey = keys.identity;
-          };
-        };
-      }
     ];
   };
 
@@ -208,6 +210,18 @@
 
   programs.tmux = {
     enable = true;
+    plugins = [
+      gruvbox-truecolor
+      {
+        plugin = pkgs.tmuxPlugins.resurrect;
+        extraConfig = "set -g @resurrect-capture-pane-contents 'on'";
+      }
+      {
+        plugin = pkgs.tmuxPlugins.continuum;
+        extraConfig = "set -g @continuum-restore 'on'";
+      }
+      pkgs.tmuxPlugins.vim-tmux-navigator
+    ];
     extraConfig = builtins.readFile ./../configs/.tmux.conf;
   };
 

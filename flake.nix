@@ -32,7 +32,8 @@
       username = "timkalan";
       fullName = "Tim Kalan";
       email = "timkalan99@gmail.com";
-      workEmail = "tim.kalan@zerodays.dev";
+      # placeholder — set the real work email locally on the work host
+      workEmail = "you@company.example";
       keys = {
         identity = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z";
       };
@@ -69,6 +70,46 @@
               users.${username} = {
                 imports = [
                   ./hosts/diego/home.nix
+                  inputs.worktrunk.homeModules.default
+                ];
+              };
+            };
+          }
+        ];
+      };
+
+      darwinConfigurations."dagda" = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit
+            self
+            username
+            keys
+            inputs
+            ;
+        };
+        modules = [
+          ./hosts/dagda
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit
+                  username
+                  fullName
+                  email
+                  workEmail
+                  inputs
+                  keys
+                  ;
+                isWork = true;
+              };
+              users.${username} = {
+                imports = [
+                  ./hosts/dagda/home.nix
                   inputs.worktrunk.homeModules.default
                 ];
               };

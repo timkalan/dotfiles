@@ -28,9 +28,9 @@
   };
 
   networking = {
-    computerName = "diego";
-    hostName = "diego";
-    localHostName = "diego";
+    computerName = "dagda";
+    hostName = "dagda";
+    localHostName = "dagda";
 
     applicationFirewall = {
       enable = true;
@@ -46,10 +46,6 @@
 
     defaults = {
       CustomUserPreferences = {
-        NSGlobalDomain = {
-          AppleLanguages = [ "en-US" ];
-          AppleLocale = "en_SI";
-        };
         # 0 = "Press globe key to: Do Nothing" so Karabiner can remap fn
         "com.apple.HIToolbox".AppleFnUsageType = 0;
         # hide the Siri menu bar icon (not a typed nix-darwin option)
@@ -73,10 +69,10 @@
         orientation = "right";
         persistent-apps = [
           "/Applications/Ghostty.app/"
-          "/Applications/Zen.app/"
-          "/Applications/Obsidian.app/"
+          "/Applications/Google Chrome.app/"
+          "/Applications/Slack.app/"
+          "/Applications/Bruno.app/"
           "/Applications/1Password.app/"
-          "/System/Applications/Music.app/"
           "/System/Applications/System Settings.app/"
         ];
         persistent-others = [
