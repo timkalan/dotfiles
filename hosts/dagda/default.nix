@@ -45,6 +45,8 @@
     primaryUser = username;
 
     defaults = {
+      # 0 = "Press globe key to: Do Nothing" so Karabiner can remap fn
+      CustomUserPreferences."com.apple.HIToolbox".AppleFnUsageType = 0;
       controlcenter.BatteryShowPercentage = true;
       dock = {
         autohide = true;
