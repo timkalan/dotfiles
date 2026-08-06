@@ -11,6 +11,18 @@
 
 let
   isWork = args.isWork or false;
+
+  gruvbox-truecolor = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "gruvbox-truecolor";
+    version = "unstable-bcc1d78";
+    rtpFilePath = "colorscheme-tpm.tmux";
+    src = pkgs.fetchFromGitHub {
+      owner = "lawabidingcactus";
+      repo = "tmux-gruvbox-truecolor";
+      rev = "bcc1d78310c94de59be860f3d5ec277878e34e73";
+      hash = "sha256-0ERXKX3RjsJTTHCe2x0ZtvSuXRxaU7x9C+IpqKlKnCE=";
+    };
+  };
 in
 {
   home = {
@@ -198,6 +210,18 @@ in
 
   programs.tmux = {
     enable = true;
+    plugins = [
+      gruvbox-truecolor
+      {
+        plugin = pkgs.tmuxPlugins.resurrect;
+        extraConfig = "set -g @resurrect-capture-pane-contents 'on'";
+      }
+      {
+        plugin = pkgs.tmuxPlugins.continuum;
+        extraConfig = "set -g @continuum-restore 'on'";
+      }
+      pkgs.tmuxPlugins.vim-tmux-navigator
+    ];
     extraConfig = builtins.readFile ./../configs/.tmux.conf;
   };
 
