@@ -32,7 +32,8 @@
       username = "timkalan";
       fullName = "Tim Kalan";
       email = "timkalan99@gmail.com";
-      workEmail = "tim.kalan@zerodays.dev";
+      # placeholder — set the real work email locally on the work host
+      workEmail = "you@company.example";
       keys = {
         identity = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgcuYjqqJvCVfJgxCWvjRluyx6OoqdNVXUJdz2n3y5Z";
       };

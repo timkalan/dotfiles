@@ -45,9 +45,21 @@
     primaryUser = username;
 
     defaults = {
-      # 0 = "Press globe key to: Do Nothing" so Karabiner can remap fn
-      CustomUserPreferences."com.apple.HIToolbox".AppleFnUsageType = 0;
-      controlcenter.BatteryShowPercentage = true;
+      CustomUserPreferences = {
+        # 0 = "Press globe key to: Do Nothing" so Karabiner can remap fn
+        "com.apple.HIToolbox".AppleFnUsageType = 0;
+        # hide the Siri menu bar icon (not a typed nix-darwin option)
+        "com.apple.Siri".StatusMenuVisible = 0;
+      };
+      controlcenter = {
+        BatteryShowPercentage = true;
+        Bluetooth = true;
+        Sound = true;
+        FocusModes = true;
+        NowPlaying = false;
+        AirDrop = false;
+        Display = false;
+      };
       dock = {
         autohide = true;
         autohide-delay = 0.0;
@@ -61,7 +73,6 @@
           "/Applications/Slack.app/"
           "/Applications/Bruno.app/"
           "/Applications/1Password.app/"
-          "/System/Applications/Mail.app/"
           "/System/Applications/System Settings.app/"
         ];
         persistent-others = [

@@ -23,6 +23,9 @@
     activation.colimaConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run install -Dm644 ${../../configs/colima.yaml} "${config.xdg.configHome}/colima/default/colima.yaml"
     '';
+    activation.setWallpaper = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run /usr/bin/osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
+    '';
   };
 
   programs = {
