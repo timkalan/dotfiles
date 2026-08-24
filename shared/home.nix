@@ -132,10 +132,10 @@ in
 
     settings = {
       git = {
-        pagers = [
+        diffRenderers = [
           {
             colorArg = "always";
-            pager = "${pkgs.delta}/bin/delta --paging=never --color-only";
+            command = "${pkgs.delta}/bin/delta --paging=never --color-only";
           }
         ];
       };
@@ -225,6 +225,17 @@ in
     extraConfig = builtins.readFile ./../configs/.tmux.conf;
   };
 
+  programs.herdr = {
+    enable = true;
+    package = inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+    # Only settings that differ from herdr's defaults.
+    settings = {
+      keys.prefix = "ctrl+space";
+      theme.name = "gruvbox";
+    };
+  };
+
   home.file = {
     ".scripts/fzf-preview.sh" = {
       source = ./../scripts/fzf-preview.sh;
@@ -234,9 +245,16 @@ in
       source = ./../scripts/tmux-sessionizer.sh;
       executable = true;
     };
+    ".scripts/herdr-sessionizer.sh" = {
+      source = ./../scripts/herdr-sessionizer.sh;
+      executable = true;
+    };
 
     ".claude/CLAUDE.md".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/CLAUDE.md";
+
+    ".claude/skills".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/skills";
   };
 
   xdg = {

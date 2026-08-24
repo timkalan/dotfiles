@@ -136,5 +136,15 @@ zle -N tmux_sessionizer_widget
 bindkey -M viins '^F' tmux_sessionizer_widget
 bindkey -M vicmd '^F' tmux_sessionizer_widget
 
+# --- Herdr sessionizer keybind ---
+herdr_sessionizer_widget() {
+  zle reset-prompt
+  herdr-sessionizer.sh
+}
+zle -N herdr_sessionizer_widget
+
+bindkey -M viins '^G' herdr_sessionizer_widget
+bindkey -M vicmd '^G' herdr_sessionizer_widget
+
 # Prompt
 eval "$(starship init zsh)"

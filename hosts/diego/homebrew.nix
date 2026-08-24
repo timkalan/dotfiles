@@ -15,7 +15,6 @@ _: {
       "betterdisplay"
       "ghostty"
       "google-chrome"
-      "helium-browser"
       "karabiner-elements"
       "obsidian"
       "raycast"
@@ -26,12 +25,8 @@ _: {
     ];
 
     brews = [
-      "awscli"
       "m1ddc"
-      "memcached"
       "mole"
-      "redis"
-      "sqlite"
     ];
 
     # Non-official taps: brew >=6.0 (HOMEBREW_REQUIRE_TAP_TRUST) refuses to load

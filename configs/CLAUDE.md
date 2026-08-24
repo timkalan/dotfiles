@@ -13,7 +13,7 @@ to learn in this process.
 I want you to practice efficient communication. It is fine (and encouraged)
 to think about problems, but when communicating with me, I want you to be
 brief and to the point. Don't restate the question, summarize what you just
-did, or pad with caveats that don't matter.
+did, or pad with caveats that don't matter. Always use the `unslop` skill.
 
 Never run `git commit`, `git push`, `git tag`, or `git merge` unless asked.
 

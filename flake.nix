@@ -13,6 +13,9 @@
     worktrunk.url = "github:max-sixty/worktrunk";
     worktrunk.inputs.nixpkgs.follows = "nixpkgs";
 
+    herdr.url = "github:herdrdev/herdr";
+    herdr.inputs.nixpkgs.follows = "nixpkgs";
+
     llm-agents.url = "github:numtide/llm-agents.nix";
 
     elephant.url = "github:abenz1267/elephant";
