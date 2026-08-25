@@ -2,7 +2,6 @@ return {
 	{
 		"stevearc/oil.nvim",
 		lazy = false, -- needed so default_file_explorer takes over netrw at startup
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			skip_confirm_for_simple_edits = true,
 			prompt_save_on_select_new_entry = false,

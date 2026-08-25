@@ -1,5 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
+	event = "VeryLazy",
 	dependencies = { "f-person/git-blame.nvim" },
 	config = function()
 		local git_blame = require("gitblame")

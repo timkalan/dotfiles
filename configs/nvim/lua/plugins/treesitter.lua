@@ -17,16 +17,34 @@ return {
 	config = function()
 		vim.api.nvim_set_hl(0, "TreesitterContext", { link = "ColorColumn" })
 
+		local function attach(buf, lang)
+			if not vim.api.nvim_buf_is_valid(buf) or not vim.treesitter.language.add(lang) then
+				return
+			end
+			vim.treesitter.start(buf, lang)
+			-- Only some parsers ship an indents query; without one indentexpr breaks indentation
+			if vim.treesitter.query.get(lang, "indents") ~= nil then
+				vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end
+		end
+
 		-- Enable treesitter highlighting and indentation, auto-install missing parsers
+		local available = require("nvim-treesitter").get_available()
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function(args)
-				local lang = vim.treesitter.language.get_lang(args.match) or args.match
-				-- Auto-install parser if missing
-				if not pcall(vim.treesitter.language.inspect, lang) then
-					vim.cmd("silent! TSInstall " .. lang)
+				local lang = vim.treesitter.language.get_lang(args.match)
+				if not lang then
+					return
 				end
-				pcall(vim.treesitter.start)
-				vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+				local installed = require("nvim-treesitter").get_installed("parsers")
+				if vim.tbl_contains(installed, lang) or not vim.tbl_contains(available, lang) then
+					attach(args.buf, lang)
+				else
+					require("nvim-treesitter").install(lang):await(function()
+						attach(args.buf, lang)
+					end)
+				end
 			end,
 		})
 

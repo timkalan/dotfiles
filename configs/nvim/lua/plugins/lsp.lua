@@ -122,7 +122,7 @@ return {
 		vim.diagnostic.config({
 			severity_sort = true,
 			float = { border = "rounded", source = "if_many" },
-			-- underline = { severity = vim.diagnostic.severity.ERROR },
+			underline = { severity = { min = vim.diagnostic.severity.WARN } },
 			signs = vim.g.have_nerd_font and {
 				text = {
 					[vim.diagnostic.severity.ERROR] = "E ",
@@ -142,6 +142,12 @@ return {
 						[vim.diagnostic.severity.HINT] = diagnostic.message,
 					}
 					return diagnostic_message[diagnostic.severity]
+				end,
+			},
+			-- Open the float on [d / ]d so the message is readable without a second keypress
+			jump = {
+				on_jump = function(_, bufnr)
+					vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
 				end,
 			},
 		})
