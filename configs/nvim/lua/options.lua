@@ -14,6 +14,7 @@ vim.o.relativenumber = true
 
 -- save undo history
 vim.o.undofile = true
+vim.o.undolevels = 10000
 
 -- no swap
 vim.o.swapfile = false
@@ -38,6 +39,9 @@ vim.o.inccommand = "split"
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+-- one statusline for all splits
+vim.o.laststatus = 3
+
 -- better colors
 vim.o.termguicolors = true
 
@@ -47,6 +51,9 @@ vim.o.updatetime = 50
 -- scrolloff
 vim.o.scrolloff = 10
 
+-- scroll by screen line, so wrapped lines don't jump
+vim.o.smoothscroll = true
+
 -- line at 100 characters
 vim.o.colorcolumn = "100"
 
@@ -55,6 +62,9 @@ vim.o.cursorline = true
 
 -- mouse support
 vim.o.mouse = "a"
+
+-- visual block can select past the end of a line
+vim.o.virtualedit = "block"
 
 -- rounded window borders
 vim.o.winborder = "rounded"
