@@ -21,6 +21,8 @@
             rustfmt
             clippy
             rust-analyzer
+            # provides `codelldb` on PATH for nvim-dap
+            vscode-extensions.vadimcn.vscode-lldb.adapter
             infisical
           ];
 
