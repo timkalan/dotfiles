@@ -236,6 +236,24 @@ in
     };
   };
 
+  programs.claude-code = {
+    enable = true;
+
+    context = ./../configs/CLAUDE.md;
+    skills = ./../configs/skills;
+
+    settings = {
+      model = "opus";
+      tui = "fullscreen";
+      editorMode = "vim";
+      outputStyle = "Concise";
+      autoMemoryEnabled = false;
+      enabledPlugins = {
+        "gopls-lsp@claude-plugins-official" = true;
+      };
+    };
+  };
+
   home.file = {
     ".scripts/fzf-preview.sh" = {
       source = ./../scripts/fzf-preview.sh;
@@ -249,12 +267,6 @@ in
       source = ./../scripts/herdr-sessionizer.sh;
       executable = true;
     };
-
-    ".claude/CLAUDE.md".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/CLAUDE.md";
-
-    ".claude/skills".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/skills";
   };
 
   xdg = {

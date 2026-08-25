@@ -73,6 +73,5 @@
 
     # other
     slides
-    claude-code
   ];
 }
