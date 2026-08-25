@@ -26,9 +26,6 @@ vim.keymap.set("n", "<leader>-", "<C-w>s", { desc = "split horizontal" })
 -- option + backspace deletes word
 vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "delete word back" })
 
--- tmux sessionizer
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer.sh<CR>", { desc = "tmux sessionizer" })
-
 -- move lines in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "move selection up" })

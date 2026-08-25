@@ -12,6 +12,112 @@
 let
   isWork = args.isWork or false;
 
+  herdrPackage = inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+  # One source of truth for the plugin's identity: the manifest herdr reads and
+  # the registry entry that points at it are both generated from this.
+  sessionizer = rec {
+    id = "sessionizer";
+    name = "Sessionizer";
+    version = "0.1.0";
+    minHerdrVersion = "0.8.0";
+    root = "${config.home.homeDirectory}/.config/herdr/plugins/${id}";
+  };
+
+  # A manifest command is argv with no shell or env expansion, so every program
+  # it names has to be an absolute path. Building the scripts here pins their
+  # tools too, which matters because plugin commands inherit herdr's own PATH —
+  # and a GUI-launched herdr on macOS has almost nothing on it.
+  pluginScript =
+    name: runtimeInputs:
+    pkgs.writeShellApplication {
+      inherit name runtimeInputs;
+      text = builtins.readFile (./../configs/herdr/plugins/sessionizer + "/${name}.sh");
+      # SC2016: jq programs are single-quoted on purpose. SC1010: `--sound done`
+      # is a herdr argument, not a loop terminator.
+      excludeShellChecks = [
+        "SC1010"
+        "SC2016"
+      ];
+    };
+
+  sessionizerScript = pluginScript "sessionizer" (
+    with pkgs;
+    [
+      jq
+      git
+      fd
+      fzf
+      # reached indirectly through ~/.scripts/fzf-preview.sh
+      bat
+      eza
+      # only for a run from the CLI; as a plugin it uses HERDR_BIN_PATH
+      herdrPackage
+    ]
+  );
+  bootstrapScript = pluginScript "bootstrap" [ pkgs.jq ];
+  worktreeCleanupScript = pluginScript "worktree-cleanup" (
+    with pkgs;
+    [
+      jq
+      git
+    ]
+  );
+
+  sessionizerManifest = (pkgs.formats.toml { }).generate "herdr-plugin.toml" {
+    inherit (sessionizer) id name version;
+    min_herdr_version = sessionizer.minHerdrVersion;
+    description = "Fuzzy-find a project directory and open it as a workspace";
+    # Omitting this reads as "support unknown" and herdr warns; the hosts this
+    # repo builds are the two platforms it is actually tested on.
+    platforms = [
+      "linux"
+      "macos"
+    ];
+
+    panes = [
+      {
+        id = "picker";
+        title = "Sessionizer";
+        placement = "popup";
+        command = [ (pkgs.lib.getExe sessionizerScript) ];
+        width = "80%";
+        height = "55%";
+      }
+    ];
+
+    actions = [
+      {
+        id = "pick";
+        title = "Sessionizer";
+        contexts = [ "global" ];
+        command = [
+          "${herdrPackage}/bin/herdr"
+          "plugin"
+          "pane"
+          "open"
+          "--plugin"
+          sessionizer.id
+          "--entrypoint"
+          "picker"
+        ];
+      }
+      {
+        id = "worktree-cleanup";
+        title = "Remove worktree and branch";
+        contexts = [ "workspace" ];
+        command = [ (pkgs.lib.getExe worktreeCleanupScript) ];
+      }
+    ];
+
+    events = [
+      {
+        on = "workspace.created";
+        command = [ (pkgs.lib.getExe bootstrapScript) ];
+      }
+    ];
+  };
+
   gruvbox-truecolor = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "gruvbox-truecolor";
     version = "unstable-bcc1d78";
@@ -60,6 +166,7 @@ in
         email = if isWork then workEmail else email;
       };
       gpg.format = "ssh";
+      push.autoSetupRemote = true;
 
       url."git@github.com:".insteadOf = "https://github.com/";
     };
@@ -227,12 +334,39 @@ in
 
   programs.herdr = {
     enable = true;
-    package = inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    package = herdrPackage;
 
     # Only settings that differ from herdr's defaults.
     settings = {
-      keys.prefix = "ctrl+space";
+      onboarding = false;
+
+      keys = {
+        prefix = "ctrl+space";
+        open_worktree = "prefix+shift+o";
+        remove_worktree = "prefix+shift+e";
+        command = [
+          {
+            key = "prefix+f";
+            type = "plugin_action";
+            command = "${sessionizer.id}.pick";
+            description = "sessionizer";
+          }
+          {
+            key = "ctrl+f";
+            type = "plugin_action";
+            command = "${sessionizer.id}.pick";
+            description = "sessionizer";
+          }
+        ];
+      };
       theme.name = "gruvbox";
+      ui = {
+        sidebar_collapsed_mode = "hidden";
+        show_agent_labels_on_pane_borders = true;
+        toast = {
+          delivery = "herdr";
+        };
+      };
     };
   };
 
@@ -263,16 +397,29 @@ in
       source = ./../scripts/tmux-sessionizer.sh;
       executable = true;
     };
-    ".scripts/herdr-sessionizer.sh" = {
-      source = ./../scripts/herdr-sessionizer.sh;
-      executable = true;
-    };
   };
 
   xdg = {
     configFile = {
       "nvim".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/nvim";
+
+      "herdr/plugins/${sessionizer.id}/herdr-plugin.toml".source = sessionizerManifest;
+
+      # herdr rewrites plugins.json on plugin link/unlink/enable/disable, which
+      # would replace this symlink with a real file and break the next switch.
+      # Registering the plugin here instead means never running those commands.
+      "herdr/plugins.json".text = builtins.toJSON [
+        {
+          plugin_id = sessionizer.id;
+          inherit (sessionizer) name version;
+          min_herdr_version = sessionizer.minHerdrVersion;
+          manifest_path = "${sessionizer.root}/herdr-plugin.toml";
+          plugin_root = sessionizer.root;
+          enabled = true;
+          source.kind = "local";
+        }
+      ];
 
       "worktrunk/config.toml".text = ''
         worktree-path = "{{ repo_path }}/../{{ repo }}_{{ branch | sanitize }}"

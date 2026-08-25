@@ -124,27 +124,5 @@ nvm() {
   nvm "$@"
 }
 
-# --- Tmux sessionizer keybind ---
-# define a widget that runs your script
-tmux_sessionizer_widget() {
-  zle reset-prompt   # redraw so prompt looks right after returning
-  tmux-sessionizer.sh
-}
-zle -N tmux_sessionizer_widget
-
-# bind it in both modes if you like
-bindkey -M viins '^F' tmux_sessionizer_widget
-bindkey -M vicmd '^F' tmux_sessionizer_widget
-
-# --- Herdr sessionizer keybind ---
-herdr_sessionizer_widget() {
-  zle reset-prompt
-  herdr-sessionizer.sh
-}
-zle -N herdr_sessionizer_widget
-
-bindkey -M viins '^G' herdr_sessionizer_widget
-bindkey -M vicmd '^G' herdr_sessionizer_widget
-
 # Prompt
 eval "$(starship init zsh)"

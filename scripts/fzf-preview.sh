@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # $1 is the item fzf has passed to the script
 INPUT="$1"
