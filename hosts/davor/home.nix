@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   colors = import ./colors.nix;
@@ -73,6 +78,7 @@ in
     ];
 
     pointerCursor = {
+      enable = true;
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
       size = 24;
@@ -80,10 +86,7 @@ in
     };
   };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = import ./hyprland/default.nix { inherit colors; };
-  };
+  wayland.windowManager.hyprland = import ./hyprland/default.nix { inherit lib colors; };
 
   programs = {
     ssh.settings."*".IdentityAgent = "~/.1password/agent.sock";

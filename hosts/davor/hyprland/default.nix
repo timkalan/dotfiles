@@ -1,34 +1,26 @@
-{ colors }:
+{ lib, colors }:
 
-let
-  monitors = import ./monitors.nix;
-  autostart = import ./autostart.nix;
-  bindings = import ./bindings.nix;
-  looknfeel = import ./looknfeel.nix { inherit colors; };
-  input = import ./input.nix;
-  windows = import ./windows.nix;
-in
+{
+  enable = true;
+  configType = "lua";
 
-monitors
-// autostart
-// looknfeel
-// input
-// windows
-// bindings
-// {
-  "$mod" = "SUPER";
+  # UWSM owns graphical-session.target. home-manager's hyprland-session.target
+  # PropagatesStopTo it, so its startup "stop && start" tears down the compositor.
+  systemd.enable = false;
 
-  misc = {
-    force_default_wallpaper = 0;
-    disable_hyprland_logo = true;
-    focus_on_activate = true;
-  };
+  extraLuaFiles = {
+    # Shared palette (see ../colors.nix), required by looknfeel.lua
+    colors = {
+      content = "return " + lib.generators.toLua { } colors;
+      autoLoad = false;
+    };
 
-  binds = {
-    hide_special_on_workspace_change = true;
-  };
-
-  ecosystem = {
-    no_update_news = true;
+    monitors = ./monitors.lua;
+    input = ./input.lua;
+    misc = ./misc.lua;
+    looknfeel = ./looknfeel.lua;
+    windows = ./windows.lua;
+    autostart = ./autostart.lua;
+    bindings = ./bindings.lua;
   };
 }

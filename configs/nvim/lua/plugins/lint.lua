@@ -14,43 +14,6 @@ return {
 			yaml = { "yamllint" },
 		}
 
-		-- lll: custom LLM linter (https://github.com/timkalan/lll, install via `cargo install --path .`)
-		lint.linters.lll = {
-			cmd = "lll",
-			stdin = false,
-			args = {
-				"--format",
-				"editor",
-				"--diagnostics",
-				function()
-					local payload = {}
-					for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
-						if diagnostic.source ~= "lll" then
-							table.insert(payload, {
-								line = diagnostic.lnum + 1,
-								message = diagnostic.message,
-								source = diagnostic.source,
-							})
-						end
-					end
-					return vim.json.encode(payload)
-				end,
-			},
-			append_fname = true,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_pattern(
-				[[([^:]+):(%d+):(%d+):(%d+):(%d+): (%w+): (.+)]],
-				{ "file", "lnum", "col", "end_lnum", "end_col", "severity", "message" },
-				{
-					error = vim.diagnostic.severity.ERROR,
-					warning = vim.diagnostic.severity.WARN,
-					suggestion = vim.diagnostic.severity.HINT,
-				},
-				{ ["source"] = "lll" },
-				{ end_col_offset = 0 }
-			),
-		}
-
 		-- Runs linting on save, insert leave, or when reading a file
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
@@ -66,17 +29,6 @@ return {
 				if vim.fn.expand("%:p"):match("%.github/workflows") then
 					lint.try_lint("actionlint")
 				end
-			end,
-		})
-
-		-- lll runs save-only (multi-second Gemini call, costs API quota)
-		vim.api.nvim_create_autocmd("BufWritePost", {
-			group = lint_augroup,
-			callback = function()
-				if not vim.bo.modifiable then
-					return
-				end
-				lint.try_lint("lll")
 			end,
 		})
 	end,
