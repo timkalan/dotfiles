@@ -8,7 +8,7 @@ set -euo pipefail
 herdr=${HERDR_BIN_PATH:-herdr}
 # Roots are scanned one level deep; extras are offered as themselves. Both are
 # filtered against what exists, so a root you have not created yet is inert.
-roots=("$HOME/projects")
+roots=("$HOME/dev")
 extras=("$HOME/dotfiles" "$HOME/obsidian")
 
 label_of() { basename "$1" | tr . _ | tr : _; }
@@ -99,7 +99,8 @@ emit() {
 }
 
 list_places() {
-    local id label repo checkout path linked name hint open_paths=() open_names=() panes
+    local id label repo checkout path linked name hint panes
+    local -A open_path=() open_name=()
     # A plain workspace has no worktree record, so its first pane's cwd is the
     # only path it has. Rows without one strand ctrl-b and the preview. Naming
     # still goes by the checkout, which is the workspace's own idea of where it
@@ -117,8 +118,9 @@ list_places() {
             hint="workspace"
         fi
         emit "●" "$name" "$hint" ws "$id" "$path"
-        open_names+=("$name" "$label")
-        [[ -n $path ]] && open_paths+=("$path")
+        open_name[$name]=1
+        open_name[$label]=1
+        [[ -z $path ]] || open_path[$path]=1
     done < <("$herdr" workspace list | jq_rows --argjson panes "$panes" '
         ($panes.result.panes | group_by(.workspace_id)
          | map({key: .[0].workspace_id, value: .[0].cwd}) | from_entries) as $cwd
@@ -128,13 +130,13 @@ list_places() {
            (.worktree.checkout_path // $cwd[.workspace_id] // ""),
            ((.worktree.is_linked_worktree // false) | tostring)] | @tsv')
 
-    local dir parent open
+    local dir parent
     while read -r dir; do
         dir=${dir%/}
         [[ -d $dir ]] || continue
         name=$(label_of "$dir")
-        for open in ${open_paths[@]+"${open_paths[@]}"}; do [[ $open == "$dir" ]] && continue 2; done
-        for open in ${open_names[@]+"${open_names[@]}"}; do [[ $open == "$name" ]] && continue 2; done
+        # A project already open as a workspace is offered there, not twice.
+        [[ -v open_path[$dir] || -v open_name[$name] ]] && continue
         parent=$(dirname "$dir")
         # bash 5.2+ tilde-expands an unescaped ~ in the replacement, which would
         # put $HOME straight back and leave the hint unshortened.
@@ -147,7 +149,7 @@ list_places() {
 }
 
 list_branches() {
-    local repo default worktrees branch when who mark seen=() name
+    local repo default worktrees mark branch hint
     if ! repo=$(repo_of "${1:-}"); then
         emit " " "not a git repo" "pick a repo or focus one first" none "" ""
         return 0
@@ -160,22 +162,28 @@ list_branches() {
     default=$(default_branch "$repo") || default=""
     worktrees=$("$herdr" worktree list --cwd "$repo" 2>/dev/null || printf '{}')
 
-    while IFS='|' read -r ref when who; do
-        [[ -n $ref ]] || continue
-        branch=${ref#origin/}
-        # refs/remotes/origin/HEAD shortens to a bare "origin", not "origin/HEAD".
-        [[ $ref == origin || $branch == HEAD ]] && continue
-        [[ $ref == "$default" || $branch == "${default#origin/}" ]] && continue
-        for name in ${seen[@]+"${seen[@]}"}; do [[ $name == "$branch" ]] && continue 2; done
-        seen+=("$branch")
-        # ● already open as a workspace, ◦ checkout on disk, blank not checked out
-        mark=$(printf '%s' "$worktrees" | jq -r --arg b "$branch" '
-            (.result.worktrees // []) | map(select(.branch == $b)) | .[0]
-            | if . == null then " " elif .open_workspace_id then "●" else "◦" end')
-        emit "$mark" "$branch" "$when · ${who%% *}" br "$branch" "$repo"
+    # A local branch and its origin counterpart are one row, and for-each-ref is
+    # sorted newest first, so the first sighting of a name is the one to keep.
+    # ● already open as a workspace, ◦ checkout on disk, blank not checked out.
+    while IFS=$FS read -r mark branch hint; do
+        emit "$mark" "$branch" "$hint" br "$branch" "$repo"
     done < <(git -C "$repo" for-each-ref --sort=-committerdate \
         --format='%(refname:short)|%(committerdate:relative)|%(authorname)' \
-        refs/remotes/origin refs/heads)
+        refs/remotes/origin refs/heads |
+        jq_rows -R -s --argjson wt "$worktrees" --arg default "${default#origin/}" '
+        (($wt.result.worktrees // []) | INDEX(.branch)) as $checkouts
+        | [ split("\n")[] | select(length > 0) | split("|")
+            | {ref: .[0], branch: (.[0] | ltrimstr("origin/")),
+               when: (.[1] // ""), who: (.[2] // "")} ]
+        # refs/remotes/origin/HEAD shortens to a bare "origin", not "origin/HEAD".
+        | map(select(.ref != "origin" and .branch != "HEAD" and .branch != $default))
+        | reduce .[] as $r ({seen: {}, out: []};
+            if .seen[$r.branch] then . else (.seen[$r.branch] = true | .out += [$r]) end)
+        | .out[]
+        | [ ($checkouts[.branch]
+             | if . == null then " " elif .open_workspace_id then "●" else "◦" end),
+            .branch,
+            "\(.when) · \(.who | split(" ")[0] // "")" ] | @tsv')
 }
 
 # Urgency order: blocked wants you now, done finished while you looked away,
@@ -262,9 +270,10 @@ fi
 LIST_WINDOW=right,50%
 PROSE_WINDOW=right,50%,wrap-word,follow
 
-# Where each listing leaves the repo it resolved, for ctrl-n to pick up.
-REPO_HINT=$(mktemp) && export REPO_HINT
-trap 'rm -f "$REPO_HINT"' EXIT
+# Where each listing leaves the repo it resolved, for ctrl-n to pick up. herdr
+# hands a plugin its own state dir; a run straight from the CLI has none.
+REPO_HINT=${HERDR_PLUGIN_STATE_DIR:-${TMPDIR:-/tmp}}/sessionizer-repo
+mkdir -p "${REPO_HINT%/*}" && export REPO_HINT
 
 WIDTH=$(pane_width)
 out=$(list_places | fzf --ansi --layout=reverse --delimiter=$'\t' --with-nth=1 --nth=1 \
@@ -317,20 +326,23 @@ agent) "$herdr" agent focus "$value" >/dev/null ;;
 dir) "$herdr" workspace create --cwd "$value" --label "$(label_of "$value")" --focus >/dev/null ;;
 br)
     # Four states, resolved from herdr's own worktree registry.
-    entry=$("$herdr" worktree list --cwd "$path" | jq -c --arg b "$value" \
-        '(.result.worktrees // []) | map(select(.branch == $b)) | .[0] // {}')
-    workspace=$(printf '%s' "$entry" | jq -r '.open_workspace_id // empty')
-    checkout=$(printf '%s' "$entry" | jq -r '.path // empty')
+    IFS=$FS read -r workspace checkout < <("$herdr" worktree list --cwd "$path" |
+        jq_rows --arg b "$value" '(.result.worktrees // []) | map(select(.branch == $b))
+            | .[0] // {} | [.open_workspace_id // "", .path // ""] | @tsv')
     if [[ -n $workspace ]]; then
         "$herdr" workspace focus "$workspace" >/dev/null
     elif [[ -n $checkout ]]; then
         "$herdr" worktree open --cwd "$path" --branch "$value" --focus >/dev/null
-    elif git -C "$path" rev-parse --verify -q "$value" >/dev/null; then
-        "$herdr" worktree create --cwd "$path" --branch "$value" --focus >/dev/null
-        track_origin "$path" "$value"
     else
-        "$herdr" worktree create --cwd "$path" --branch "$value" \
-            --base "origin/$value" --focus >/dev/null
+        # A branch that exists locally is checked out as it stands; one that only
+        # exists on the remote is cut from there. Either way the checkout is new,
+        # so it is the moment to give the branch an upstream.
+        if git -C "$path" rev-parse --verify -q "$value" >/dev/null; then
+            "$herdr" worktree create --cwd "$path" --branch "$value" --focus >/dev/null
+        else
+            "$herdr" worktree create --cwd "$path" --branch "$value" \
+                --base "origin/$value" --focus >/dev/null
+        fi
         track_origin "$path" "$value"
     fi
     ;;

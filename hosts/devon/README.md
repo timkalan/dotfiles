@@ -71,8 +71,9 @@ mount /dev/disk/by-label/nixos /mnt
 mkdir -p /mnt/boot
 mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 
-# Swap: the worktrunk Rust build OOMs in 6 GB. Use dd, not fallocate —
-# swapon rejects holey files on ext4.
+# Swap: guards against an OOM if part of the closure builds from source rather
+# than coming from the binary cache. Use dd, not fallocate; swapon rejects
+# holey files on ext4.
 dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192
 chmod 600 /mnt/swapfile && mkswap /mnt/swapfile && swapon /mnt/swapfile
 
@@ -152,8 +153,9 @@ sudo fstrim -v /                                         # sparse reclaim
 
 - **Kernel pinned to 6.12** (`boot.kernelPackages`): Rosetta on macOS 15 can't
   parse `AT_HWCAP3` from kernels ≥6.13 (`rosetta error: unhandled auxillary vector type 29`). Drop the pin on macOS 26+ (newer Rosetta).
-- **Sizing:** 6 GB runs fine but is tight for building the closure from source
-  (worktrunk builds from source, not from the binary cache). The swap step covers install; a 12–16 GB VM avoids it.
+- **Sizing:** 6 GB runs fine, and is tight only if part of the closure has to
+  build from source. The swap step covers install; a 12–16 GB VM avoids the
+  question.
 - **Teardown:** `devon stop` frees RAM/CPU; delete
   `~/.local/share/devon-vfkit/` to reclaim the disk. The recipe lives here —
   recreate in ~30 min, or import a generated disk image in ~2 min.

@@ -10,9 +10,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    worktrunk.url = "github:max-sixty/worktrunk";
-    worktrunk.inputs.nixpkgs.follows = "nixpkgs";
-
     herdr.url = "github:herdrdev/herdr";
     herdr.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -73,7 +70,6 @@
               users.${username} = {
                 imports = [
                   ./hosts/diego/home.nix
-                  inputs.worktrunk.homeModules.default
                 ];
               };
             };
@@ -113,7 +109,6 @@
               users.${username} = {
                 imports = [
                   ./hosts/dagda/home.nix
-                  inputs.worktrunk.homeModules.default
                 ];
               };
             };
@@ -156,7 +151,6 @@
               users.${username} = {
                 imports = [
                   ./hosts/davor/home.nix
-                  inputs.worktrunk.homeModules.default
                   inputs.walker.homeManagerModules.default
                 ];
               };
@@ -200,7 +194,6 @@
               users.${username} = {
                 imports = [
                   ./hosts/devon/home.nix
-                  inputs.worktrunk.homeModules.default
                 ];
               };
             };

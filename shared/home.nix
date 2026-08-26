@@ -279,11 +279,6 @@ in
     };
   };
 
-  programs.worktrunk = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -359,6 +354,7 @@ in
           }
         ];
       };
+      worktrees.directory = "${config.home.homeDirectory}/dev/worktrees";
       theme.name = "gruvbox";
       ui = {
         sidebar_collapsed_mode = "hidden";
@@ -420,15 +416,6 @@ in
           source.kind = "local";
         }
       ];
-
-      "worktrunk/config.toml".text = ''
-        worktree-path = "{{ repo_path }}/../{{ repo }}_{{ branch | sanitize }}"
-        post-switch = "~/.scripts/tmux-sessionizer.sh {{ worktree_path }}"
-        post-remove = "tmux switch-client -t {{ repo }} 2>/dev/null; tmux kill-session -t {{ repo }}_{{ branch | sanitize }} 2>/dev/null || true"
-
-        [switch]
-        cd = false
-      '';
 
       "sqlfluff/.sqlfluff".text = ''
         [sqlfluff]
