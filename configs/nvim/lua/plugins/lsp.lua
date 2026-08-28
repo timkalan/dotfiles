@@ -202,6 +202,33 @@ return {
 					["rust-analyzer"] = {
 						check = {
 							command = "clippy",
+							-- Strict lint set from namtao.com/rust, applied to every Rust
+							-- project. These land after any Cargo.toml `[lints]`, so they
+							-- override a project that sets these lints itself.
+							extraArgs = {
+								"--",
+								-- um, actually
+								"-Dclippy::pedantic",
+								"-Dclippy::nursery",
+								-- deny panics
+								"-Dclippy::unwrap_used",
+								"-Dclippy::expect_used",
+								"-Dclippy::indexing_slicing",
+								"-Dclippy::arithmetic_side_effects",
+								"-Dclippy::unreachable",
+								"-Dclippy::unimplemented",
+								"-Dclippy::unchecked_time_subtraction",
+								"-Dclippy::todo",
+								"-Dclippy::string_slice",
+								"-Dclippy::panic_in_result_fn",
+								"-Dclippy::panic",
+								"-Dclippy::exit",
+								"-Dclippy::as_conversions",
+							},
+							-- Lets the allow-*-in-tests keys apply everywhere too.
+							extraEnv = {
+								CLIPPY_CONF_DIR = vim.fn.expand("~/dotfiles/configs/rust"),
+							},
 						},
 					},
 				},

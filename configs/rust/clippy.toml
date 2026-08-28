@@ -1,0 +1,6 @@
+# Global clippy config, pointed at by CLIPPY_CONF_DIR in the nvim rust-analyzer
+# setup. A project's own clippy.toml takes precedence when one exists.
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true
+allow-panic-in-tests = true
+allow-indexing-slicing-in-tests = true
