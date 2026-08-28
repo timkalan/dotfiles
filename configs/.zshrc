@@ -1,3 +1,6 @@
+# --- Agents get a vanilla shell ---
+[[ -n ${AI_AGENT:-} || ! -o interactive ]] && return
+
 # --- Enable completion system ---
 autoload -Uz compinit
 # Check if the completion cache file exists and is newer than .zshrc

@@ -7,11 +7,6 @@ export EDITOR=nvim
 
 export NVM_DIR="$HOME/.nvm"
 
-# --- Environment variables ---
-if [[ -r ~/.env ]]; then
-  export $(grep -v '^#' ~/.env | xargs)
-fi
-
 # --- Clean PATH setup ---
 # Define a helper to append to PATH only if the directory exists
 path_prepend() {

@@ -64,16 +64,15 @@ Never run `git commit`, `git push`, `git tag`, or `git merge` unless asked.
 ## Style
 
 - No abbreviations in identifiers: `index` not `idx`, `response` not `res`,
-  `error` not `err`, `button` not `btn`. Framework-idiomatic names
+  `error` not `err`, `button` not `btn`. Framework and language idiomatic names
   (`params`, `ctx`) are fine.
 - Comments only for non-obvious behavior. Never restate what the code says.
-- Don't suppress lint or type errors (`@ts-ignore`, eslint/biome disables,
-  `#[allow]`, `# noqa`) — fix them. If suppression seems genuinely
+- Don't suppress lint or type errors, fix them!. If suppression seems genuinely
   necessary, ask first; if approved, add a one-line reason.
 
 ## Debugging & investigation
 
-- Confirm the actual command and environment in use (`bun dev` vs raw
+- Confirm the actual command and environment in use (`make` vs raw
   script, Docker state, staging vs prod) before forming a hypothesis. Ask
   if unclear.
 - If the first hypothesis doesn't pan out, revert the speculative change
