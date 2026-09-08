@@ -277,6 +277,7 @@ mkdir -p "${REPO_HINT%/*}" && export REPO_HINT
 
 WIDTH=$(pane_width)
 out=$(list_places | fzf --ansi --layout=reverse --delimiter=$'\t' --with-nth=1 --nth=1 \
+    --tiebreak=index \
     --prompt='> ' --print-query --expect=ctrl-n \
     --header='places · ctrl-b branches of selection · ctrl-a agents' \
     --bind "ctrl-b:reload($0 --list branches {4})+change-header(branches · ctrl-p places · ctrl-n new branch)+change-preview-window($LIST_WINDOW)" \
