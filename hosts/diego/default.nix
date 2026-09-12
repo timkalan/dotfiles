@@ -54,6 +54,8 @@
         "com.apple.HIToolbox".AppleFnUsageType = 0;
         # hide the Siri menu bar icon (not a typed nix-darwin option)
         "com.apple.Siri".StatusMenuVisible = 0;
+        # empty the sidebar Tags section (= Finder settings with all tags unchecked)
+        "com.apple.finder".FavoriteTagNames = [ "" ];
       };
       controlcenter = {
         BatteryShowPercentage = true;

@@ -13,6 +13,7 @@ _: {
       "1password"
       "aerospace"
       "betterdisplay"
+      "calibre"
       "ghostty"
       "google-chrome"
       "karabiner-elements"
