@@ -95,6 +95,8 @@ in
     waybar = import ./waybar.nix { inherit colors; };
     walker = import ./walker.nix { inherit colors; };
 
+    zen-browser.enable = true;
+
     elephant.provider."1password".settings.vaults = [ "Personal" ];
     elephant.provider.websearch.settings.entries = [
       {

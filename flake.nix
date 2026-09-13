@@ -15,6 +15,10 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser.inputs.home-manager.follows = "home-manager";
+
     elephant.url = "github:abenz1267/elephant";
     walker.url = "github:abenz1267/walker";
     walker.inputs.elephant.follows = "elephant";
@@ -152,6 +156,7 @@
                 imports = [
                   ./hosts/davor/home.nix
                   inputs.walker.homeManagerModules.default
+                  inputs.zen-browser.homeModules.default
                 ];
               };
             };

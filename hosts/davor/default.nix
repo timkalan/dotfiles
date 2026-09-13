@@ -61,11 +61,21 @@
     udisks2.enable = true;
     greetd = {
       enable = true;
+      # greetd exits when initial_session ends. Without this a logout leaves no
+      # greeter and no way back to a graphical session. Restart is "on-success",
+      # so a crashing compositor still will not loop.
+      restart = true;
       settings = {
-        default_session = {
+        # Autologin belongs in initial_session; default_session is the greeter
+        # program and would put the Hyprland session in logind class "greeter",
+        # where loginctl lock-session is unsupported.
+        initial_session = {
           command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
           user = "${username}";
         };
+        # greetd refuses to start without a default_session command, and with
+        # restart = true the autologin runs again instead of this greeter.
+        default_session.command = "${pkgs.greetd}/bin/agreety --cmd '${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop'";
       };
     };
 
@@ -143,7 +153,12 @@
     defaultUserShell = pkgs.zsh;
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+
+    # Without this hyprlock falls back to /etc/pam.d/su.
+    pam.services.hyprlock = { };
+  };
 
   hardware.bluetooth = {
     enable = true;
