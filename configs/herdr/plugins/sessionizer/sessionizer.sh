@@ -124,7 +124,8 @@ list_places() {
     done < <("$herdr" workspace list | jq_rows --argjson panes "$panes" '
         ($panes.result.panes | group_by(.workspace_id)
          | map({key: .[0].workspace_id, value: .[0].cwd}) | from_entries) as $cwd
-        | .result.workspaces[]
+        | .result.workspaces
+        | sort_by(.focused | not) | .[]
         | [.workspace_id, .label, (.worktree.repo_name // ""),
            (.worktree.checkout_path // ""),
            (.worktree.checkout_path // $cwd[.workspace_id] // ""),
