@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -38,7 +39,6 @@ in
       iotop
       iftop
       strace
-      ltrace
       lsof
 
       # Wayland / Hyprland ecosystem
@@ -96,6 +96,10 @@ in
     walker = import ./walker.nix { inherit colors; };
 
     zen-browser.enable = true;
+
+    # The module's default provider list omits wireplumber, so extend it rather
+    # than restate it.
+    elephant.providers = options.programs.elephant.providers.default ++ [ "wireplumber" ];
 
     elephant.provider."1password".settings.vaults = [ "Personal" ];
     elephant.provider.websearch.settings.entries = [

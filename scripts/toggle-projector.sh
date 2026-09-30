@@ -7,15 +7,16 @@ RESOLUTION="1920x1080@60"
 # Negative X offset: projector is 1920px wide, placed to the left
 POSITION="-1920x0"
 
-# Check if projector is currently disabled
-STATUS=$(hyprctl monitors -j | jq -r ".[] | select(.name == \"$PROJECTOR\") | .disabled")
+# `monitors all` is required: plain `monitors` omits disabled outputs
+STATUS=$(hyprctl monitors all -j | jq -r ".[] | select(.name == \"$PROJECTOR\") | .disabled")
 
+# The Lua config parser rejects `hyprctl keyword`, so rules go through `eval`.
+# `disabled` must be set explicitly both ways: rules merge onto monitors.lua,
+# which declares the projector disabled.
 if [ "$STATUS" = "true" ] || [ -z "$STATUS" ]; then
-    # Enable projector to the left of main monitor
-    hyprctl keyword monitor "$PROJECTOR, $RESOLUTION, $POSITION, 1"
+    hyprctl eval "hl.monitor({ output = '$PROJECTOR', mode = '$RESOLUTION', position = '$POSITION', scale = 1, disabled = false })"
     notify-send "Projector" "Enabled (to the left)" -t 2000
 else
-    # Disable projector
-    hyprctl keyword monitor "$PROJECTOR, disable"
+    hyprctl eval "hl.monitor({ output = '$PROJECTOR', disabled = true })"
     notify-send "Projector" "Disabled" -t 2000
 fi

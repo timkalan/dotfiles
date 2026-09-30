@@ -105,16 +105,16 @@
         format = "󰂯";
         format-off = "󰂲";
         format-disabled = "󰂲";
-        format-connected = "";
+        format-connected = "󰂱";
         tooltip-format = "Devices connected: {num_connections}";
-        on-click = "ghostty -e bluetuith";
+        on-click = "walker -m bluetooth";
       };
 
       wireplumber = {
         format = "󰕾";
         format-muted = "󰝟";
         scroll-step = 5;
-        on-click = "pavucontrol";
+        on-click = "walker -m wireplumber";
         tooltip-format = "Playing at {volume}%";
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         max-volume = 150;
