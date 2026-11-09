@@ -18,8 +18,8 @@ fi
 "$herdr" tab rename "$root_tab" editor >/dev/null
 "$herdr" pane run "$root_pane" nvim . >/dev/null
 
-agent_pane=$("$herdr" tab create --workspace "$workspace" --label agent --cwd "$cwd" --no-focus \
-    | jq -r .result.root_pane.pane_id)
+agent_pane=$("$herdr" tab create --workspace "$workspace" --label agente --cwd "$cwd" --no-focus |
+    jq -r .result.root_pane.pane_id)
 "$herdr" pane run "$agent_pane" claude >/dev/null
 
-"$herdr" tab create --workspace "$workspace" --label commands --cwd "$cwd" --no-focus >/dev/null
+"$herdr" tab create --workspace "$workspace" --label command --cwd "$cwd" --no-focus >/dev/null

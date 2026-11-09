@@ -96,7 +96,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
     };
 
     openssh = {
@@ -125,7 +124,6 @@
       withUWSM = true;
     };
 
-    firefox.enable = true;
     steam.enable = true;
     gamemode.enable = true;
 

@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   options,
   pkgs,
@@ -63,7 +62,6 @@ in
       pavucontrol
       bluetuith
       obsidian
-      brave
       qbittorrent
 
       # Games
@@ -95,7 +93,54 @@ in
     waybar = import ./waybar.nix { inherit colors; };
     walker = import ./walker.nix { inherit colors; };
 
-    zen-browser.enable = true;
+    zen-browser = {
+      enable = true;
+      policies.ExtensionSettings."uBlock0@raymondhill.net" = {
+        install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+        installation_mode = "force_installed";
+      };
+      # Adopt the profile Zen created on first run so its data is kept.
+      profiles.default = {
+        name = "Default Profile";
+        path = "17xk42ay.Default Profile";
+        settings = {
+          # Theme
+          "ui.systemUsesDarkTheme" = 1;
+          "browser.theme.toolbar-theme" = 0;
+          "browser.theme.content-theme" = 0;
+
+          # New tab
+          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+          "browser.newtabpage.activity-stream.showSponsored" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+
+          # Disable bloat
+          "browser.ml.chat.enabled" = false;
+          "browser.promo.focus.enabled" = false;
+          "browser.shell.checkDefaultBrowser" = false;
+
+          # Privacy & Security
+          "privacy.trackingprotection.enabled" = true;
+          "privacy.trackingprotection.socialtracking.enabled" = true;
+          "browser.contentblocking.category" = "strict";
+          "browser.sessionstore.restore_on_demand" = true;
+          "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
+
+          # UX
+          "browser.download.useDownloadDir" = false;
+          "general.smoothScroll" = true;
+          "accessibility.browsewithcaret" = false;
+          "browser.toolbars.bookmarks.visibility" = "never";
+
+          # Disable annoyances
+          "browser.aboutConfig.showWarning" = false;
+          "browser.bookmarks.showMobileBookmarks" = false;
+          "browser.urlbar.suggest.topsites" = false;
+          "browser.urlbar.suggest.engines" = false;
+          "browser.urlbar.suggest.searches" = false;
+        };
+      };
+    };
 
     # The module's default provider list omits wireplumber, so extend it rather
     # than restate it.
@@ -142,57 +187,6 @@ in
     zsh = {
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#davor";
-      };
-    };
-
-    firefox = {
-      enable = true;
-      configPath = "${config.xdg.configHome}/mozilla/firefox";
-      profiles.default = {
-        id = 0;
-        name = "default";
-        isDefault = true;
-        settings = {
-          # Theme
-          "ui.systemUsesDarkTheme" = 1;
-          "browser.theme.toolbar-theme" = 0;
-          "browser.theme.content-theme" = 0;
-          "browser.compactmode.show" = true;
-          "browser.uidensity" = 1;
-
-          # New tab
-          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
-          "browser.newtabpage.activity-stream.showSponsored" = false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-
-          # Disable bloat
-          "extensions.pocket.enabled" = false;
-          "browser.tabs.firefox-view" = false;
-          "browser.tabs.firefox-view-next" = false;
-          "browser.ml.chat.enabled" = false;
-          "browser.promo.focus.enabled" = false;
-          "browser.shell.checkDefaultBrowser" = false;
-
-          # Privacy & Security
-          "privacy.trackingprotection.enabled" = true;
-          "privacy.trackingprotection.socialtracking.enabled" = true;
-          "browser.contentblocking.category" = "strict";
-          "browser.sessionstore.restore_on_demand" = true;
-          "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
-
-          # UX
-          "browser.download.useDownloadDir" = false;
-          "general.smoothScroll" = true;
-          "accessibility.browsewithcaret" = false;
-          "browser.toolbars.bookmarks.visibility" = "never";
-
-          # Disable annoyances
-          "browser.aboutConfig.showWarning" = false;
-          "browser.bookmarks.showMobileBookmarks" = false;
-          "browser.urlbar.suggest.topsites" = false;
-          "browser.urlbar.suggest.engines" = false;
-          "browser.urlbar.suggest.searches" = false;
-        };
       };
     };
 
@@ -244,9 +238,9 @@ in
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
+      "text/html" = "zen-beta.desktop";
+      "x-scheme-handler/http" = "zen-beta.desktop";
+      "x-scheme-handler/https" = "zen-beta.desktop";
       "video/*" = "mpv.desktop";
     };
   };

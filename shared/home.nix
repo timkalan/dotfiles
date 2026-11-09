@@ -218,9 +218,7 @@ in
 
   programs.opencode = {
     enable = true;
-    tui = {
-      theme = "gruvbox";
-    };
+    cli.theme.name = "gruvbox";
   };
 
   programs.btop = {

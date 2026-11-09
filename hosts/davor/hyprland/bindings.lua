@@ -1,7 +1,7 @@
 local mod = "SUPER"
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd("ghostty"))
-hl.bind(mod .. " + B", hl.dsp.exec_cmd("firefox"))
+hl.bind(mod .. " + B", hl.dsp.exec_cmd("zen-beta"))
 hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd("nautilus --new-window"))
 hl.bind(mod .. " + N", hl.dsp.exec_cmd("ghostty -e nvim"))
@@ -9,12 +9,12 @@ hl.bind(mod .. " + T", hl.dsp.exec_cmd("ghostty -e btop"))
 hl.bind(mod .. " + Space", hl.dsp.exec_cmd("walker -H"))
 hl.bind(mod .. " + SHIFT + Space", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 
-hl.bind(mod .. " + C", hl.dsp.exec_cmd("brave --app=https://calendar.google.com"))
-hl.bind(mod .. " + M", hl.dsp.exec_cmd("brave --app=https://mail.google.com"))
-hl.bind(mod .. " + Y", hl.dsp.exec_cmd("brave --app=https://youtube.com"))
-hl.bind(mod .. " + A", hl.dsp.exec_cmd("brave --app=https://music.apple.com"))
-hl.bind(mod .. " + I", hl.dsp.exec_cmd("brave --app=https://claude.ai"))
-hl.bind(mod .. " + D", hl.dsp.exec_cmd("brave --app=https://fb.com/messages"))
+hl.bind(mod .. " + C", hl.dsp.exec_cmd("zen-beta --new-window https://calendar.google.com"))
+hl.bind(mod .. " + M", hl.dsp.exec_cmd("zen-beta --new-window https://mail.google.com"))
+hl.bind(mod .. " + Y", hl.dsp.exec_cmd("zen-beta --new-window https://youtube.com"))
+hl.bind(mod .. " + A", hl.dsp.exec_cmd("zen-beta --new-window https://music.apple.com"))
+hl.bind(mod .. " + I", hl.dsp.exec_cmd("zen-beta --new-window https://claude.ai"))
+hl.bind(mod .. " + D", hl.dsp.exec_cmd("zen-beta --new-window https://fb.com/messages"))
 
 hl.bind(mod .. " + W", hl.dsp.window.close())
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen())

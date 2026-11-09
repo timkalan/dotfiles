@@ -31,7 +31,7 @@ hl.window_rule({
 
 -- Full opacity for video / games
 local full_opacity = "1.0 override 1.0 override"
-hl.window_rule({ match = { class = "firefox" }, opacity = full_opacity })
+hl.window_rule({ match = { class = "zen-beta" }, opacity = full_opacity })
 hl.window_rule({ match = { class = "^(steam_app_.*)$" }, opacity = full_opacity })
 hl.window_rule({ match = { title = "^(.*YouTube.*)$" }, opacity = full_opacity })
 hl.window_rule({ match = { fullscreen = true }, opacity = full_opacity })
