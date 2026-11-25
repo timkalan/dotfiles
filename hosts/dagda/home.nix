@@ -55,10 +55,6 @@
     zsh.shellAliases = {
       rebuild = "sudo darwin-rebuild switch --flake ~/dotfiles";
     };
-
-    tmux.extraConfig = ''
-      bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "pbcopy"
-    '';
   };
 
   xdg.configFile = {

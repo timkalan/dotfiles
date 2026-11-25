@@ -25,7 +25,7 @@ sudo nixos-rebuild switch --flake .
 flake.nix          # Entry point
 hosts/             # Host-specific configs
 shared/            # Shared modules (home-manager, packages)
-configs/           # Dotfiles (nvim, zsh, tmux, etc.)
+configs/           # Dotfiles (nvim, zsh, herdr, etc.)
 ```
 
 ## Personalization

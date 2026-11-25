@@ -28,12 +28,6 @@ alias gst="git status"
 alias gf="git fetch"
 alias gp="git pull"
 
-# Tmux
-alias ta="tmux a -t"
-alias tk="tmux kill-session -t"
-alias tl="tmux ls"
-alias tn="tmux new -s"
-
 alias finit='rm -rf .envrc .direnv && echo "use flake" > .envrc && direnv allow'
 
 # Zoxide

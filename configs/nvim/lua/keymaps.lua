@@ -23,6 +23,12 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear search highl
 vim.keymap.set("n", "<leader>/", "<C-w>v", { desc = "split vertical" })
 vim.keymap.set("n", "<leader>-", "<C-w>s", { desc = "split horizontal" })
 
+-- move between splits
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "focus split left" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "focus split down" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "focus split up" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "focus split right" })
+
 -- option + backspace deletes word
 vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "delete word back" })
 

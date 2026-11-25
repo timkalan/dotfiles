@@ -3,7 +3,6 @@
   environment.systemPackages = with pkgs; [
     # basic tools
     neovim
-    tmux
     git
     wget
     curl

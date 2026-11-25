@@ -21,7 +21,7 @@ return {
 				signcolumn = "yes:2",
 			},
 			keymaps = {
-				-- interfere with vim-tmux-navigator
+				-- buffer-local defaults would shadow split navigation
 				["<C-l>"] = false,
 				["<C-h>"] = false,
 			},

@@ -192,10 +192,6 @@ in
     };
 
     hyprlock = import ./hyprlock.nix { inherit colors; };
-
-    tmux.extraConfig = ''
-      bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "wl-copy"
-    '';
   };
 
   services = {
