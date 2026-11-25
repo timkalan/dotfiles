@@ -62,6 +62,7 @@ in
       pavucontrol
       bluetuith
       obsidian
+      brave-origin
       qbittorrent
 
       # Games
